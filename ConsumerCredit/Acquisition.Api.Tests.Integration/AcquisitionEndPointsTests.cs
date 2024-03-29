@@ -1,22 +1,15 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Acquisition.Application.LoanApplication.Commands;
-using Acquisition.Application.LoanApplication.Dtos;
-using Acquisition.Application.LoanApplication.Queries;
+using Acquisition.Application.Dtos;
+using Acquisition.Application.Requests;
 using NFluent;
 
 namespace Acquisition.Api.Tests.Integration;
 
-public class AcquisitionEndPointsTests : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
+public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
 {
-    private readonly HttpClient _client;
-    private readonly Func<Task> _dbReset;
-
-    public AcquisitionEndPointsTests(AcquisitionApiFactory waf)
-    {
-        _client = waf.Client;
-        _dbReset = waf.ResetDatabaseAsync;
-    }
+    private readonly HttpClient _client = waf.Client;
+    private readonly Func<Task> _dbReset = waf.ResetDatabaseAsync;
 
     public Task InitializeAsync()
     {
@@ -29,32 +22,13 @@ public class AcquisitionEndPointsTests : IClassFixture<AcquisitionApiFactory>, I
     }
 
     [Fact]
-    public async Task Should_create_a_loan_application()
+    public async Task Should_express_loan_wish()
     {
         // Arrange
-        var request = new CreateLoanApplicationCommand();
+        var request = new ExpressLoanWishCommand("Green investment", 10000, 12);
 
         // Act
-        var response = await _client.PostAsJsonAsync("loan-applications/create", request);
-        var responseDto = await response.Content.ReadFromJsonAsync<CreateLoanApplicationResponseDto>();
-
-        // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.Created);
-        Check.That(responseDto!.LoanApplicationId).Not.IsEqualTo(Guid.Empty);
-    }
-
-    [Fact]
-    public async Task Should_add_the_loan_application_initial_wish()
-    {
-        // Arrange
-        // TODO: Find a way to replace by putting data in the database - is it ok if data change in the future ?
-        var createResponse = await _client.PostAsJsonAsync("loan-applications/create", new CreateLoanApplicationCommand());
-        var createResponseDto = await createResponse.Content.ReadFromJsonAsync<CreateLoanApplicationResponseDto>();
-
-        var request = new AddLoanWishCommand(createResponseDto!.LoanApplicationId, "Green investment", 10000, 12);
-
-        // Act
-        var response = await _client.PostAsJsonAsync("loan-applications/add-loan-wish", request);
+        var response = await _client.PostAsJsonAsync("express-loan-wish", request);
 
         // Assert
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
@@ -64,35 +38,74 @@ public class AcquisitionEndPointsTests : IClassFixture<AcquisitionApiFactory>, I
     public async Task Should_evaluate_loan_eligibility_and_be_eligible()
     {
         // Arrange
-        var createResponse = await _client.PostAsJsonAsync("loan-applications/create", new CreateLoanApplicationCommand());
-        var createResponseDto = await createResponse.Content.ReadFromJsonAsync<CreateLoanApplicationResponseDto>();
+        var expressLoanWishResponseDto = await ExpressLoanWish();
 
-        var request = new EvaluateEligibilityToALoanQuery(createResponseDto!.LoanApplicationId);
+        var request = new EvaluateEligibilityToALoanQuery(expressLoanWishResponseDto!.LoanApplicationId);
 
         // Act
-        var response = await _client.PostAsJsonAsync("loan-applications/evaluate-eligibility-to-a-loan", request);
+        var response = await _client.PostAsJsonAsync("evaluate-eligibility-to-a-loan", request);
         var responseDto = await response.Content.ReadFromJsonAsync<EvaluateEligibilityToALoanResponseDto>();
 
         // Assert
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
-        Check.That(responseDto!.IsEligibileToALoan).IsTrue();
+        Check.That(responseDto!.IsEligibleToALoan).IsTrue();
     }
 
     [Fact]
-    public async Task Should_get_offers_eligible_to_the_loan_application()
+    public async Task Should_get_loan_offers()
     {
         // Arrange
-        var createResponse = await _client.PostAsJsonAsync("loan-applications/create", new CreateLoanApplicationCommand());
-        var createResponseDto = await createResponse.Content.ReadFromJsonAsync<CreateLoanApplicationResponseDto>();
+        var expressLoanWishResponseDto = await ExpressLoanWish();
+        await EvaluateEligibilityToALoan(expressLoanWishResponseDto);
 
-        var request = new EvaluateEligibilityToALoanQuery(createResponseDto!.LoanApplicationId);
+        var query = new GetLoanOffersQuery(expressLoanWishResponseDto.LoanApplicationId);
 
         // Act
-        var response = await _client.PostAsJsonAsync("loan-applications/evaluate-eligibility-to-a-loan", request);
-        var responseDto = await response.Content.ReadFromJsonAsync<EvaluateEligibilityToALoanResponseDto>();
+        var response = await _client.PostAsJsonAsync("get-loan-offers", query);
+        var responseDto = await response.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
 
         // Assert
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
-        Check.That(responseDto!.IsEligibileToALoan).IsTrue();
+        Check.That(responseDto!.LoanOffers).Not.IsEmpty();
+    }
+
+    [Fact]
+    public async Task Should_choose_a_loan_offer()
+    {
+        // Arrange
+        var expressLoanWishResponseDto = await ExpressLoanWish();
+        await EvaluateEligibilityToALoan(expressLoanWishResponseDto);
+        var getLoanOffersResponseDto = await GetLoanOffers(expressLoanWishResponseDto);
+
+        var offer = getLoanOffersResponseDto!.LoanOffers.First();
+
+        // Act
+        var command = new ChooseALoanOfferCommand(expressLoanWishResponseDto.LoanApplicationId, offer.Id);
+        var response = await _client.PostAsJsonAsync("choose-a-loan-offer", command);
+
+        // Assert
+        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+    }
+
+    private async Task<GetLoanOffersResponseDto?> GetLoanOffers(ExpressLoanWishResponseDto? expressLoanWishResponseDto)
+    {
+        var getLoanOffersQuery = new GetLoanOffersQuery(expressLoanWishResponseDto.LoanApplicationId);
+        var getLoanOffersResponse = await _client.PostAsJsonAsync("get-loan-offers", getLoanOffersQuery);
+        var getLoanOffersResponseDto = await getLoanOffersResponse.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
+        return getLoanOffersResponseDto;
+    }
+
+    private async Task<ExpressLoanWishResponseDto?> ExpressLoanWish()
+    {
+        var expressLoanWishRequest = new ExpressLoanWishCommand("Green investment", 10000, 12);
+        var expressLoanWishResponse = await _client.PostAsJsonAsync("express-loan-wish", expressLoanWishRequest);
+        var expressLoanWishResponseDto = await expressLoanWishResponse.Content.ReadFromJsonAsync<ExpressLoanWishResponseDto>();
+        return expressLoanWishResponseDto;
+    }
+
+    private async Task EvaluateEligibilityToALoan(ExpressLoanWishResponseDto? expressLoanWishResponseDto)
+    {
+        var evaluateEligibilityToALoanRequest = new EvaluateEligibilityToALoanQuery(expressLoanWishResponseDto!.LoanApplicationId);
+        await _client.PostAsJsonAsync("evaluate-eligibility-to-a-loan", evaluateEligibilityToALoanRequest);
     }
 }

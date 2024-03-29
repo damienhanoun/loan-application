@@ -1,33 +1,26 @@
-﻿using Acquisition.Application.LoanApplication;
+﻿using Acquisition.Application.Repositories;
 using Acquisition.Domain.Entities;
 
 namespace Acquisition.Infrastructure;
 
-public class LoanApplicationRepository : ILoanApplicationRepository
+public class LoanApplicationRepository(AcquisitionContext acquisitionContext) : ILoanApplicationRepository
 {
-    private readonly AcquisitionContext _acquisitionContext;
-
-    public LoanApplicationRepository(AcquisitionContext acquisitionContext)
+    public async Task CreateLoanApplication(LoanApplication loanApplication)
     {
-        _acquisitionContext = acquisitionContext;
-    }
-
-    public void CreateLoanApplication(LoanApplication loanApplication)
-    {
-        _acquisitionContext.LoanApplications.Add(loanApplication);
-        _acquisitionContext.SaveChanges();
+        acquisitionContext.LoanApplications.Add(loanApplication);
+        await acquisitionContext.SaveEntitiesAsync();
     }
 
     public LoanApplication GetLoanApplication(Guid loanApplicationId)
     {
-        var loanApplication = _acquisitionContext.LoanApplications
+        var loanApplication = acquisitionContext.LoanApplications
             .First(b => b.Id == loanApplicationId);
         return loanApplication;
     }
 
-    public void UpdateLoanApplication(LoanApplication loanApplication)
+    public async Task UpdateLoanApplication(LoanApplication loanApplication)
     {
-        _acquisitionContext.LoanApplications.Update(loanApplication);
-        _acquisitionContext.SaveChanges();
+        acquisitionContext.LoanApplications.Update(loanApplication);
+        await acquisitionContext.SaveEntitiesAsync();
     }
 }

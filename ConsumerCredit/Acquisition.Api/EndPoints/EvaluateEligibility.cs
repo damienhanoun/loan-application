@@ -1,13 +1,13 @@
 ﻿using Acquisition.Api.Scaffolding;
-using Acquisition.Application.LoanApplication.Queries;
+using Acquisition.Application.Requests;
 using Mediator;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Acquisition.Api.EndPoints.LoanOffers;
+namespace Acquisition.Api.EndPoints;
 
 public class EvaluateEligibility : IEndPoint
 {
-    public string Url => "loan-offers/evaluate-eligibility-to-loan-offers";
+    public string Url => "evaluate-eligibility-to-a-loan";
 
     public Delegate Handler => async (IMediator mediator, [FromBody] EvaluateEligibilityToALoanQuery query) =>
     {
