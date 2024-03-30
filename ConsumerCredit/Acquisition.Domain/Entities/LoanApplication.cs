@@ -18,7 +18,7 @@ public class LoanApplication : Entity
     public Guid Id { get; }
     public InitialLoanWish? InitialLoanWish { get; private set; }
     public Guid? LoanOfferId { get; private set; }
-    public UserInformation? UserInformation { get; }
+    public UserInformation? UserInformation { get; private set; }
 
     public void SetInitialLoanWish(InitialLoanWish initialLoanWish)
     {
@@ -29,5 +29,10 @@ public class LoanApplication : Entity
     {
         LoanOfferId = loanOfferId;
         AddDomainEvent(new LoanOfferChosen(Id, loanOfferId));
+    }
+
+    public void SaveUserInformation(string email)
+    {
+        UserInformation = UserInformation.Create(email);
     }
 }

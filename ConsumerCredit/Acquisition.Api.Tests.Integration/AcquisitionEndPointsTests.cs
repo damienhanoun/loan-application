@@ -35,6 +35,20 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     }
 
     [Fact]
+    public async Task Should_save_user_email()
+    {
+        // Arrange
+        var expressLoanWishResponseDto = await ExpressLoanWish();
+        var request = new SaveUserInformationCommand(expressLoanWishResponseDto!.LoanApplicationId, "email@email.fr");
+
+        // Act
+        var response = await _client.PostAsJsonAsync("save-user-information", request);
+
+        // Assert
+        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+    }
+
+    [Fact]
     public async Task Should_evaluate_loan_eligibility_and_be_eligible()
     {
         // Arrange
@@ -58,7 +72,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
         var expressLoanWishResponseDto = await ExpressLoanWish();
         await EvaluateEligibilityToALoan(expressLoanWishResponseDto);
 
-        var query = new GetLoanOffersQuery(expressLoanWishResponseDto.LoanApplicationId);
+        var query = new GetLoanOffersQuery(expressLoanWishResponseDto!.LoanApplicationId);
 
         // Act
         var response = await _client.PostAsJsonAsync("get-loan-offers", query);
@@ -74,22 +88,29 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     {
         // Arrange
         var expressLoanWishResponseDto = await ExpressLoanWish();
+        await SaveUserInformation(expressLoanWishResponseDto);
         await EvaluateEligibilityToALoan(expressLoanWishResponseDto);
         var getLoanOffersResponseDto = await GetLoanOffers(expressLoanWishResponseDto);
 
         var offer = getLoanOffersResponseDto!.LoanOffers.First();
 
         // Act
-        var command = new ChooseALoanOfferCommand(expressLoanWishResponseDto.LoanApplicationId, offer.Id);
+        var command = new ChooseALoanOfferCommand(expressLoanWishResponseDto!.LoanApplicationId, offer.Id);
         var response = await _client.PostAsJsonAsync("choose-a-loan-offer", command);
 
         // Assert
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
     }
 
+    private async Task SaveUserInformation(ExpressLoanWishResponseDto? expressLoanWishResponseDto)
+    {
+        var requestSaveUserInformation = new SaveUserInformationCommand(expressLoanWishResponseDto!.LoanApplicationId, "email@email.fr");
+        await _client.PostAsJsonAsync("save-user-information", requestSaveUserInformation);
+    }
+
     private async Task<GetLoanOffersResponseDto?> GetLoanOffers(ExpressLoanWishResponseDto? expressLoanWishResponseDto)
     {
-        var getLoanOffersQuery = new GetLoanOffersQuery(expressLoanWishResponseDto.LoanApplicationId);
+        var getLoanOffersQuery = new GetLoanOffersQuery(expressLoanWishResponseDto!.LoanApplicationId);
         var getLoanOffersResponse = await _client.PostAsJsonAsync("get-loan-offers", getLoanOffersQuery);
         var getLoanOffersResponseDto = await getLoanOffersResponse.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
         return getLoanOffersResponseDto;
