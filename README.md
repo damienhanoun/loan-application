@@ -5,16 +5,16 @@ Experiment :
   - Domain event / Integration event
   - Entity
 - Tools :
-    - Mediator : a MediatR like library that run at build time
-    - SpecFlow : for acceptane tests
-    - Minimal API : and find a way to split each route in a separate file
-    - Mapperly: a mapping library that run at build time which prevent to add unit tests for mapping
-    - Docker : to mount a fake database for integration and acceptance tests
-    - Entity Framework : to manage entities
+    - Mediator: a MediatR-like library that runs at build time
+    - SpecFlow: for acceptance tests
+    - Minimal API: and find a way to split each route into a separate file
+    - Mapperly: a mapping library that runs at build time, which prevents adding unit tests for mapping and can be inlined
+    - Docker: to mount a fake database for integration and acceptance tests
+    - Entity Framework: to manage entities
 
 # Subject
 
-A french loan application journey in a company that deliver credit consumer.
+A French loan application journey in a company that delivers credit to consumers.
 
 ![Consumer credit](Event-storming.png)
 
@@ -22,8 +22,8 @@ A french loan application journey in a company that deliver credit consumer.
 # Pre-requisite
 - .Net 8
 - Docker
-- PostGreSQL with `postgres`/`password` identifiers + creation of `acquisition` database
-- From `ConsumerCredit` folder : ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
+- PostgreSQL with `postgres`/`password` identifiers + creation of `acquisition` database
+- From the `ConsumerCredit` folder: ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
 
 # Todo
 - [ ] Generate open api specification from code to allow to generate http request on demand
