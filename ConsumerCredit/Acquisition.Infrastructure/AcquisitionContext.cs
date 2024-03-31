@@ -95,5 +95,7 @@ public class AcquisitionContext : DbContext
         modelBuilder.Entity<LoanContract>().Ignore(c => c.DomainEvents);
         modelBuilder.Entity<LoanContract>()
             .HasKey(k => k.Id);
+        modelBuilder.Entity<LoanContract>()
+            .Property(p => p.LoanApplicationId);
     }
 }

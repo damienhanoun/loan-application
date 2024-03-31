@@ -1,4 +1,5 @@
-﻿using Acquisition.Domain.ValueObjects;
+﻿using Acquisition.Domain.Helpers;
+using Acquisition.Domain.ValueObjects;
 
 namespace Acquisition.Domain.Entities;
 
@@ -21,4 +22,11 @@ public class LoanOffer : Entity
     public Amount Amount { get; private set; } = null!;
     public Maturity Maturity { get; private set; } = null!;
     public Amount MonthlyAmount { get; private set; } = null!;
+
+    public static Result<LoanOffer> Create(Guid id, Amount amount, Maturity maturity)
+    {
+        var monthlyAmountResult = Amount.Create(amount.Value / maturity.Value);
+
+        return Result<LoanOffer>.Success(new LoanOffer(id, amount, maturity, monthlyAmountResult));
+    }
 }

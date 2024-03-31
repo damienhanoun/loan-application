@@ -9,13 +9,13 @@ public class Amount : ValueObject<decimal>
 
     private Amount(decimal value)
     {
-        if (Value < 0) throw new ArgumentException("Amount cannot be negative");
-
         Value = value;
     }
 
     public static Amount Create(decimal value)
     {
+        if (value < 0) throw new InvalidOperationException("Amount cannot be negative");
+
         return new Amount(value);
     }
 

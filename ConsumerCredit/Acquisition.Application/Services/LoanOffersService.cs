@@ -9,7 +9,7 @@ public class LoanOffersService : ILoanOffersService
     {
         return new List<LoanOffer>
         {
-            new(Guid.NewGuid(), Amount.Create(1000), Maturity.Create(12), Amount.Create(1000 / 12))
+            LoanOffer.Create(Guid.NewGuid(), Amount.Create(1000), Maturity.Create(12)).Value!
         };
     }
 }
