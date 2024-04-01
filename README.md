@@ -1,6 +1,6 @@
 # Goal
 Experiment (meaning that it is not about doing a perfect project but more a learning project) :
-- Event Storming
+- Event Storming (alone...)
 - DDD :
   - Domain event / Integration event
   - Entity
