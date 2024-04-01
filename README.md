@@ -35,5 +35,5 @@ A French loan application journey in a company that delivers credit to consumers
 - [ ] Add docker configuration
 
 # Decisions
-- Do a first implementation without separated domains. Just Acquisition one (a kind of gateway), which should normally depend on others like LoanOffers, LoanEligibility, ...
+- Do a first implementation without separated domains. Just Acquisition one, which should normally be a kind of gateway depending on others like LoanOffers, LoanEligibility, ...
 - Use domain objects in the database but load them without validation
