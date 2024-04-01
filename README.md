@@ -1,5 +1,5 @@
 # Goal
-Experiment :
+Experiment (meaning that it is not about doing a perfect project but more a learning project) :
 - Event Storming
 - DDD :
   - Domain event / Integration event
@@ -27,8 +27,13 @@ A French loan application journey in a company that delivers credit to consumers
 
 # Todo
 - [ ] Find a way to configure acceptance tests
-- [ ] Generate open api specification from code to allow to generate http request on demand
+- [ ] Generate open API specification from code to allow generating HTTP requests on demand
 - [ ] Using application/problem+json as return value to have a standard error format
-- [ ] Use OneOf to return many results from Application to web API layer and handle them to map to http status code
-- [ ] Create an http client manually (not with NSwag for resilience purpose)
+- [ ] Use OneOf to return many results from the Application to the web API layer and handle them to map to the HTTP status code
+- [ ] Create an HTTP client manually (not with NSwag for resilience purposes)
 - [ ] Find a way to handle versioning of the API
+- [ ] Add docker configuration
+
+# Decisions
+- Do a first implementation without separated domains. Just Acquisition one (a kind of gateway), which should normally depend on others like LoanOffers, LoanEligibility, ...
+- Use domain objects in the database but load them without validation
