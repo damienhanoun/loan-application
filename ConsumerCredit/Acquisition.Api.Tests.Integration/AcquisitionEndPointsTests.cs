@@ -53,7 +53,6 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     {
         // Arrange
         var expressLoanWishResponseDto = await ExpressLoanWish();
-
         var request = new EvaluateEligibilityToALoanQuery(expressLoanWishResponseDto!.LoanApplicationId);
 
         // Act
