@@ -10,7 +10,7 @@ using Npgsql;
 using Respawn;
 using Testcontainers.PostgreSql;
 
-namespace Acquisition.Api.Tests.Integration;
+namespace Acquisition.Api.Tests.Integration.Helpers;
 
 public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
 {
@@ -22,7 +22,7 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
             .WithPassword("password")
             .Build();
 
-    private DbConnection _dbConnection = null!;
+    public DbConnection DbConnection = null!;
 
     private Respawner _respawner = null!;
 
@@ -32,9 +32,9 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
     {
         await _dbContainer.StartAsync();
         Client = CreateClient();
-        _dbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
-        await _dbConnection.OpenAsync();
-        _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
+        DbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
+        await DbConnection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(DbConnection, new RespawnerOptions
         {
             DbAdapter = DbAdapter.Postgres,
             SchemasToInclude = new[] { "public" }
@@ -48,7 +48,7 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
 
     public async Task ResetDatabaseAsync()
     {
-        await _respawner.ResetAsync(_dbConnection);
+        await _respawner.ResetAsync(DbConnection);
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
