@@ -10,7 +10,7 @@ using Npgsql;
 using Respawn;
 using Testcontainers.PostgreSql;
 
-namespace Acquisition.Api.Tests.Integration.Helpers;
+namespace Acquisition.Api.Tests.Helpers;
 
 public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
 {

@@ -1,7 +1,7 @@
 ﻿using Npgsql;
 using NpgsqlTypes;
 
-namespace Acquisition.Api.Tests.Integration.Helpers;
+namespace Acquisition.Api.Tests.Helpers;
 
 public class AcquisitionDatabaseObjectsFactory(NpgsqlConnection connection)
 {

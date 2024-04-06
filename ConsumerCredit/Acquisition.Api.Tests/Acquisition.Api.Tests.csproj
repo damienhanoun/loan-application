@@ -7,6 +7,7 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
+        <RootNamespace>Acquisition.Api.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -27,6 +28,10 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Acquisition.Api\Acquisition.Api.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Acceptance\Builders\"/>
     </ItemGroup>
 
 </Project>

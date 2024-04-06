@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Acquisition.Api.Tests.Integration.Helpers;
+using Acquisition.Api.Tests.Helpers;
 using Acquisition.Application.Dtos;
 using Acquisition.Application.Requests;
 using NFluent;
@@ -104,7 +104,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     {
         // Arrange
         var loanApplicationId = Guid.NewGuid();
-        await _acquisitionDatabaseObjectsFactory.CreateALoanContract(loanApplicationId, false);
+        await _acquisitionDatabaseObjectsFactory.CreateALoanContract(loanApplicationId);
 
         // Act
         var command = new SignContractCommand(loanApplicationId);
