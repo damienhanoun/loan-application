@@ -30,8 +30,4 @@
         <ProjectReference Include="..\Acquisition.Api\Acquisition.Api.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="Acceptance\Builders\"/>
-    </ItemGroup>
-
 </Project>

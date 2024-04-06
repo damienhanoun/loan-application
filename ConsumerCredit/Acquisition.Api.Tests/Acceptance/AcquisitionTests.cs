@@ -1,15 +1,13 @@
-﻿using System.Net.Http.Json;
+﻿using Acquisition.Api.Tests.Acceptance.Helpers;
 using Acquisition.Api.Tests.Helpers;
-using Acquisition.Application.Dtos;
-using Acquisition.Application.Requests;
 using NFluent;
 
 namespace Acquisition.Api.Tests.Acceptance;
 
 public class AcquisitionTests(AcquisitionApiFactory waf) : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
 {
-    private readonly HttpClient _client = waf.Client;
     private readonly Func<Task> _dbReset = waf.ResetDatabaseAsync;
+    private readonly UseCases _useCases = new(waf.Client);
 
     public Task InitializeAsync()
     {
@@ -26,22 +24,15 @@ public class AcquisitionTests(AcquisitionApiFactory waf) : IClassFixture<Acquisi
     {
         // Given
         var borrowedAmount = 1000;
-        var request = new ExpressLoanWishCommand("Green investment", borrowedAmount, 12);
-        var expressLoanWishResponse = await _client.PostAsJsonAsync("express-loan-wish", request);
-        var expressLoanWishResponseDto = await expressLoanWishResponse.Content.ReadFromJsonAsync<ExpressLoanWishResponseDto>();
-        var loanApplicationId = expressLoanWishResponseDto!.LoanApplicationId;
+        var loanApplicationId = await _useCases.ExpressLoanWish("Green investment", borrowedAmount, 12);
 
         // And
-        var requestSaveUserInformation = new SaveUserInformationCommand(loanApplicationId, "email@email.fr");
-        await _client.PostAsJsonAsync("save-user-information", requestSaveUserInformation);
+        await _useCases.SaveUserInformation(loanApplicationId, "email@email.fr");
 
         // When
-        var getLoanOffersQuery = new GetLoanOffersQuery(loanApplicationId);
-        var getLoanOffersResponse = await _client.PostAsJsonAsync("get-loan-offers", getLoanOffersQuery);
-        var getLoanOffersResponseDto = await getLoanOffersResponse.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
-        var loanOffers = getLoanOffersResponseDto!.LoanOffers;
+        var loanOffers = await _useCases.GetLoanOffers(loanApplicationId);
 
-        // Assert
+        // Then
         Check.That(loanOffers.Select(l => l.Amount)).Contains(borrowedAmount);
     }
 }
