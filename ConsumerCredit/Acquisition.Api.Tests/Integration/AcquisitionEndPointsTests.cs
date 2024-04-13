@@ -4,15 +4,15 @@ using Acquisition.Api.Tests.Helpers;
 using Acquisition.Application.Dtos;
 using Acquisition.Application.Requests;
 using NFluent;
-using Npgsql;
 
 namespace Acquisition.Api.Tests.Integration;
 
-public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
+public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFactory)
+    : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
 {
-    private readonly HttpClient _client = waf.Client;
-    private readonly Func<Task> _dbReset = waf.ResetDatabaseAsync;
-    private readonly AcquisitionDatabaseObjectsFactory _acquisitionDatabaseObjectsFactory = new(waf.DbConnection as NpgsqlConnection);
+    private readonly AcquisitionTestRepository _acquisitionTestRepository = new(acquisitionApiFactory);
+    private readonly HttpClient _client = acquisitionApiFactory.Client;
+    private readonly Func<Task> _dbReset = acquisitionApiFactory.ResetDatabaseAsync;
 
     public Task InitializeAsync()
     {
@@ -41,7 +41,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     public async Task Should_save_user_email()
     {
         // Arrange
-        var loanApplicationId = await _acquisitionDatabaseObjectsFactory.CreateALoanApplication();
+        var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
         var request = new SaveUserInformationCommand(loanApplicationId, "email@email.fr");
 
         // Act
@@ -55,7 +55,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     public async Task Should_evaluate_loan_eligibility_and_be_eligible()
     {
         // Arrange
-        var loanApplicationId = await _acquisitionDatabaseObjectsFactory.CreateALoanApplication();
+        var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
         var request = new EvaluateEligibilityToALoanQuery(loanApplicationId);
 
         // Act
@@ -72,7 +72,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     {
         // Arrange
         var wishedAmount = 1000;
-        var loanApplicationId = await _acquisitionDatabaseObjectsFactory.CreateALoanApplication(wishedAmount);
+        var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication(wishedAmount);
         var query = new GetLoanOffersQuery(loanApplicationId);
 
         // Act
@@ -88,15 +88,17 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     public async Task Should_choose_a_loan_offer()
     {
         // Arrange
-        var loanApplicationId = await _acquisitionDatabaseObjectsFactory.CreateALoanApplication();
-        var loanOfferId = await _acquisitionDatabaseObjectsFactory.CreateALoanOffer();
+        var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
+        var loanOfferId = await _acquisitionTestRepository.CreateALoanOffer();
 
         // Act
         var command = new ChooseALoanOfferCommand(loanApplicationId, loanOfferId);
         var response = await _client.PostAsJsonAsync("choose-a-loan-offer", command);
 
         // Assert
+        var loanApplication = _acquisitionTestRepository.GetLoanApplication(loanApplicationId);
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+        Check.That(loanApplication.LoanOfferId).IsEqualTo(loanOfferId);
     }
 
     [Fact]
@@ -104,7 +106,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory waf) : IClassFixtur
     {
         // Arrange
         var loanApplicationId = Guid.NewGuid();
-        await _acquisitionDatabaseObjectsFactory.CreateALoanContract(loanApplicationId);
+        await _acquisitionTestRepository.CreateALoanContract(loanApplicationId);
 
         // Act
         var command = new SignContractCommand(loanApplicationId);

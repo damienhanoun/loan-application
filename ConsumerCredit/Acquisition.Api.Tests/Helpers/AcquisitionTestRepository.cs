@@ -1,9 +1,12 @@
-﻿using Npgsql;
+﻿using Acquisition.Domain.Entities;
+using Acquisition.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using NpgsqlTypes;
 
 namespace Acquisition.Api.Tests.Helpers;
 
-public class AcquisitionDatabaseObjectsFactory(NpgsqlConnection connection)
+public class AcquisitionTestRepository(AcquisitionApiFactory acquisitionApiFactory)
 {
     public async Task<Guid> CreateALoanApplication(decimal wishedAmount = 5000, string email = "email@email.fr")
     {
@@ -55,10 +58,19 @@ public class AcquisitionDatabaseObjectsFactory(NpgsqlConnection connection)
         return loanContractId;
     }
 
+    public LoanApplication GetLoanApplication(Guid loanApplicationId)
+    {
+        using var scope = acquisitionApiFactory.Services.CreateScope();
+        var acquisitionContext = scope.ServiceProvider.GetService<AcquisitionContext>()!;
+        var loanApplication = acquisitionContext.LoanApplications
+            .First(b => b.Id == loanApplicationId);
+        return loanApplication;
+    }
+
     private async Task ExecuteSqlCommand(string commandText, List<NpgsqlParameter> parameters)
     {
         await using var cmd = new NpgsqlCommand();
-        cmd.Connection = connection;
+        cmd.Connection = acquisitionApiFactory.DbConnection;
         cmd.CommandText = commandText;
         parameters.ForEach(p => cmd.Parameters.Add(p));
         await cmd.ExecuteNonQueryAsync();

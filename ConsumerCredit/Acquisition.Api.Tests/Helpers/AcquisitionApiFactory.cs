@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using Acquisition.Infrastructure;
+﻿using Acquisition.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -22,9 +21,9 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
             .WithPassword("password")
             .Build();
 
-    public DbConnection DbConnection = null!;
-
     private Respawner _respawner = null!;
+
+    public NpgsqlConnection DbConnection = null!;
 
     public HttpClient Client { get; private set; } = null!;
 
