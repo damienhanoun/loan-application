@@ -26,7 +26,6 @@ A French loan application journey in a company that delivers credit to consumers
 - From the `ConsumerCredit` folder: ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
 
 # Todo
-- [ ] Find a way to configure acceptance tests
 - [ ] Generate open API specification from code to allow generating HTTP requests on demand
 - [ ] Using application/problem+json as return value to have a standard error format
 - [ ] Use OneOf to return many results from the Application to the web API layer and handle them to map to the HTTP status code
