@@ -26,12 +26,13 @@ A French loan application journey in a company that delivers credit to consumers
 - From the `ConsumerCredit` folder: ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
 
 # Todo
-- [ ] Generate open API specification from code to allow generating HTTP requests on demand
+- [ ] Mock a dependency call to another api domain using WireMock
 - [ ] Using application/problem+json as return value to have a standard error format
 - [ ] Use OneOf to return many results from the Application to the web API layer and handle them to map to the HTTP status code
 - [ ] Create an HTTP client manually (not with NSwag for resilience purposes)
 - [ ] Find a way to handle versioning of the API
-- [ ] Add docker configuration
+- [ ] Look at docker configuration to see benefits of using it
+- [ ] Generate open API specification from code to allow generating HTTP requests on demand
 
 # Decisions
 - Do a first implementation without separated domains. Just Acquisition one, which should normally be a kind of gateway depending on others like LoanOffers, LoanEligibility, ...

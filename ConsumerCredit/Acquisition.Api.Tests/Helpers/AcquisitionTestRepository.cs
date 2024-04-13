@@ -1,4 +1,5 @@
 ﻿using Acquisition.Domain.Entities;
+using Acquisition.Domain.ValueObjects;
 using Acquisition.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
@@ -10,14 +11,12 @@ public class AcquisitionTestRepository(AcquisitionApiFactory acquisitionApiFacto
 {
     public async Task<Guid> CreateALoanApplication(decimal wishedAmount = 5000, string email = "email@email.fr")
     {
+        using var scope = acquisitionApiFactory.Services.CreateScope();
+        var acquisitionContext = scope.ServiceProvider.GetService<AcquisitionContext>()!;
         var loanApplicationId = Guid.NewGuid();
-        await ExecuteSqlCommand(
-            "INSERT INTO public.\"LoanApplications\" (\"Id\", \"InitialLoanWish_Amount\", \"UserInformation_Email\") VALUES (@id, @wishedAmount, @email)",
-            [
-                new NpgsqlParameter("id", loanApplicationId) { NpgsqlDbType = NpgsqlDbType.Uuid },
-                new NpgsqlParameter("wishedAmount", wishedAmount) { NpgsqlDbType = NpgsqlDbType.Numeric },
-                new NpgsqlParameter("email", email) { NpgsqlDbType = NpgsqlDbType.Varchar }
-            ]);
+        var loanApplication = CreateLoanApplication(wishedAmount, email, loanApplicationId);
+        acquisitionContext.LoanApplications.Add(loanApplication);
+        await acquisitionContext.SaveChangesAsync();
         return loanApplicationId;
     }
 
@@ -64,6 +63,15 @@ public class AcquisitionTestRepository(AcquisitionApiFactory acquisitionApiFacto
         var acquisitionContext = scope.ServiceProvider.GetService<AcquisitionContext>()!;
         var loanApplication = acquisitionContext.LoanApplications
             .First(b => b.Id == loanApplicationId);
+        return loanApplication;
+    }
+
+    private static LoanApplication CreateLoanApplication(decimal wishedAmount, string email, Guid loanApplicationId)
+    {
+        var loanApplication = new LoanApplication(loanApplicationId);
+        loanApplication.SetInitialLoanWish(new InitialLoanWish(Project.Create("a project"), Amount.Create(wishedAmount),
+            Maturity.Create(12)));
+        loanApplication.SaveUserInformation(email);
         return loanApplication;
     }
 

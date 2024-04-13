@@ -1,15 +1,14 @@
-﻿using Acquisition.Domain.Entities;
+﻿using Acquisition.Application.Repositories;
+using Acquisition.Domain.Entities;
 using Acquisition.Domain.ValueObjects;
 
 namespace Acquisition.Application.Services;
 
-public class LoanOffersService : ILoanOffersService
+public class LoanOffersService(ILoanApplicationRepository loanApplicationRepository) : ILoanOffersService
 {
     public List<LoanOffer> GetLoanOffers(Guid loanApplicationId)
     {
-        return new List<LoanOffer>
-        {
-            LoanOffer.Create(Guid.NewGuid(), Amount.Create(1000), Maturity.Create(12)).Value!
-        };
+        var loanApplication = loanApplicationRepository.GetLoanApplication(loanApplicationId);
+        return [LoanOffer.Create(Guid.NewGuid(), loanApplication.InitialLoanWish!.Amount, Maturity.Create(12)).Value!];
     }
 }
