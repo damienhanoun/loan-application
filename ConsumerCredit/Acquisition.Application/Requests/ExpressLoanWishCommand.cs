@@ -7,11 +7,14 @@ using Riok.Mapperly.Abstractions;
 
 namespace Acquisition.Application.Requests;
 
-public record ExpressLoanWishCommand(string Project, decimal Amount, int Maturity) : ICommand<ExpressLoanWishResponseDto>;
+public record ExpressLoanWishCommand(string Project, decimal Amount, int Maturity)
+    : ICommand<ExpressLoanWishResponseDto>;
 
-public class ExpressLoanWishHandler(ILoanApplicationRepository loanApplicationRepository) : ICommandHandler<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
+public class ExpressLoanWishHandler(ILoanApplicationRepository loanApplicationRepository)
+    : ICommandHandler<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
 {
-    public async ValueTask<ExpressLoanWishResponseDto> Handle(ExpressLoanWishCommand command, CancellationToken cancellationToken)
+    public async ValueTask<ExpressLoanWishResponseDto> Handle(ExpressLoanWishCommand command,
+        CancellationToken cancellationToken)
     {
         // Should loan application creation be decoupled using domain event ?
         var loanApplicationId = Guid.NewGuid();
@@ -23,25 +26,8 @@ public class ExpressLoanWishHandler(ILoanApplicationRepository loanApplicationRe
 }
 
 [Mapper]
+[UseStaticMapper(typeof(ValueObjectMappers))]
 public static partial class InitialLoanWishMapper
 {
-    [ObjectFactory]
-    private static Project CreateProject(string project)
-    {
-        return Project.Create(project);
-    }
-
-    [ObjectFactory]
-    private static Amount CreateAmount(decimal amount)
-    {
-        return Amount.Create(amount);
-    }
-
-    [ObjectFactory]
-    private static Maturity CreateMaturity(int maturity)
-    {
-        return Maturity.Create(maturity);
-    }
-
     public static partial InitialLoanWish ToInitialLoanWish(this ExpressLoanWishCommand command);
 }
