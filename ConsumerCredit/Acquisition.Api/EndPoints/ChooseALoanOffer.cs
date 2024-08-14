@@ -1,17 +1,20 @@
-﻿using Acquisition.Api.Scaffolding;
-using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Requests;
+using FastEndpoints;
 using Mediator;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Acquisition.Api.EndPoints;
 
-public class ChooseALoanOffer : IEndPoint
+public class ChooseALoanOffer(IMediator mediator) : Endpoint<ChooseALoanOfferCommand>
 {
-    public string Url => "choose-a-loan-offer";
-
-    public Delegate Handler => async (IMediator mediator, [FromBody] ChooseALoanOfferCommand command) =>
+    public override void Configure()
     {
-        await mediator.Send(command);
-        return Results.Ok();
-    };
+        Post("/choose-a-loan-offer");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(ChooseALoanOfferCommand command, CancellationToken ct)
+    {
+        await mediator.Send(command, ct);
+        await SendOkAsync(ct);
+    }
 }

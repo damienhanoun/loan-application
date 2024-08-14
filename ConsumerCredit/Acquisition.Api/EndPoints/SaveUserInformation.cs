@@ -1,16 +1,20 @@
-﻿using Acquisition.Api.Scaffolding;
-using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Requests;
+using FastEndpoints;
 using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class SaveUserInformation : IEndPoint
+public class SaveUserInformation(IMediator mediator) : Endpoint<SaveUserInformationCommand>
 {
-    public string Url => "save-user-information";
-
-    public Delegate Handler => async (IMediator mediator, SaveUserInformationCommand command) =>
+    public override void Configure()
     {
-        await mediator.Send(command);
-        return Results.Ok();
-    };
+        Post("/save-user-information");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(SaveUserInformationCommand command, CancellationToken ct)
+    {
+        await mediator.Send(command, ct);
+        await SendOkAsync(ct);
+    }
 }

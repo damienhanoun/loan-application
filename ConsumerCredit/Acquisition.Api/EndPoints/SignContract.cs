@@ -1,16 +1,20 @@
-﻿using Acquisition.Api.Scaffolding;
-using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Requests;
+using FastEndpoints;
 using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class SignContract : IEndPoint
+public class SignContract(IMediator mediator) : Endpoint<SignContractCommand>
 {
-    public string Url => "sign-contract";
-
-    public Delegate Handler => async (IMediator mediator, SignContractCommand command) =>
+    public override void Configure()
     {
-        await mediator.Send(command);
-        return Results.Ok();
-    };
+        Post("/sign-contract");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(SignContractCommand command, CancellationToken ct)
+    {
+        await mediator.Send(command, ct);
+        await SendOkAsync(ct);
+    }
 }

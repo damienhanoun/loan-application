@@ -1,11 +1,13 @@
 ﻿using Acquisition.Api.Scaffolding;
 using Acquisition.Infrastructure;
+using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddFastEndpoints();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediator(options => { options.ServiceLifetime = ServiceLifetime.Transient; });
@@ -22,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseFastEndpoints();
 app.UseHttpsRedirection();
-app.MapEndpoints();
 
-app.Run();
+await app.RunAsync();

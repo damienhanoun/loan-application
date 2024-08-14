@@ -1,17 +1,21 @@
-﻿using Acquisition.Api.Scaffolding;
+﻿using Acquisition.Application.Dtos;
 using Acquisition.Application.Requests;
+using FastEndpoints;
 using Mediator;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Acquisition.Api.EndPoints;
 
-public class ExpressLoanWish : IEndPoint
+public class ExpressLoanWish(IMediator mediator) : Endpoint<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
 {
-    public string Url => "express-loan-wish";
-
-    public Delegate Handler => async (IMediator mediator, [FromBody] ExpressLoanWishCommand addLoanWishCommand) =>
+    public override void Configure()
     {
-        var responseDto = await mediator.Send(addLoanWishCommand);
-        return Results.Ok(responseDto);
-    };
+        Post("/express-loan-wish");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(ExpressLoanWishCommand command, CancellationToken ct)
+    {
+        var responseDto = await mediator.Send(command, ct);
+        await SendOkAsync(responseDto, ct);
+    }
 }

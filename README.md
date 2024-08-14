@@ -25,6 +25,10 @@ A French loan application journey in a company that delivers credit to consumers
 - PostgreSQL with `postgres`/`password` identifiers + creation of `acquisition` database
 - From the `ConsumerCredit` folder: ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
 
+# Run tests
+- Acceptance : business scenarios that call many routes
+- Integration : business scenario that check that one route work
+
 # Todo
 - [ ] Mock a dependency call to another api domain using WireMock
 - [ ] Using application/problem+json as return value to have a standard error format

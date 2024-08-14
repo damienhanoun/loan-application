@@ -1,16 +1,21 @@
-﻿using Acquisition.Api.Scaffolding;
+﻿using Acquisition.Application.Dtos;
 using Acquisition.Application.Requests;
+using FastEndpoints;
 using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class GetLoanOffers : IEndPoint
+public class GetLoanOffers(IMediator mediator) : Endpoint<GetLoanOffersQuery, GetLoanOffersResponseDto>
 {
-    public string Url => "get-loan-offers";
-
-    public Delegate Handler => async (IMediator mediator, GetLoanOffersQuery query) =>
+    public override void Configure()
     {
-        var responseDto = await mediator.Send(query);
-        return Results.Ok(responseDto);
-    };
+        Post("/get-loan-offers");
+        AllowAnonymous();
+    }
+
+    public override async Task HandleAsync(GetLoanOffersQuery query, CancellationToken ct)
+    {
+        var responseDto = await mediator.Send(query, ct);
+        await SendOkAsync(responseDto, ct);
+    }
 }
