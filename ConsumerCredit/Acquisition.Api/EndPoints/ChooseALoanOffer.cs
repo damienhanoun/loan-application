@@ -1,10 +1,11 @@
-﻿using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Repositories;
 using FastEndpoints;
-using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class ChooseALoanOffer(IMediator mediator) : Endpoint<ChooseALoanOfferCommand>
+public record ChooseALoanOfferCommand(Guid LoanApplicationId, Guid OfferId);
+
+public class ChooseALoanOffer(ILoanApplicationRepository loanApplicationRepository) : Endpoint<ChooseALoanOfferCommand>
 {
     public override void Configure()
     {
@@ -12,9 +13,11 @@ public class ChooseALoanOffer(IMediator mediator) : Endpoint<ChooseALoanOfferCom
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(ChooseALoanOfferCommand command, CancellationToken ct)
+    public override async Task HandleAsync(ChooseALoanOfferCommand request, CancellationToken ct)
     {
-        await mediator.Send(command, ct);
+        var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
+        loanApplication.ChooseALoanOffer(request.OfferId);
+        await loanApplicationRepository.UpdateLoanApplication(loanApplication);
         await SendOkAsync(ct);
     }
 }
