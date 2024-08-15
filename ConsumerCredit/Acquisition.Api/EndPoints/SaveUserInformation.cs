@@ -1,10 +1,11 @@
-﻿using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Repositories;
 using FastEndpoints;
-using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class SaveUserInformation(IMediator mediator) : Endpoint<SaveUserInformationCommand>
+public record SaveUserInformationCommand(Guid LoanApplicationId, string Email);
+
+public class SaveUserInformation(ILoanApplicationRepository loanApplicationRepository) : Endpoint<SaveUserInformationCommand>
 {
     public override void Configure()
     {
@@ -12,9 +13,11 @@ public class SaveUserInformation(IMediator mediator) : Endpoint<SaveUserInformat
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(SaveUserInformationCommand command, CancellationToken ct)
+    public override async Task HandleAsync(SaveUserInformationCommand request, CancellationToken ct)
     {
-        await mediator.Send(command, ct);
+        var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
+        loanApplication.SaveUserInformation(request.Email);
+        await loanApplicationRepository.UpdateLoanApplication(loanApplication);
         await SendOkAsync(ct);
     }
 }

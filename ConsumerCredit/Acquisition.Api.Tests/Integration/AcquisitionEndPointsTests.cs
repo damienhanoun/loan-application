@@ -3,7 +3,6 @@ using System.Net.Http.Json;
 using Acquisition.Api.EndPoints;
 using Acquisition.Api.Tests.Helpers;
 using Acquisition.Application.Dtos;
-using Acquisition.Application.Requests;
 using NFluent;
 
 namespace Acquisition.Api.Tests.Integration;

@@ -1,10 +1,12 @@
-﻿using Acquisition.Application.Requests;
+﻿using Acquisition.Application.Repositories;
 using FastEndpoints;
-using Mediator;
 
 namespace Acquisition.Api.EndPoints;
 
-public class SignContract(IMediator mediator) : Endpoint<SignContractCommand>
+public record SignContractCommand(Guid LoanApplicationId);
+
+public class SignContract(ILoanContractRepository loanContractRepository)
+    : Endpoint<SignContractCommand>
 {
     public override void Configure()
     {
@@ -12,9 +14,11 @@ public class SignContract(IMediator mediator) : Endpoint<SignContractCommand>
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(SignContractCommand command, CancellationToken ct)
+    public override async Task HandleAsync(SignContractCommand request, CancellationToken ct)
     {
-        await mediator.Send(command, ct);
+        var loanContract = loanContractRepository.GetLoanContract(request.LoanApplicationId);
+        loanContract.SignContract();
+        await loanContractRepository.UpdateLoanContract(loanContract);
         await SendOkAsync(ct);
     }
 }

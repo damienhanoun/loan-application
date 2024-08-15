@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Json;
+using Acquisition.Api.EndPoints;
 using Acquisition.Application.Dtos;
-using Acquisition.Application.Requests;
 
 namespace Acquisition.Api.Tests.Acceptance.Helpers;
 
