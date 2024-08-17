@@ -1,5 +1,5 @@
 ﻿using Acquisition.Api.Scaffolding;
-using Acquisition.Infrastructure;
+using Acquisition.Api.Scaffolding.Database;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 

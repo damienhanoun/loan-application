@@ -7,7 +7,7 @@ namespace Acquisition.Api.Tests.Acceptance;
 public class AcquisitionTests(AcquisitionApiFactory waf) : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
 {
     private readonly Func<Task> _dbReset = waf.ResetDatabaseAsync;
-    private readonly UseCases _useCases = new(waf.Client);
+    private readonly LoanApplicationUseCases _useCases = new(waf.Client);
 
     public Task InitializeAsync()
     {

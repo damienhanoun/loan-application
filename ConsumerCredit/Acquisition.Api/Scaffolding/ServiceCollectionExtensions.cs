@@ -1,6 +1,5 @@
-﻿using Acquisition.Application.Repositories;
-using Acquisition.Application.Services;
-using Acquisition.Infrastructure;
+﻿using Acquisition.Api.Repositories;
+using Acquisition.Api.Services;
 
 namespace Acquisition.Api.Scaffolding;
 
