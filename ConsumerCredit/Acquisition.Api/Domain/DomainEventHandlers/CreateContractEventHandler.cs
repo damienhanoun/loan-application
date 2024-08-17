@@ -1,6 +1,6 @@
 ﻿using Acquisition.Api.Domain.DomainEvents;
+using Acquisition.Api.Domain.Entities;
 using Acquisition.Api.Repositories;
-using Acquisition.Domain.Entities;
 using Mediator;
 
 namespace Acquisition.Api.Domain.DomainEventHandlers;

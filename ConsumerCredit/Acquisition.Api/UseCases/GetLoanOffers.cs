@@ -1,7 +1,7 @@
-﻿using Acquisition.Api.Domain.ValueObjects;
+﻿using Acquisition.Api.Domain.Entities;
+using Acquisition.Api.Domain.ValueObjects;
 using Acquisition.Api.Repositories;
 using Acquisition.Api.Services;
-using Acquisition.Domain.Entities;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 

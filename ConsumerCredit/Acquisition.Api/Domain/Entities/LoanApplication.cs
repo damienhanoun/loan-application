@@ -2,7 +2,7 @@
 using Acquisition.Api.Domain.ValueObjects;
 using Acquisition.Domain.ValueObjects;
 
-namespace Acquisition.Domain.Entities;
+namespace Acquisition.Api.Domain.Entities;
 
 public class LoanApplication : Entity
 {

@@ -1,6 +1,6 @@
 ﻿using Mediator;
 
-namespace Acquisition.Domain.Entities;
+namespace Acquisition.Api.Domain.Entities;
 
 public abstract class Entity
 {

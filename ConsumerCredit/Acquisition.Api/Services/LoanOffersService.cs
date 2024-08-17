@@ -1,5 +1,5 @@
-﻿using Acquisition.Api.Repositories;
-using Acquisition.Domain.Entities;
+﻿using Acquisition.Api.Domain.Entities;
+using Acquisition.Api.Repositories;
 using Acquisition.Domain.ValueObjects;
 using AutomaticInterface;
 

@@ -1,8 +1,9 @@
 ﻿using Acquisition.Api.Domain.DomainEvents;
 using Acquisition.Api.Repositories;
+using Acquisition.Api.Services;
 using Mediator;
 
-namespace Acquisition.Api.EventHandlers;
+namespace Acquisition.Api.ApplicationEventHandlers;
 
 public class SendPreAcceptationEmailEventHandler(ICommunicationService communicationService, ILoanApplicationRepository loanApplicationRepository)
     : INotificationHandler<LoanContractCreated>

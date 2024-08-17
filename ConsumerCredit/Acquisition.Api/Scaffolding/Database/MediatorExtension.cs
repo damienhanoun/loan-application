@@ -1,5 +1,5 @@
-﻿using Acquisition.Api.Scaffolding.Database;
-using Acquisition.Domain.Entities;
+﻿using Acquisition.Api.Domain.Entities;
+using Acquisition.Api.Scaffolding.Database;
 using Mediator;
 
 namespace Acquisition.Api.Scaffolding;

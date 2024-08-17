@@ -1,6 +1,6 @@
 ﻿using Acquisition.Api.Domain.DomainEvents;
 
-namespace Acquisition.Domain.Entities;
+namespace Acquisition.Api.Domain.Entities;
 
 public class LoanContract : Entity
 {

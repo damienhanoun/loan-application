@@ -1,7 +1,8 @@
-﻿using Acquisition.Domain.ValueObjects;
+﻿using Acquisition.Api.Repositories;
+using Acquisition.Domain.ValueObjects;
 using AutomaticInterface;
 
-namespace Acquisition.Api.Repositories;
+namespace Acquisition.Api.Services;
 
 [GenerateAutomaticInterface]
 public class CommunicationService : ICommunicationService

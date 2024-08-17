@@ -1,7 +1,7 @@
 ﻿using Acquisition.Domain.Helpers;
 using Acquisition.Domain.ValueObjects;
 
-namespace Acquisition.Domain.Entities;
+namespace Acquisition.Api.Domain.Entities;
 
 public class LoanOffer : Entity
 {

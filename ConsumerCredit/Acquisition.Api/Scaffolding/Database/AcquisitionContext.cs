@@ -1,4 +1,4 @@
-﻿using Acquisition.Domain.Entities;
+﻿using Acquisition.Api.Domain.Entities;
 using Acquisition.Domain.ValueObjects;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
