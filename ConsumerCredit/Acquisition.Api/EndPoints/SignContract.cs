@@ -3,8 +3,6 @@ using FastEndpoints;
 
 namespace Acquisition.Api.EndPoints;
 
-public record SignContractCommand(Guid LoanApplicationId);
-
 public class SignContract(ILoanContractRepository loanContractRepository)
     : Endpoint<SignContractCommand>
 {
@@ -22,3 +20,5 @@ public class SignContract(ILoanContractRepository loanContractRepository)
         await SendOkAsync(ct);
     }
 }
+
+public record SignContractCommand(Guid LoanApplicationId);

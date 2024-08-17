@@ -3,8 +3,6 @@ using FastEndpoints;
 
 namespace Acquisition.Api.EndPoints;
 
-public record ChooseALoanOfferCommand(Guid LoanApplicationId, Guid OfferId);
-
 public class ChooseALoanOffer(ILoanApplicationRepository loanApplicationRepository) : Endpoint<ChooseALoanOfferCommand>
 {
     public override void Configure()
@@ -21,3 +19,5 @@ public class ChooseALoanOffer(ILoanApplicationRepository loanApplicationReposito
         await SendOkAsync(ct);
     }
 }
+
+public record ChooseALoanOfferCommand(Guid LoanApplicationId, Guid OfferId);

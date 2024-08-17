@@ -1,13 +1,10 @@
-﻿using Acquisition.Application.Dtos;
-using Acquisition.Application.Repositories;
+﻿using Acquisition.Application.Repositories;
 using Acquisition.Domain.Entities;
 using Acquisition.Domain.ValueObjects;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
 namespace Acquisition.Api.EndPoints;
-
-public record ExpressLoanWishCommand(string Project, decimal Amount, int Maturity);
 
 public class ExpressLoanWish(ILoanApplicationRepository loanApplicationRepository) : Endpoint<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
 {
@@ -23,10 +20,14 @@ public class ExpressLoanWish(ILoanApplicationRepository loanApplicationRepositor
         var loanApplication = new LoanApplication(loanApplicationId);
         loanApplication.SetInitialLoanWish(request.ToInitialLoanWish());
         await loanApplicationRepository.CreateLoanApplication(loanApplication);
-        var responseDto = new ExpressLoanWishResponseDto { LoanApplicationId = loanApplicationId };
+        var responseDto = new ExpressLoanWishResponseDto(loanApplicationId);
         await SendOkAsync(responseDto, ct);
     }
 }
+
+public record ExpressLoanWishCommand(string Project, decimal Amount, int Maturity);
+
+public record ExpressLoanWishResponseDto(Guid LoanApplicationId);
 
 [Mapper]
 [UseStaticMapper(typeof(ValueObjectMappers))]

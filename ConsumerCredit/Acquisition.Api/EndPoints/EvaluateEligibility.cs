@@ -1,11 +1,8 @@
-﻿using Acquisition.Application.Dtos;
-using Acquisition.Application.Repositories;
+﻿using Acquisition.Application.Repositories;
 using Acquisition.Application.Services;
 using FastEndpoints;
 
 namespace Acquisition.Api.EndPoints;
-
-public record EvaluateEligibilityToALoanQuery(Guid LoanApplicationId);
 
 public class EvaluateEligibility(
     ILoanApplicationRepository loanApplicationRepository,
@@ -22,7 +19,11 @@ public class EvaluateEligibility(
     {
         var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
         var isEligibleToALoan = loanOffersEligibilityEvaluationService.EvaluateEligibilityToLoanOffers(loanApplication);
-        var responseDto = new EvaluateEligibilityToALoanResponseDto { IsEligibleToALoan = isEligibleToALoan };
+        var responseDto = new EvaluateEligibilityToALoanResponseDto(isEligibleToALoan);
         await SendOkAsync(responseDto, ct);
     }
 }
+
+public record EvaluateEligibilityToALoanQuery(Guid LoanApplicationId);
+
+public record EvaluateEligibilityToALoanResponseDto(bool IsEligibleToALoan);

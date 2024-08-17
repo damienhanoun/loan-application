@@ -3,8 +3,6 @@ using FastEndpoints;
 
 namespace Acquisition.Api.EndPoints;
 
-public record SaveUserInformationCommand(Guid LoanApplicationId, string Email);
-
 public class SaveUserInformation(ILoanApplicationRepository loanApplicationRepository) : Endpoint<SaveUserInformationCommand>
 {
     public override void Configure()
@@ -21,3 +19,5 @@ public class SaveUserInformation(ILoanApplicationRepository loanApplicationRepos
         await SendOkAsync(ct);
     }
 }
+
+public record SaveUserInformationCommand(Guid LoanApplicationId, string Email);

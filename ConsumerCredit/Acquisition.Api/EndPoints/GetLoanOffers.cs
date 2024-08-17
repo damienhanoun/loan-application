@@ -1,5 +1,4 @@
-﻿using Acquisition.Application.Dtos;
-using Acquisition.Application.Repositories;
+﻿using Acquisition.Application.Repositories;
 using Acquisition.Application.Services;
 using Acquisition.Domain.Entities;
 using Acquisition.Domain.ValueObjects;
@@ -7,8 +6,6 @@ using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
 namespace Acquisition.Api.EndPoints;
-
-public record GetLoanOffersQuery(Guid LoanApplicationId);
 
 public class GetLoanOffers(
     ILoanApplicationRepository loanApplicationRepository,
@@ -24,9 +21,21 @@ public class GetLoanOffers(
     {
         var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
         var loanOffers = loanOffersService.GetLoanOffers(loanApplication.Id);
-        var responseDto = new GetLoanOffersResponseDto { LoanOffers = loanOffers.ToDto() };
+        var responseDto = new GetLoanOffersResponseDto(loanOffers.ToDto());
         await SendOkAsync(responseDto, ct);
     }
+}
+
+public record GetLoanOffersQuery(Guid LoanApplicationId);
+
+public record GetLoanOffersResponseDto(IEnumerable<LoanOfferDto> LoanOffers);
+
+public record LoanOfferDto
+{
+    public Guid Id { get; init; }
+    public decimal Amount { get; init; }
+    public int Maturity { get; init; }
+    public decimal MonthlyAmount { get; init; }
 }
 
 [Mapper]
