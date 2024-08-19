@@ -9,7 +9,7 @@ public class LoanContract : Entity
     {
     }
 
-    private LoanContract(Guid id, Guid loanApplicationId, bool isSigned)
+    public LoanContract(Guid id, Guid loanApplicationId, bool isSigned)
     {
         Id = id;
         LoanApplicationId = loanApplicationId;
