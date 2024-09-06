@@ -1,5 +1,5 @@
 ﻿using System.Net.Http.Json;
-using Acquisition.Api.UseCases;
+using Acquisition.Api.Application.UseCases;
 
 namespace Acquisition.Api.Tests.Acceptance.Helpers;
 
@@ -16,7 +16,8 @@ public class LoanApplicationUseCases
     {
         var request = new ExpressLoanWishCommand(project, borrowedAmount, maturityInMonths);
         var expressLoanWishResponse = await _client.PostAsJsonAsync("express-loan-wish", request);
-        var expressLoanWishResponseDto = await expressLoanWishResponse.Content.ReadFromJsonAsync<ExpressLoanWishResponseDto>();
+        var expressLoanWishResponseDto =
+            await expressLoanWishResponse.Content.ReadFromJsonAsync<ExpressLoanWishResponseDto>();
         return expressLoanWishResponseDto!.LoanApplicationId;
     }
 
@@ -30,7 +31,8 @@ public class LoanApplicationUseCases
     {
         var getLoanOffersQuery = new GetLoanOffersQuery(loanApplicationId);
         var getLoanOffersResponse = await _client.PostAsJsonAsync("get-loan-offers", getLoanOffersQuery);
-        var getLoanOffersResponseDto = await getLoanOffersResponse.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
+        var getLoanOffersResponseDto =
+            await getLoanOffersResponse.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
         return getLoanOffersResponseDto!.LoanOffers;
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Acquisition.Api.Domain.Entities;
 using Acquisition.Api.Domain.ValueObjects;
-using Acquisition.Api.Repositories;
+using Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
-namespace Acquisition.Api.UseCases;
+namespace Acquisition.Api.Application.UseCases;
 
-public class ExpressLoanWish(ILoanApplicationRepository loanApplicationRepository) : Endpoint<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
+public class ExpressLoanWish(IWriteLoanApplicationRepository writeLoanApplicationRepository)
+    : Endpoint<ExpressLoanWishCommand, ExpressLoanWishResponseDto>
 {
     public override void Configure()
     {
@@ -19,7 +20,7 @@ public class ExpressLoanWish(ILoanApplicationRepository loanApplicationRepositor
         var loanApplicationId = Guid.NewGuid();
         var loanApplication = new LoanApplication(loanApplicationId);
         loanApplication.SetInitialLoanWish(request.ToInitialLoanWish());
-        await loanApplicationRepository.CreateLoanApplication(loanApplication);
+        await writeLoanApplicationRepository.CreateLoanApplication(loanApplication);
         var responseDto = new ExpressLoanWishResponseDto(loanApplicationId);
         await SendOkAsync(responseDto, ct);
     }

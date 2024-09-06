@@ -1,4 +1,4 @@
-﻿using Acquisition.Api.Domain.DomainEvents;
+﻿using Acquisition.Api.Domain.Events;
 
 namespace Acquisition.Api.Domain.Entities;
 

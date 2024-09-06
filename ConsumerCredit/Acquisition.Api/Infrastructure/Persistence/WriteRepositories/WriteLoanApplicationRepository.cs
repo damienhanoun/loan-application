@@ -1,11 +1,11 @@
 ﻿using Acquisition.Api.Domain.Entities;
-using Acquisition.Api.Scaffolding.Database;
+using Acquisition.Api.Persistence.Database;
 using AutomaticInterface;
 
-namespace Acquisition.Api.Repositories;
+namespace Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 
 [GenerateAutomaticInterface]
-public class LoanApplicationRepository(AcquisitionContext acquisitionContext) : ILoanApplicationRepository
+public class WriteLoanApplicationRepository(AcquisitionContext acquisitionContext) : IWriteLoanApplicationRepository
 {
     public async Task CreateLoanApplication(LoanApplication loanApplication)
     {

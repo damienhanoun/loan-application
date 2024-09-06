@@ -1,23 +1,16 @@
 ﻿using Acquisition.Api.Domain.Entities;
-using Acquisition.Api.Scaffolding.Database;
+using Acquisition.Api.Persistence.Database;
 using AutomaticInterface;
 
-namespace Acquisition.Api.Repositories;
+namespace Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 
 [GenerateAutomaticInterface]
-public class LoanContractRepository(AcquisitionContext acquisitionContext) : ILoanContractRepository
+public class WriteLoanContractRepository(AcquisitionContext acquisitionContext) : IWriteLoanContractRepository
 {
     public async Task Create(LoanContract loanContract)
     {
         acquisitionContext.LoanContracts.Add(loanContract);
         await acquisitionContext.SaveEntitiesAsync();
-    }
-
-    public LoanContract GetLoanContract(Guid loanApplicationId)
-    {
-        var loanContract = acquisitionContext.LoanContracts
-            .First(b => b.LoanApplicationId == loanApplicationId);
-        return loanContract;
     }
 
     public async Task UpdateLoanContract(LoanContract loanContract)

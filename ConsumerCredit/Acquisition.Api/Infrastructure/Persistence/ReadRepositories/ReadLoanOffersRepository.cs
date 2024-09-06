@@ -1,10 +1,10 @@
-﻿using Acquisition.Api.UseCases;
+﻿using Acquisition.Api.Application.UseCases;
 using AutomaticInterface;
 
-namespace Acquisition.Api.Repositories;
+namespace Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 
 [GenerateAutomaticInterface]
-public class LoanOffersRepository : ILoanOffersRepository
+public class ReadLoanOffersRepository : IReadLoanOffersRepository
 {
     public List<LoanOfferDto> GetLoanOffers(decimal loanRequestedAmount)
     {

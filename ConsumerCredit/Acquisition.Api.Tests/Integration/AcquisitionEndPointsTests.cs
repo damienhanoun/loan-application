@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Acquisition.Api.Application.UseCases;
 using Acquisition.Api.Tests.Helpers;
-using Acquisition.Api.UseCases;
 using NFluent;
 
 namespace Acquisition.Api.Tests.Integration;

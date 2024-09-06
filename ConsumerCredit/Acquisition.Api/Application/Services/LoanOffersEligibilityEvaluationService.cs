@@ -1,7 +1,7 @@
 ﻿using Acquisition.Api.Domain.Entities;
 using AutomaticInterface;
 
-namespace Acquisition.Api.Services;
+namespace Acquisition.Api.Application.Services;
 
 [GenerateAutomaticInterface]
 public class LoanOffersEligibilityEvaluationService : ILoanOffersEligibilityEvaluationService

@@ -3,7 +3,7 @@ using Acquisition.Domain.ValueObjects;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
 
-namespace Acquisition.Api.Scaffolding.Database;
+namespace Acquisition.Api.Persistence.Database;
 
 public class AcquisitionContext : DbContext
 {

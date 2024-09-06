@@ -1,14 +1,14 @@
 ﻿using Acquisition.Api.Domain.Entities;
 using Acquisition.Api.Domain.ValueObjects;
-using Acquisition.Api.Repositories;
+using Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
-namespace Acquisition.Api.UseCases;
+namespace Acquisition.Api.Application.UseCases;
 
 public class GetLoanOffers(
-    ILoanApplicationRepository loanApplicationRepository,
-    ILoanOffersRepository loanOffersRepository)
+    IReadLoanApplicationRepository readLoanApplicationRepository,
+    IReadLoanOffersRepository readLoanOffersRepository)
     : Endpoint<GetLoanOffersQuery, GetLoanOffersResponseDto>
 {
     public override void Configure()
@@ -19,8 +19,8 @@ public class GetLoanOffers(
 
     public override async Task HandleAsync(GetLoanOffersQuery request, CancellationToken ct)
     {
-        var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
-        var loanOffers = loanOffersRepository.GetLoanOffers(loanApplication.InitialLoanWish!.Amount.Value);
+        var loanApplication = readLoanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
+        var loanOffers = readLoanOffersRepository.GetLoanOffers(loanApplication.InitialLoanWish!.Amount.Value);
         var responseDto = new GetLoanOffersResponseDto(loanOffers);
         await SendOkAsync(responseDto, ct);
     }

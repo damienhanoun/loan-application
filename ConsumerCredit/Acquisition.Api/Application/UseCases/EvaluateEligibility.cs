@@ -1,11 +1,11 @@
-﻿using Acquisition.Api.Repositories;
-using Acquisition.Api.Services;
+﻿using Acquisition.Api.Application.Services;
+using Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 using FastEndpoints;
 
-namespace Acquisition.Api.UseCases;
+namespace Acquisition.Api.Application.UseCases;
 
 public class EvaluateEligibility(
-    ILoanApplicationRepository loanApplicationRepository,
+    IReadLoanApplicationRepository readLoanApplicationRepository,
     ILoanOffersEligibilityEvaluationService loanOffersEligibilityEvaluationService)
     : Endpoint<EvaluateEligibilityToALoanQuery, EvaluateEligibilityToALoanResponseDto>
 {
@@ -17,7 +17,7 @@ public class EvaluateEligibility(
 
     public override async Task HandleAsync(EvaluateEligibilityToALoanQuery request, CancellationToken ct)
     {
-        var loanApplication = loanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
+        var loanApplication = readLoanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
         var isEligibleToALoan = loanOffersEligibilityEvaluationService.EvaluateEligibilityToLoanOffers(loanApplication);
         var responseDto = new EvaluateEligibilityToALoanResponseDto(isEligibleToALoan);
         await SendOkAsync(responseDto, ct);

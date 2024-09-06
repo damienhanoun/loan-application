@@ -1,4 +1,4 @@
-﻿using Acquisition.Api.Scaffolding.Database;
+﻿using Acquisition.Api.Persistence.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using Acquisition.Api.Persistence.Database;
 using Acquisition.Api.Scaffolding;
-using Acquisition.Api.Scaffolding.Database;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
 

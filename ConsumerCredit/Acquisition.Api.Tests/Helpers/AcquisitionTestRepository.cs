@@ -1,6 +1,6 @@
 ﻿using Acquisition.Api.Domain.Entities;
 using Acquisition.Api.Domain.ValueObjects;
-using Acquisition.Api.Scaffolding.Database;
+using Acquisition.Api.Persistence.Database;
 using Acquisition.Domain.ValueObjects;
 using Microsoft.Extensions.DependencyInjection;
 
