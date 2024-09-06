@@ -1,18 +1,19 @@
-﻿using Acquisition.Api.Repositories;
-using Acquisition.Api.Services;
+﻿using System.Reflection;
 
 namespace Acquisition.Api.Scaffolding;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection RegisterServices(this IServiceCollection services)
+    public static void AddServicesAndRepositories(this IServiceCollection services, Assembly assembly)
     {
-        services.AddTransient<ILoanApplicationRepository, LoanApplicationRepository>();
-        services.AddTransient<ILoanOffersEligibilityEvaluationService, LoanOffersEligibilityEvaluationService>();
-        services.AddTransient<ILoanOffersService, LoanOffersService>();
-        services.AddTransient<ILoanContractRepository, LoanContractRepository>();
-        services.AddTransient<ICommunicationService, CommunicationService>();
+        var types = assembly.GetTypes()
+            .Where(t => t is { IsClass: true, IsAbstract: false } &&
+                        (t.Name.EndsWith("Repository") || t.Name.EndsWith("Service")));
 
-        return services;
+        foreach (var type in types)
+        {
+            var interfaceType = type.GetInterfaces()[0];
+            services.AddTransient(interfaceType, type);
+        }
     }
 }

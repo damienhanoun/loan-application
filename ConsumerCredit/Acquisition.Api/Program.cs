@@ -1,4 +1,5 @@
-﻿using Acquisition.Api.Scaffolding;
+﻿using System.Reflection;
+using Acquisition.Api.Scaffolding;
 using Acquisition.Api.Scaffolding.Database;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +13,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediator(options => { options.ServiceLifetime = ServiceLifetime.Transient; });
 builder.Services.AddDbContext<AcquisitionContext>(
-    options => options.UseNpgsql("Host=localhost;Port=5432;Database=acquisition;User ID=postgres;Password=password;"), ServiceLifetime.Transient);
-builder.Services.RegisterServices();
-
+    options => options.UseNpgsql("Host=localhost;Port=5432;Database=acquisition;User ID=postgres;Password=password;"),
+    ServiceLifetime.Transient);
+builder.Services.AddServicesAndRepositories(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
