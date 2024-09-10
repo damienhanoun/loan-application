@@ -1,26 +1,18 @@
 # Goal
-Experiment (meaning that it is not about doing a perfect project but more a learning project) :
-- Event Storming (alone...)
-- DDD :
-  - Domain event / Integration event
-  - Entity
-- Tools :
-    - Mediator: a MediatR-like library that runs at build time
-    - SpecFlow: for acceptance tests
-    - Minimal API: and find a way to split each route into a separate file
-    - Mapperly: a mapping library that runs at build time, which prevents adding unit tests for mapping and can be inlined
-    - Docker: to mount a fake database for integration and acceptance tests
-    - Entity Framework: to manage entities
+This project intent is for me to learn about :
+- DDD common pattern and see relation with the database storage of entities
+- Make a project ready to use almost already after downloading it
+- Make an example of business tests first application where business use case are in the center of the application development
 
 # Subject
-
 A French loan application journey in a company that delivers credit to consumers.
 
 ![Consumer credit](Event-storming.png)
  
 # Pre-requisite
-- .Net 8
-- Docker
+- Run "install-dependencies.ps1" in powershell to install
+  - .Net 8
+  - Docker Desktop
 
 # API launch pre-requisite
 - Run Docker Desktop
