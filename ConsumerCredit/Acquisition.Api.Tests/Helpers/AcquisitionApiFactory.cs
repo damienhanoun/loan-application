@@ -15,7 +15,7 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
 {
     private readonly PostgreSqlContainer _dbContainer =
         new PostgreSqlBuilder()
-            .WithPortBinding(5432)
+            .WithPortBinding(5433, true) // randomness prevent conflict when launching all tests together
             .WithDatabase("acquisition")
             .WithUsername("postgres")
             .WithPassword("password")
@@ -33,6 +33,12 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
         Client = CreateClient();
         DbConnection = new NpgsqlConnection(_dbContainer.GetConnectionString());
         await DbConnection.OpenAsync();
+        using (var scope = Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AcquisitionContext>();
+            await dbContext.Database.MigrateAsync();
+        }
+
         _respawner = await Respawner.CreateAsync(DbConnection, new RespawnerOptions
         {
             DbAdapter = DbAdapter.Postgres,

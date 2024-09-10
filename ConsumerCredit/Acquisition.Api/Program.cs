@@ -18,9 +18,15 @@ builder.Services.AddDbContext<AcquisitionContext>(
 builder.Services.AddServicesAndRepositories(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    using (var scope = app.Services.CreateScope())
+    {
+        var scopedServices = scope.ServiceProvider;
+        var dbContext = scopedServices.GetRequiredService<AcquisitionContext>();
+        await dbContext.Database.MigrateAsync();
+    }
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }

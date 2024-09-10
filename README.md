@@ -17,27 +17,14 @@ Experiment (meaning that it is not about doing a perfect project but more a lear
 A French loan application journey in a company that delivers credit to consumers.
 
 ![Consumer credit](Event-storming.png)
-
  
 # Pre-requisite
 - .Net 8
 - Docker
-- PostgreSQL with `postgres`/`password` identifiers + creation of `acquisition` database
-- From the `ConsumerCredit` folder: ```dotnet ef database update --project Acquisition.Infrastructure --startup-project Acquisition.Api```
 
-# Run tests
-- Acceptance : business scenarios that call many routes
-- Integration : business scenario that check that one route work
+# API launch pre-requisite
+- Run Docker Desktop
+- Run "launch database.bat"
 
-# Todo
-- [ ] Mock a dependency call to another api domain using WireMock
-- [ ] Using application/problem+json as return value to have a standard error format
-- [ ] Use OneOf to return many results from the Application to the web API layer and handle them to map to the HTTP status code
-- [ ] Create an HTTP client manually (not with NSwag for resilience purposes)
-- [ ] Find a way to handle versioning of the API
-- [ ] Look at docker configuration to see benefits of using it
-- [ ] Generate open API specification from code to allow generating HTTP requests on demand
-
-# Decisions
-- Do a first implementation without separated domains. Just Acquisition one, which should normally be a kind of gateway depending on others like LoanOffers, LoanEligibility, ...
-- Use domain objects in the database but load them without validation
+# Tests launch pre-requisite
+- Run Docker Desktop
