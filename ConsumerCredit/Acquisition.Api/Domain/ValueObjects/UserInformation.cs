@@ -1,21 +1,15 @@
-﻿namespace Acquisition.Domain.ValueObjects;
+﻿using Acquisition.Domain.ValueObjects;
+
+namespace Acquisition.Api.Domain.ValueObjects;
 
 public class UserInformation
 {
-    // Required by EF Core
-    private UserInformation()
-    {
-    }
+    // Required by EF Core (constructor without parameter)
 
-    private UserInformation(string email)
-    {
-        Email = Email.Create(email);
-    }
+    public Email? Email { get; private set; }
 
-    public Email Email { get; }
-
-    public static UserInformation Create(string email)
+    public void UpdateEmail(Email email)
     {
-        return new UserInformation(email);
+        Email = email;
     }
 }

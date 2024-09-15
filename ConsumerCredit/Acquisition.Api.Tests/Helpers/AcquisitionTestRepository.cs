@@ -14,7 +14,8 @@ public class AcquisitionTestRepository(AcquisitionApiFactory acquisitionApiFacto
         var acquisitionContext = scope.ServiceProvider.GetService<AcquisitionContext>()!;
 
         var loanApplicationId = Guid.NewGuid();
-        var loanApplication = CreateLoanApplication(wishedAmount, email, loanApplicationId);
+        var userInformation = new Dictionary<string, object> { { "Email", email } };
+        var loanApplication = CreateLoanApplication(wishedAmount, userInformation, loanApplicationId);
         acquisitionContext.LoanApplications.Add(loanApplication);
 
         await acquisitionContext.SaveChangesAsync();
@@ -56,12 +57,12 @@ public class AcquisitionTestRepository(AcquisitionApiFactory acquisitionApiFacto
         return loanApplication;
     }
 
-    private static LoanApplication CreateLoanApplication(decimal wishedAmount, string email, Guid loanApplicationId)
+    private static LoanApplication CreateLoanApplication(decimal wishedAmount, Dictionary<string, object> userInformation, Guid loanApplicationId)
     {
         var loanApplication = new LoanApplication(loanApplicationId);
         loanApplication.SetInitialLoanWish(new InitialLoanWish(Project.Create("a project"), Amount.Create(wishedAmount),
             Maturity.Create(12)));
-        loanApplication.SaveUserInformation(email);
+        loanApplication.UpdateUserInformation(userInformation);
         return loanApplication;
     }
 }

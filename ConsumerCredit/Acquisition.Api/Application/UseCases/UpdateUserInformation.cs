@@ -4,24 +4,24 @@ using FastEndpoints;
 
 namespace Acquisition.Api.Application.UseCases;
 
-public class SaveUserInformation(
+public class UpdateUserInformation(
     IReadLoanApplicationRepository readLoanApplicationRepository,
     IWriteLoanApplicationRepository writeLoanApplicationRepository)
-    : Endpoint<SaveUserInformationCommand>
+    : Endpoint<UpdateUserInformationCommand>
 {
     public override void Configure()
     {
-        Post("/save-user-information");
+        Post("/update-user-information");
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(SaveUserInformationCommand request, CancellationToken ct)
+    public override async Task HandleAsync(UpdateUserInformationCommand request, CancellationToken ct)
     {
         var loanApplication = readLoanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
-        loanApplication.SaveUserInformation(request.Email);
+        loanApplication.UpdateUserInformation(request.UpdatedProperties);
         await writeLoanApplicationRepository.UpdateLoanApplication(loanApplication);
         await SendOkAsync(ct);
     }
 }
 
-public record SaveUserInformationCommand(Guid LoanApplicationId, string Email);
+public record UpdateUserInformationCommand(Guid LoanApplicationId, Dictionary<string, object> UpdatedProperties);

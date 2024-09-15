@@ -23,8 +23,9 @@ public class LoanApplicationUseCases
 
     public Task SaveUserInformation(Guid loanApplicationId, string email)
     {
-        var requestSaveUserInformation = new SaveUserInformationCommand(loanApplicationId, email);
-        return _client.PostAsJsonAsync("save-user-information", requestSaveUserInformation);
+        var userInformation = new Dictionary<string, object> { { "Email", email } };
+        var requestSaveUserInformation = new UpdateUserInformationCommand(loanApplicationId, userInformation);
+        return _client.PostAsJsonAsync("update-user-information", requestSaveUserInformation);
     }
 
     public async Task<IEnumerable<LoanOfferDto>> GetLoanOffers(Guid loanApplicationId)

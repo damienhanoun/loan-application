@@ -32,8 +32,22 @@ public class LoanApplication : Entity
         AddDomainEvent(new LoanOfferChosen(Id, loanOfferId));
     }
 
-    public void SaveUserInformation(string email)
+    public void UpdateUserInformation(Dictionary<string, object> userInformation)
     {
-        UserInformation = UserInformation.Create(email);
+        UserInformation ??= new UserInformation();
+
+        foreach (var oneUserInformation in userInformation)
+            switch (oneUserInformation.Key)
+            {
+                case nameof(UserInformation.Email):
+                    var emailValue = oneUserInformation.Value?.ToString();
+                    if (emailValue != null)
+                    {
+                        var email = Email.Create(emailValue);
+                        UserInformation.UpdateEmail(email);
+                    }
+
+                    break;
+            }
     }
 }

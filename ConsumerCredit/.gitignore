@@ -129,3 +129,39 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+
+# =========================
+# JetBrains Rider
+# =========================
+
+# Ignore all .idea project-specific files
+.idea/
+
+# Except for the following which you might want to keep:
+!/.idea/fileTemplates
+!/.idea/vcs.xml
+!/.idea/modules.xml
+!/.idea/workspace.xml
+!/.idea/runConfigurations/
+!/.idea/inspectionProfiles/
+
+# Optionally, ignore Rider-specific files if not shared across projects
+.idea/.name
+.idea/workspace.xml
+.idea/description.xml
+
+# Ignore Rider .idea security-related files
+.idea/security.xml
+.idea/sonarlint/
+
+# Optionally ignore JetBrains Rider's .iml project files
+*.iml
+
+# If you're using IntelliJ-based IDEs (e.g., Rider, IntelliJ IDEA) with shared settings, you may want to version the following:
+# Uncomment to include:
+#!.idea/modules.xml
+#!.idea/workspace.xml
+#!.idea/vcs.xml
+#!.idea/runConfigurations/
+#!.idea/inspectionProfiles/

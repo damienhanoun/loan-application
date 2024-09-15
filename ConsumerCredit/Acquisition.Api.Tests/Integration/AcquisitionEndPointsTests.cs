@@ -41,10 +41,13 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     {
         // Arrange
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
-        var request = new SaveUserInformationCommand(loanApplicationId, "email@email.fr");
+        var request = new UpdateUserInformationCommand(loanApplicationId, new Dictionary<string, object>
+        {
+            { "Email", "email@email.fr" }
+        });
 
         // Act
-        var response = await _client.PostAsJsonAsync("save-user-information", request);
+        var response = await _client.PostAsJsonAsync("update-user-information", request);
 
         // Assert
         Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
