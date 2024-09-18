@@ -15,6 +15,10 @@ public class GetLoanOffers(
     {
         Post("/get-loan-offers");
         AllowAnonymous();
+        Description(x => x
+            .WithTags("Get loan offers")
+            .Produces(200, typeof(GetLoanOffersResponseDto), "application/json")
+            .ProducesProblem(500));
     }
 
     public override async Task HandleAsync(GetLoanOffersQuery request, CancellationToken ct)

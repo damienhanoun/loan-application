@@ -1,4 +1,4 @@
-﻿using Acquisition.Domain.Helpers;
+﻿using Acquisition.Api.Domain.Helpers;
 using Acquisition.Domain.ValueObjects;
 
 namespace Acquisition.Api.Domain.Entities;

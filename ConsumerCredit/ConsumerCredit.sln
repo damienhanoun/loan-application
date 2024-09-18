@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api", "Acquisit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api.Tests", "Acquisition.Api.Tests\Acquisition.Api.Tests.csproj", "{2D85B968-FEC1-4845-BFCF-501DF2C7C569}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api.Client", "Acquisition.Api.Client\Acquisition.Api.Client.csproj", "{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,9 +22,14 @@ Global
 		{2D85B968-FEC1-4845-BFCF-501DF2C7C569}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D85B968-FEC1-4845-BFCF-501DF2C7C569}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D85B968-FEC1-4845-BFCF-501DF2C7C569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0108F407-F72C-458B-854C-1B9811CAF975} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
 		{2D85B968-FEC1-4845-BFCF-501DF2C7C569} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
+		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
 	EndGlobalSection
 EndGlobal

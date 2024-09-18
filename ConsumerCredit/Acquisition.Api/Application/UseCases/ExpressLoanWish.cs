@@ -13,6 +13,10 @@ public class ExpressLoanWish(IWriteLoanApplicationRepository writeLoanApplicatio
     {
         Post("/express-loan-wish");
         AllowAnonymous();
+        Description(x => x
+            .WithTags("Express loan wish")
+            .Produces(200, typeof(ExpressLoanWishResponseDto), "application/json")
+            .ProducesProblem(500));
     }
 
     public override async Task HandleAsync(ExpressLoanWishCommand request, CancellationToken ct)

@@ -13,6 +13,10 @@ public class SignContract(
     {
         Post("/sign-contract");
         AllowAnonymous();
+        Description(x => x
+            .WithTags("Sign contract")
+            .Produces(200, typeof(void), "application/json")
+            .ProducesProblem(500));
     }
 
     public override async Task HandleAsync(SignContractCommand request, CancellationToken ct)

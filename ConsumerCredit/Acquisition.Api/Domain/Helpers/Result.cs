@@ -1,4 +1,4 @@
-﻿namespace Acquisition.Domain.Helpers;
+﻿namespace Acquisition.Api.Domain.Helpers;
 
 public record Result<T>
 {

@@ -13,6 +13,10 @@ public class UpdateUserInformation(
     {
         Post("/update-user-information");
         AllowAnonymous();
+        Description(x => x
+            .WithTags("Update user information")
+            .Produces(200, typeof(void), "application/json")
+            .ProducesProblem(500));
     }
 
     public override async Task HandleAsync(UpdateUserInformationCommand request, CancellationToken ct)

@@ -13,6 +13,10 @@ public class EvaluateEligibility(
     {
         Post("/evaluate-eligibility-to-a-loan");
         AllowAnonymous();
+        Description(x => x
+            .WithTags("Evaluate eligibility")
+            .Produces(200, typeof(EvaluateEligibilityToALoanResponseDto), "application/json")
+            .ProducesProblem(500));
     }
 
     public override async Task HandleAsync(EvaluateEligibilityToALoanQuery request, CancellationToken ct)

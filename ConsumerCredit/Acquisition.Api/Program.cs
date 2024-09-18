@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddFastEndpoints();
+builder.Services.AddOpenApiDocument();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediator(options => { options.ServiceLifetime = ServiceLifetime.Transient; });
@@ -27,6 +28,7 @@ if (app.Environment.IsDevelopment())
         await dbContext.Database.MigrateAsync();
     }
 
+    app.UseOpenApi();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

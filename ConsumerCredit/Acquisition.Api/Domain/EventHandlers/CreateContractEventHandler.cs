@@ -1,5 +1,5 @@
-﻿using Acquisition.Api.Domain.DomainEvents;
-using Acquisition.Api.Domain.Entities;
+﻿using Acquisition.Api.Domain.Entities;
+using Acquisition.Api.Domain.Events;
 using Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 using Mediator;
 

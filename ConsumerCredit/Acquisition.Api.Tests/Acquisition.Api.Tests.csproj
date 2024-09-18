@@ -29,6 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Acquisition.Api.Client\Acquisition.Api.Client.csproj"/>
         <ProjectReference Include="..\Acquisition.Api\Acquisition.Api.csproj"/>
     </ItemGroup>
 
