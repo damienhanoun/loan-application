@@ -1,0 +1,51 @@
+<form>
+  <div>
+    <label for="project">Project:</label><select id="project" name="project">
+    <option disabled selected value="">Select a project</option>
+    <option value="Wedding">Wedding</option>
+    <option value="Home Renovation">Home Renovation</option>
+    <option value="Vacation">Vacation</option>
+    <option value="Debt Consolidation">Debt Consolidation</option>
+    <option value="Car Purchase">Car Purchase</option>
+  </select></div>
+  <div>
+    <label for="amount">Amount:</label>
+    <select id="amount" name="amount">
+      <option disabled selected value="">Select an amount</option>
+      <option value="1000">1000</option>
+      <option value="1500">1500</option>
+      <option value="2000">2000</option>
+      <option value="2500">2500</option>
+      <option value="3000">3000</option>
+      <option value="3500">3500</option>
+      <option value="4000">4000</option>
+      <option value="4500">4500</option>
+      <option value="5000">5000</option>
+      <option value="5500">5500</option>
+      <option value="6000">6000</option>
+      <option value="6500">6500</option>
+      <option value="7000">7000</option>
+      <option value="7500">7500</option>
+      <option value="8000">8000</option>
+      <option value="8500">8500</option>
+      <option value="9000">9000</option>
+      <option value="9500">9500</option>
+      <option value="10000">10000</option>
+    </select>
+  </div>
+  <div>
+    <label for="maturity">Maturity:</label>
+    <select id="maturity" name="maturity">
+      <option disabled selected value="">Select maturity</option>
+      <option value="6">6</option>
+      <option value="12">12</option>
+      <option value="24">24</option>
+      <option value="36">36</option>
+      <option value="48">48</option>
+      <option value="72">72</option>
+      <option value="84">84</option>
+    </select>
+  </div>
+  <br>
+  <button (click)="continueNext()" type="button">Continue</button>
+</form>

@@ -1,0 +1,17 @@
+<div class="loan-offers">
+  <h2>Loan Offers</h2>
+  <ul>
+    <li (click)="selectOffer(offer)" *ngFor="let offer of offers">
+      {{ offer.name }}
+    </li>
+  </ul>
+
+  <div *ngIf="selectedOffer" class="offer-details">
+    <h3>{{ selectedOffer.name }}</h3>
+    <p>{{ selectedOffer.details }}</p>
+  </div>
+
+  <p *ngIf="selectedOffer">
+    <button (click)="continue()">Continue</button>
+  </p>
+</div>
