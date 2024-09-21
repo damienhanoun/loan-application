@@ -67,7 +67,7 @@ public class AcquisitionContext : DbContext
             b =>
             {
                 b.Property(p => p.Email)
-                    .HasConversion(x => x.Value, x => Email.CreateWithoutValidation(x))
+                    .HasConversion(x => x!.Value, x => Email.CreateWithoutValidation(x))
                     .HasMaxLength(100);
             });
     }

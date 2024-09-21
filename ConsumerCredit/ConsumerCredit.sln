@@ -2,11 +2,17 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Acquisition", "Acquisition", "{411518FA-6B92-4036-AC13-793A80C0B3FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api", "Acquisition.Api\Acquisition.Api.csproj", "{0108F407-F72C-458B-854C-1B9811CAF975}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acquisition.Api", "Acquisition.Api\Acquisition.Api.csproj", "{0108F407-F72C-458B-854C-1B9811CAF975}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api.Tests", "Acquisition.Api.Tests\Acquisition.Api.Tests.csproj", "{2D85B968-FEC1-4845-BFCF-501DF2C7C569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acquisition.Api.Tests", "Acquisition.Api.Tests\Acquisition.Api.Tests.csproj", "{2D85B968-FEC1-4845-BFCF-501DF2C7C569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.Api.Client", "Acquisition.Api.Client\Acquisition.Api.Client.csproj", "{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acquisition.Api.Client", "Acquisition.Api.Client\Acquisition.Api.Client.csproj", "{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7590494C-3449-42B9-8F00-7FD5C25ACA3A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.WebApplication.Server", "Acquisition.WebApplication\Acquisition.WebApplication.Server\Acquisition.WebApplication.Server.csproj", "{37668484-58BE-4A92-93E8-450977BFB961}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "acquisition.webapplication.client", "Acquisition.WebApplication\acquisition.webapplication.client\acquisition.webapplication.client.esproj", "{2CB532FD-F254-41E3-B438-AF626D3E2CCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +32,25 @@ Global
 		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37668484-58BE-4A92-93E8-450977BFB961}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37668484-58BE-4A92-93E8-450977BFB961}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37668484-58BE-4A92-93E8-450977BFB961}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37668484-58BE-4A92-93E8-450977BFB961}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0108F407-F72C-458B-854C-1B9811CAF975} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
 		{2D85B968-FEC1-4845-BFCF-501DF2C7C569} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
 		{8CA045F5-928C-4FB8-9943-1BB5ED0C082C} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
+		{37668484-58BE-4A92-93E8-450977BFB961} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
+		{2CB532FD-F254-41E3-B438-AF626D3E2CCA} = {411518FA-6B92-4036-AC13-793A80C0B3FD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A32E03A7-E33C-41D2-A9D5-B5748940CFFE}
 	EndGlobalSection
 EndGlobal
