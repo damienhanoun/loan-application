@@ -4,7 +4,7 @@ using Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
-namespace Acquisition.Api.Application.UseCases;
+namespace Acquisition.Api.Application.UseCases.LoanApplications;
 
 public class ExpressLoanWish(IWriteLoanApplicationRepository writeLoanApplicationRepository)
     : Endpoint<ExpressLoanWishCommand, ExpressLoanWishResponseDto>

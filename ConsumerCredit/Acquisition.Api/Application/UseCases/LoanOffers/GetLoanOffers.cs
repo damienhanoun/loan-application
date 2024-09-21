@@ -4,7 +4,7 @@ using Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 using FastEndpoints;
 using Riok.Mapperly.Abstractions;
 
-namespace Acquisition.Api.Application.UseCases;
+namespace Acquisition.Api.Application.UseCases.LoanOffers;
 
 public class GetLoanOffers(
     IReadLoanApplicationRepository readLoanApplicationRepository,

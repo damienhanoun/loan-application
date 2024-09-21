@@ -1,6 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Acquisition.Api.Application.UseCases;
+using Acquisition.Api.Application.UseCases.LoanApplications;
+using Acquisition.Api.Application.UseCases.LoanContracts;
+using Acquisition.Api.Application.UseCases.LoanOffers;
+using Acquisition.Api.Application.UseCases.Operations;
 using Acquisition.Api.Tests.Helpers;
 using NFluent;
 
@@ -61,7 +64,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
         var request = new EvaluateEligibilityToALoanQuery(loanApplicationId);
 
         // Act
-        var response = await _client.PostAsJsonAsync("evaluate-eligibility-to-a-loan", request);
+        var response = await _client.PostAsJsonAsync("evaluate-loan-eligibility", request);
         var responseDto = await response.Content.ReadFromJsonAsync<EvaluateEligibilityToALoanResponseDto>();
 
         // Assert

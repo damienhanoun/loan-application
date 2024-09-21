@@ -8,8 +8,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acquisition.Api.Tests", "Ac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acquisition.Api.Client", "Acquisition.Api.Client\Acquisition.Api.Client.csproj", "{8CA045F5-928C-4FB8-9943-1BB5ED0C082C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7590494C-3449-42B9-8F00-7FD5C25ACA3A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acquisition.WebApplication.Server", "Acquisition.WebApplication\Acquisition.WebApplication.Server\Acquisition.WebApplication.Server.csproj", "{37668484-58BE-4A92-93E8-450977BFB961}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "acquisition.webapplication.client", "Acquisition.WebApplication\acquisition.webapplication.client\acquisition.webapplication.client.esproj", "{2CB532FD-F254-41E3-B438-AF626D3E2CCA}"

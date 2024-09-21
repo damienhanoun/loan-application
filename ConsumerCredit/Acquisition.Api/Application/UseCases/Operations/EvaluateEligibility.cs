@@ -2,7 +2,7 @@
 using Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 using FastEndpoints;
 
-namespace Acquisition.Api.Application.UseCases;
+namespace Acquisition.Api.Application.UseCases.Operations;
 
 public class EvaluateEligibility(
     IReadLoanApplicationRepository readLoanApplicationRepository,
@@ -11,7 +11,7 @@ public class EvaluateEligibility(
 {
     public override void Configure()
     {
-        Post("/evaluate-eligibility-to-a-loan");
+        Post("/evaluate-loan-eligibility");
         AllowAnonymous();
         Description(x => x
             .WithTags("Evaluate eligibility")

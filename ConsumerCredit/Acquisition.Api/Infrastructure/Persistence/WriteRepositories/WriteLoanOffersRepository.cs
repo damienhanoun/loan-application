@@ -1,4 +1,5 @@
 ﻿using Acquisition.Api.Application.UseCases;
+using Acquisition.Api.Application.UseCases.LoanOffers;
 using AutomaticInterface;
 
 namespace Acquisition.Api.Infrastructure.Persistence.WriteRepositories;

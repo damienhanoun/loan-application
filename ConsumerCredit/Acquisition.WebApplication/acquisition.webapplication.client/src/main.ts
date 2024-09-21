@@ -1,8 +1,16 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { provideRouter } from '@angular/router';
+import { appRoutes } from './app/navigation/app-route';
 
-import { AppModule } from './app/app.module';
-
-platformBrowserDynamic().bootstrapModule(AppModule, {
-  ngZoneEventCoalescing: true
+bootstrapApplication(AppComponent, {
+  providers: [
+    provideRouter(appRoutes)
+  ]
 })
-  .catch(err => console.error(err));
+  .then(() => {
+    console.log('Application bootstrapped successfully!');
+  })
+  .catch(err => {
+    console.error('Error bootstrapping the application:', err);
+  });

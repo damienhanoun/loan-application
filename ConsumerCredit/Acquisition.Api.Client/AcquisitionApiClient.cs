@@ -71,17 +71,17 @@ namespace Acquisition.Api.Client
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task ChooseALoanOfferAsync(ChooseALoanOfferCommand chooseALoanOfferCommand)
+        public virtual System.Threading.Tasks.Task SignContractAsync(SignContractCommand signContractCommand)
         {
-            return ChooseALoanOfferAsync(chooseALoanOfferCommand, System.Threading.CancellationToken.None);
+            return SignContractAsync(signContractCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task ChooseALoanOfferAsync(ChooseALoanOfferCommand chooseALoanOfferCommand, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task SignContractAsync(SignContractCommand signContractCommand, System.Threading.CancellationToken cancellationToken)
         {
-            if (chooseALoanOfferCommand == null)
-                throw new System.ArgumentNullException("chooseALoanOfferCommand");
+            if (signContractCommand == null)
+                throw new System.ArgumentNullException("signContractCommand");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -89,7 +89,7 @@ namespace Acquisition.Api.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(chooseALoanOfferCommand, JsonSerializerSettings);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(signContractCommand, JsonSerializerSettings);
                     var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
@@ -97,8 +97,8 @@ namespace Acquisition.Api.Client
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "choose-a-loan-offer"
-                    urlBuilder_.Append("choose-a-loan-offer");
+                    // Operation Path: "sign-contract"
+                    urlBuilder_.Append("sign-contract");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -158,14 +158,14 @@ namespace Acquisition.Api.Client
         }
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateEligibilityToALoanAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery)
+        public virtual System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery)
         {
-            return EvaluateEligibilityToALoanAsync(evaluateEligibilityToALoanQuery, System.Threading.CancellationToken.None);
+            return EvaluateLoanEligibilityAsync(evaluateEligibilityToALoanQuery, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateEligibilityToALoanAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery, System.Threading.CancellationToken cancellationToken)
         {
             if (evaluateEligibilityToALoanQuery == null)
                 throw new System.ArgumentNullException("evaluateEligibilityToALoanQuery");
@@ -185,8 +185,8 @@ namespace Acquisition.Api.Client
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "evaluate-eligibility-to-a-loan"
-                    urlBuilder_.Append("evaluate-eligibility-to-a-loan");
+                    // Operation Path: "evaluate-loan-eligibility"
+                    urlBuilder_.Append("evaluate-loan-eligibility");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -214,99 +214,6 @@ namespace Acquisition.Api.Client
                         if (status_ == 200)
                         {
                             var objectResponse_ = await ReadObjectResponseAsync<EvaluateEligibilityToALoanResponseDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new AcquisitionApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            return objectResponse_.Object;
-                        }
-                        else
-                        if (status_ == 500)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
-                            if (objectResponse_.Object == null)
-                            {
-                                throw new AcquisitionApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
-                            }
-                            throw new AcquisitionApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
-                        }
-                        else
-                        {
-                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            throw new AcquisitionApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
-                        }
-                    }
-                    finally
-                    {
-                        if (disposeResponse_)
-                            response_.Dispose();
-                    }
-                }
-            }
-            finally
-            {
-                if (disposeClient_)
-                    client_.Dispose();
-            }
-        }
-
-        /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<ExpressLoanWishResponseDto> ExpressLoanWishAsync(ExpressLoanWishCommand expressLoanWishCommand)
-        {
-            return ExpressLoanWishAsync(expressLoanWishCommand, System.Threading.CancellationToken.None);
-        }
-
-        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<ExpressLoanWishResponseDto> ExpressLoanWishAsync(ExpressLoanWishCommand expressLoanWishCommand, System.Threading.CancellationToken cancellationToken)
-        {
-            if (expressLoanWishCommand == null)
-                throw new System.ArgumentNullException("expressLoanWishCommand");
-
-            var client_ = _httpClient;
-            var disposeClient_ = false;
-            try
-            {
-                using (var request_ = new System.Net.Http.HttpRequestMessage())
-                {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(expressLoanWishCommand, JsonSerializerSettings);
-                    var content_ = new System.Net.Http.ByteArrayContent(json_);
-                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
-                    request_.Content = content_;
-                    request_.Method = new System.Net.Http.HttpMethod("POST");
-                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
-
-                    var urlBuilder_ = new System.Text.StringBuilder();
-                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "express-loan-wish"
-                    urlBuilder_.Append("express-loan-wish");
-
-                    PrepareRequest(client_, request_, urlBuilder_);
-
-                    var url_ = urlBuilder_.ToString();
-                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
-
-                    PrepareRequest(client_, request_, url_);
-
-                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
-                    var disposeResponse_ = true;
-                    try
-                    {
-                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
-                        foreach (var item_ in response_.Headers)
-                            headers_[item_.Key] = item_.Value;
-                        if (response_.Content != null && response_.Content.Headers != null)
-                        {
-                            foreach (var item_ in response_.Content.Headers)
-                                headers_[item_.Key] = item_.Value;
-                        }
-
-                        ProcessResponse(client_, response_);
-
-                        var status_ = (int)response_.StatusCode;
-                        if (status_ == 200)
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<ExpressLoanWishResponseDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new AcquisitionApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -437,17 +344,17 @@ namespace Acquisition.Api.Client
         }
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task SignContractAsync(SignContractCommand signContractCommand)
+        public virtual System.Threading.Tasks.Task ChooseALoanOfferAsync(ChooseALoanOfferCommand chooseALoanOfferCommand)
         {
-            return SignContractAsync(signContractCommand, System.Threading.CancellationToken.None);
+            return ChooseALoanOfferAsync(chooseALoanOfferCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task SignContractAsync(SignContractCommand signContractCommand, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task ChooseALoanOfferAsync(ChooseALoanOfferCommand chooseALoanOfferCommand, System.Threading.CancellationToken cancellationToken)
         {
-            if (signContractCommand == null)
-                throw new System.ArgumentNullException("signContractCommand");
+            if (chooseALoanOfferCommand == null)
+                throw new System.ArgumentNullException("chooseALoanOfferCommand");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -455,7 +362,7 @@ namespace Acquisition.Api.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(signContractCommand, JsonSerializerSettings);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(chooseALoanOfferCommand, JsonSerializerSettings);
                     var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
@@ -463,8 +370,8 @@ namespace Acquisition.Api.Client
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: "sign-contract"
-                    urlBuilder_.Append("sign-contract");
+                    // Operation Path: "choose-a-loan-offer"
+                    urlBuilder_.Append("choose-a-loan-offer");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -492,6 +399,99 @@ namespace Acquisition.Api.Client
                         if (status_ == 200)
                         {
                             return;
+                        }
+                        else
+                        if (status_ == 500)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProblemDetails>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new AcquisitionApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new AcquisitionApiException<ProblemDetails>("A server side error occurred.", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new AcquisitionApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ExpressLoanWishResponseDto> ExpressLoanWishAsync(ExpressLoanWishCommand expressLoanWishCommand)
+        {
+            return ExpressLoanWishAsync(expressLoanWishCommand, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ExpressLoanWishResponseDto> ExpressLoanWishAsync(ExpressLoanWishCommand expressLoanWishCommand, System.Threading.CancellationToken cancellationToken)
+        {
+            if (expressLoanWishCommand == null)
+                throw new System.ArgumentNullException("expressLoanWishCommand");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(expressLoanWishCommand, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "express-loan-wish"
+                    urlBuilder_.Append("express-loan-wish");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ExpressLoanWishResponseDto>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new AcquisitionApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         if (status_ == 500)
@@ -750,14 +750,11 @@ namespace Acquisition.Api.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ChooseALoanOfferCommand
+    public partial class SignContractCommand
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]
         public System.Guid LoanApplicationId { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("offerId")]
-        public System.Guid OfferId { get; set; }
 
     }
 
@@ -776,30 +773,6 @@ namespace Acquisition.Api.Client
 
         [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]
         public System.Guid LoanApplicationId { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ExpressLoanWishResponseDto
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]
-        public System.Guid LoanApplicationId { get; set; }
-
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class ExpressLoanWishCommand
-    {
-
-        [System.Text.Json.Serialization.JsonPropertyName("project")]
-        public string Project { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("amount")]
-        public decimal Amount { get; set; }
-
-        [System.Text.Json.Serialization.JsonPropertyName("maturity")]
-        public int Maturity { get; set; }
 
     }
 
@@ -840,11 +813,38 @@ namespace Acquisition.Api.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class SignContractCommand
+    public partial class ChooseALoanOfferCommand
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]
         public System.Guid LoanApplicationId { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("offerId")]
+        public System.Guid OfferId { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ExpressLoanWishResponseDto
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]
+        public System.Guid LoanApplicationId { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial class ExpressLoanWishCommand
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("project")]
+        public string Project { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("amount")]
+        public decimal Amount { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("maturity")]
+        public int Maturity { get; set; }
 
     }
 

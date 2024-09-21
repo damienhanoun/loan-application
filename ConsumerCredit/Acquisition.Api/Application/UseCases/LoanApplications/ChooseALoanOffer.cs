@@ -2,30 +2,29 @@
 using Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 using FastEndpoints;
 
-namespace Acquisition.Api.Application.UseCases;
+namespace Acquisition.Api.Application.UseCases.LoanApplications;
 
-public class UpdateUserInformation(
+public class ChooseALoanOffer(
     IReadLoanApplicationRepository readLoanApplicationRepository,
-    IWriteLoanApplicationRepository writeLoanApplicationRepository)
-    : Endpoint<UpdateUserInformationCommand>
+    IWriteLoanApplicationRepository writeLoanApplicationRepository) : Endpoint<ChooseALoanOfferCommand>
 {
     public override void Configure()
     {
-        Post("/update-user-information");
+        Post("/choose-a-loan-offer");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Update user information")
+            .WithTags("Choose a loan offer")
             .Produces(200, typeof(void), "application/json")
             .ProducesProblem(500));
     }
 
-    public override async Task HandleAsync(UpdateUserInformationCommand request, CancellationToken ct)
+    public override async Task HandleAsync(ChooseALoanOfferCommand request, CancellationToken ct)
     {
         var loanApplication = readLoanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
-        loanApplication.UpdateUserInformation(request.UpdatedProperties);
+        loanApplication.ChooseALoanOffer(request.OfferId);
         await writeLoanApplicationRepository.UpdateLoanApplication(loanApplication);
         await SendOkAsync(ct);
     }
 }
 
-public record UpdateUserInformationCommand(Guid LoanApplicationId, Dictionary<string, object> UpdatedProperties);
+public record ChooseALoanOfferCommand(Guid LoanApplicationId, Guid OfferId);
