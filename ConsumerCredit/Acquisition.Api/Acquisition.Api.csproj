@@ -11,14 +11,14 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FastEndpoints" Version="5.28.0"/>
+        <PackageReference Include="FastEndpoints" Version="5.29.0"/>
         <PackageReference Include="Generator.Equals.Runtime" Version="3.1.1"/>
         <PackageReference Include="Mediator.Abstractions" Version="2.1.7"/>
         <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.2">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -31,6 +31,10 @@
         <PackageReference Include="Riok.Mapperly" Version="3.6.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.3"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Application\UseCases\Entities\"/>
     </ItemGroup>
 
     <Target Name="NSwag" AfterTargets="Build">

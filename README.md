@@ -10,7 +10,7 @@ A French loan application journey in a company that delivers credit to consumers
 ![Consumer credit](Event-storming.png)
  
 # Pre-requisite
-- Run "install-dependencies.ps1" in powershell to install
+- Run "install-dependencies.ps1" in powershell **as administrator** to install
   - .Net 8
   - Docker Desktop
 

@@ -1,9 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Json;
-using Acquisition.Api.Application.UseCases.LoanApplications;
-using Acquisition.Api.Application.UseCases.LoanContracts;
-using Acquisition.Api.Application.UseCases.LoanOffers;
-using Acquisition.Api.Application.UseCases.Operations;
+﻿using Acquisition.Api.Client;
 using Acquisition.Api.Tests.Helpers;
 using NFluent;
 
@@ -13,7 +8,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     : IClassFixture<AcquisitionApiFactory>, IAsyncLifetime
 {
     private readonly AcquisitionTestRepository _acquisitionTestRepository = new(acquisitionApiFactory);
-    private readonly HttpClient _client = acquisitionApiFactory.Client;
+    private readonly AcquisitionApiClient _client = new(acquisitionApiFactory.Client.BaseAddress!.ToString(), acquisitionApiFactory.Client);
     private readonly Func<Task> _dbReset = acquisitionApiFactory.ResetDatabaseAsync;
 
     public Task InitializeAsync()
@@ -30,13 +25,18 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     public async Task Should_express_loan_wish()
     {
         // Arrange
-        var request = new ExpressLoanWishCommand("Green investment", 10000, 12);
+        var request = new ExpressLoanWishCommand
+        {
+            Project = "Green investment",
+            Amount = 10000,
+            Maturity = 12
+        };
 
         // Act
-        var response = await _client.PostAsJsonAsync("express-loan-wish", request);
+        var exception = await Record.ExceptionAsync(() => _client.ExpressLoanWishAsync(request));
 
         // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+        Check.That(exception).IsNull();
     }
 
     [Fact]
@@ -44,16 +44,20 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     {
         // Arrange
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
-        var request = new UpdateUserInformationCommand(loanApplicationId, new Dictionary<string, object>
+        var request = new UpdateUserInformationCommand
         {
-            { "Email", "email@email.fr" }
-        });
+            LoanApplicationId = loanApplicationId,
+            UpdatedProperties = new Dictionary<string, object>
+            {
+                { "Email", "email@email.fr" }
+            }
+        };
 
         // Act
-        var response = await _client.PostAsJsonAsync("update-user-information", request);
+        var exception = await Record.ExceptionAsync(() => _client.UpdateUserInformationAsync(request));
 
         // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+        Check.That(exception).IsNull();
     }
 
     [Fact]
@@ -61,14 +65,12 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     {
         // Arrange
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
-        var request = new EvaluateEligibilityToALoanQuery(loanApplicationId);
+        var request = new EvaluateEligibilityToALoanQuery { LoanApplicationId = loanApplicationId };
 
         // Act
-        var response = await _client.PostAsJsonAsync("evaluate-loan-eligibility", request);
-        var responseDto = await response.Content.ReadFromJsonAsync<EvaluateEligibilityToALoanResponseDto>();
+        var responseDto = await _client.EvaluateLoanEligibilityAsync(request);
 
         // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
         Check.That(responseDto!.IsEligibleToALoan).IsTrue();
     }
 
@@ -78,14 +80,12 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
         // Arrange
         var wishedAmount = 1000;
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication(wishedAmount);
-        var query = new GetLoanOffersQuery(loanApplicationId);
+        var query = new GetLoanOffersQuery { LoanApplicationId = loanApplicationId };
 
         // Act
-        var response = await _client.PostAsJsonAsync("get-loan-offers", query);
-        var responseDto = await response.Content.ReadFromJsonAsync<GetLoanOffersResponseDto>();
+        var responseDto = await _client.GetLoanOffersAsync(query);
 
         // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
         Check.That(responseDto!.LoanOffers).Not.IsEmpty();
     }
 
@@ -95,14 +95,13 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
         // Arrange
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
         var loanOfferId = await _acquisitionTestRepository.CreateALoanOffer();
+        var command = new ChooseALoanOfferCommand { LoanApplicationId = loanApplicationId, OfferId = loanOfferId };
 
         // Act
-        var command = new ChooseALoanOfferCommand(loanApplicationId, loanOfferId);
-        var response = await _client.PostAsJsonAsync("choose-a-loan-offer", command);
+        await _client.ChooseALoanOfferAsync(command);
 
         // Assert
         var loanApplication = _acquisitionTestRepository.GetLoanApplication(loanApplicationId);
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
         Check.That(loanApplication.LoanOfferId).IsEqualTo(loanOfferId);
     }
 
@@ -112,12 +111,24 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
         // Arrange
         var loanApplicationId = Guid.NewGuid();
         await _acquisitionTestRepository.CreateALoanContract(loanApplicationId);
+        var command = new SignContractCommand { LoanApplicationId = loanApplicationId };
 
         // Act
-        var command = new SignContractCommand(loanApplicationId);
-        var response = await _client.PostAsJsonAsync("sign-contract", command);
+        var exception = await Record.ExceptionAsync(() => _client.SignContractAsync(command));
 
         // Assert
-        Check.That(response.StatusCode).IsEqualTo(HttpStatusCode.OK);
+        Check.That(exception).IsNull();
+    }
+
+    [Fact]
+    public async Task Should_get_simulator_information()
+    {
+        // Act
+        var responseDto = await _client.GetSimulatorInformationAsync();
+
+        // Assert
+        Check.That(responseDto!.Projects).Not.IsEmpty();
+        Check.That(responseDto.Amounts).Not.IsEmpty();
+        Check.That(responseDto.Maturities).Not.IsEmpty();
     }
 }
