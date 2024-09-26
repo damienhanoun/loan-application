@@ -12,10 +12,10 @@ import { AcquisitionApiClient, GetSimulatorInformationResponseDto } from '../../
     NgForOf,
     AsyncPipe
   ],
-  templateUrl: './simulator.component.html',
-  styleUrl: './simulator.component.css'
+  templateUrl: './simulator-page.component.html',
+  styleUrl: './simulator-page.component.css'
 })
-export class SimulatorComponent implements OnInit {
+export class SimulatorPageComponent implements OnInit {
 
   public projects$: Observable<string[]> = new Observable();
   public amounts$: Observable<string[]> = new Observable();

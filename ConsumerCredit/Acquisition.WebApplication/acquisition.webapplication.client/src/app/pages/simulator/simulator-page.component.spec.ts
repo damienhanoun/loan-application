@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimulatorComponent } from './simulator.component';
+import { SimulatorPageComponent } from './simulator-page.component';
 
 describe('SimulatorComponent', () => {
-  let component: SimulatorComponent;
-  let fixture: ComponentFixture<SimulatorComponent>;
+  let component: SimulatorPageComponent;
+  let fixture: ComponentFixture<SimulatorPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SimulatorComponent]
+      imports: [SimulatorPageComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(SimulatorComponent);
+    fixture = TestBed.createComponent(SimulatorPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

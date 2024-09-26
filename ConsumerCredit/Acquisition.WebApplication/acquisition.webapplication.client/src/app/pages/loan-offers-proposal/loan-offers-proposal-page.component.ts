@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
     NgIf,
     NgForOf
   ],
-  templateUrl: './loan-offers-proposal.component.html',
-  styleUrls: ['./loan-offers-proposal.component.css']
+  templateUrl: './loan-offers-proposal-page.component.html',
+  styleUrls: ['./loan-offers-proposal-page.component.css']
 })
-export class LoanOffersProposalComponent {
+export class LoanOffersProposalPageComponent {
   offers: Array<{ id: number, name: string, details: string }> = [
     {id: 1, name: 'Offer 1', details: 'Details for offer 1'},
     {id: 2, name: 'Offer 2', details: 'Details for offer 2'}

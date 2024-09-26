@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
   selector: 'app-loan-eligibility-evaluation',
   standalone: true,
   imports: [],
-  templateUrl: './loan-eligibility-evaluation.component.html',
-  styleUrl: './loan-eligibility-evaluation.component.css'
+  templateUrl: './loan-eligibility-evaluation-page.component.html',
+  styleUrl: './loan-eligibility-evaluation-page.component.css'
 })
-export class LoanEligibilityEvaluationComponent implements OnInit {
+export class LoanEligibilityEvaluationPageComponent implements OnInit {
 
   constructor(private router: Router) {
   }
