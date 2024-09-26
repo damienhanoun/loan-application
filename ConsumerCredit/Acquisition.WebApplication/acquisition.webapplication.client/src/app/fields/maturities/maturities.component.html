@@ -1,0 +1,8 @@
+<label for="maturity">Maturity:</label>
+<select (ngModelChange)="onMaturityChange($event)" [ngModel]="selectedMaturity" id="maturity" name="maturity">
+  <option disabled selected value="">Select a maturity</option>
+  <ng-container *ngFor="let maturity of maturities$ | async">
+    <option [value]="maturity">{{ maturity }}</option>
+  </ng-container>
+</select>
+<div *ngIf="!isValid() && touched()">Please select a valid maturity</div>

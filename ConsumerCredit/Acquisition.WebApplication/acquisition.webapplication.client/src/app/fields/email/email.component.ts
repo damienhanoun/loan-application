@@ -3,11 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { FormFieldComponent } from '../form-field-component';
 
-export interface EmailState {
-  value: string;
-  isValid: boolean;
-}
-
 @Component({
   selector: 'email',
   standalone: true,

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { EmailComponent } from '../../components/email/email.component';
-import { FormPageComponent } from '../formPageComponent';
+import { FormPageComponent } from '../form-page-component';
+import { EmailComponent } from '../../fields/email/email.component';
 
 @Component({
   selector: 'app-email',
@@ -16,7 +16,7 @@ export class EmailPageComponent extends FormPageComponent {
     super();
   }
 
-  override async actionOnSuccess(): Promise<void> {
+  async actionOnSuccess(): Promise<void> {
     await this.router.navigate(['/loan-eligibility-evaluation']);
   }
 }

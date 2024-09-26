@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { EmailComponent } from '../../components/email/email.component';
 import { EmailPageComponent } from './email-page.component';
-import { FormPageComponent } from '../formPageComponent';
+import { FormPageComponent } from '../form-page-component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Mock Router for Dependency Injection

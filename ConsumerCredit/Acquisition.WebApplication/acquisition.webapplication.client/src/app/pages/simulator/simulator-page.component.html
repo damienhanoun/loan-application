@@ -1,29 +1,5 @@
 <form>
-  <div>
-    <label for="project">Project:</label><select id="project" name="project">
-    <option disabled selected value="">Select a project</option>
-    <ng-container *ngFor="let project of projects$ | async">
-      <option [value]="project">{{ project }}</option>
-    </ng-container>
-  </select></div>
-  <div>
-    <label for="amount">Amount:</label>
-    <select id="amount" name="amount">
-      <option disabled selected value="">Select an amount</option>
-      <ng-container *ngFor="let amount of amounts$ | async">
-        <option [value]="amount">{{ amount }}</option>
-      </ng-container>
-    </select>
-  </div>
-  <div>
-    <label for="maturity">Maturity:</label>
-    <select id="maturity" name="maturity">
-      <option disabled selected value="">Select maturity</option>
-      <ng-container *ngFor="let maturity of maturities$ | async">
-        <option [value]="maturity">{{ maturity }}</option>
-      </ng-container>
-    </select>
-  </div>
+  <simulator></simulator>
   <br>
-  <button (click)="continueNext()" type="button">Continue</button>
+  <button (click)="onContinue()" type="button">Continue</button>
 </form>
