@@ -19,7 +19,6 @@ export class FormFieldsCompositeComponent implements OnDestroy {
   }
 
   isValid = (): boolean => {
-    this.formFields().forEach((field) => console.log(field.child()));
     return (
       this.formFields().every((field) => field.isValid()) &&
       this.formFieldsComposite().every((field) => field.isValid())

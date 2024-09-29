@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { PageComponent } from '../page.component';
 
 @Component({
   selector: 'app-loan-eligibility-evaluation',
   standalone: true,
   imports: [],
   templateUrl: './loan-eligibility-evaluation-page.component.html',
-  styleUrl: './loan-eligibility-evaluation-page.component.css'
+  styleUrl: './loan-eligibility-evaluation-page.component.css',
 })
-export class LoanEligibilityEvaluationPageComponent implements OnInit {
-
-  constructor(private router: Router) {
+export class LoanEligibilityEvaluationPageComponent
+  extends PageComponent
+  implements OnInit
+{
+  constructor() {
+    super(LoanEligibilityEvaluationPageComponent);
   }
 
   ngOnInit(): void {
-    setTimeout(async () => {
-      await this.router.navigate(['/loan-offers-proposal']);
+    setTimeout(() => {
+      this.onContinue();
     }, 5000);
   }
 }
