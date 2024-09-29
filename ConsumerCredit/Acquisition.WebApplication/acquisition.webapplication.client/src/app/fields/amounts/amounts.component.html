@@ -1,8 +1,0 @@
-<label for="amount">Amount:</label>
-<select (ngModelChange)="onAmountChange($event)" [ngModel]="selectedAmount" id="amount" name="amount">
-  <option disabled selected value="">Select an amount</option>
-  <ng-container *ngFor="let amount of amounts$ | async">
-    <option [value]="amount">{{ amount }}</option>
-  </ng-container>
-</select>
-<div *ngIf="!isValid() && touched()">Please select a valid amount</div>

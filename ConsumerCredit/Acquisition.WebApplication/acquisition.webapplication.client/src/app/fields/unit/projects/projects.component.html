@@ -1,0 +1,8 @@
+<drop-down-list #el
+                [(selectedValue)]="selectedProject"
+                [isValid]="isValid()"
+                [values]="projects()"
+                errorMessage="Please select a valid project"
+                labelText="Project:"
+                placeholder="Select a project"
+></drop-down-list>

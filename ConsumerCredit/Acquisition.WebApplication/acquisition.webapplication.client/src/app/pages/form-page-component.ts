@@ -1,17 +1,24 @@
 ﻿import { Component, computed, Signal, viewChildren } from '@angular/core';
-import { FormFieldsAggregatorComponent } from '../fields-aggregators/form-fields-aggregator-component';
-import { FormFieldComponent } from '../fields/form-field-component';
+import { FormFieldsCompositeComponent } from '../fields/composite/form-fields-composite.component';
+import { FormFieldComponent } from '../fields/unit/form-field-component';
 
 @Component({
-  template: ''
+  template: '',
 })
 export abstract class FormPageComponent {
-  formFieldsAggregators: Signal<ReadonlyArray<FormFieldsAggregatorComponent>> = viewChildren(FormFieldsAggregatorComponent);
-  formFields: Signal<ReadonlyArray<FormFieldComponent>> = viewChildren(FormFieldComponent);
-  allFieldsValid = computed(() => this.formFields().every(field => field.isValid()) && this.formFieldsAggregators().every(field => field.isValid()));
+  formFieldsComposite: Signal<ReadonlyArray<FormFieldsCompositeComponent>> =
+    viewChildren(FormFieldsCompositeComponent);
+  formFields: Signal<ReadonlyArray<FormFieldComponent>> =
+    viewChildren(FormFieldComponent);
+  allFieldsValid = computed(
+    () =>
+      this.formFields().every((field) => field.isValid()) &&
+      this.formFieldsComposite().every((field) => field.isValid()),
+  );
 
   async onContinue(): Promise<void> {
-    this.formFields().forEach(field => field.setTouched());
+    this.formFieldsComposite().forEach((f) => f.touchChildren());
+    this.formFields().forEach((field) => field.child().touched.set(true));
 
     if (this.allFieldsValid()) {
       await this.actionOnSuccess();

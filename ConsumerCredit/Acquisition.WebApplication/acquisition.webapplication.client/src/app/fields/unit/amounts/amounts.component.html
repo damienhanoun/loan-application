@@ -1,0 +1,8 @@
+<drop-down-list #el
+                [(selectedValue)]="selectedAmount"
+                [isValid]="isValid()"
+                [values]="amounts()"
+                errorMessage="Please select a valid amount"
+                labelText="Amount:"
+                placeholder="Select an amount"
+></drop-down-list>

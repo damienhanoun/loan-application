@@ -1,8 +1,0 @@
-<label for="project">Project:</label>
-<select (ngModelChange)="onProjectChange($event)" [ngModel]="selectedProject" id="project" name="project">
-  <option disabled selected value="">Select a project</option>
-  <ng-container *ngFor="let project of projects$ | async">
-    <option [value]="project">{{ project }}</option>
-  </ng-container>
-</select>
-<div *ngIf="!isValid() && touched()">Please select a valid project</div>

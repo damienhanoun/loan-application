@@ -1,0 +1,8 @@
+<drop-down-list #el
+                [(selectedValue)]="selectedMaturity"
+                [isValid]="isValid()"
+                [values]="maturities()"
+                errorMessage="Please select a valid maturity"
+                labelText="Maturity:"
+                placeholder="Select a maturity"
+></drop-down-list>

@@ -1,0 +1,2 @@
+<input [(ngModel)]="value" type="email"/>
+<div *ngIf="!isValid() && touched()">{{ errorMessage() }}</div>
