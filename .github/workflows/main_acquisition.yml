@@ -66,5 +66,5 @@ jobs:
         with:
           app-name: 'Acquisition'
           slot-name: 'production'
-          package: ./publish
+          package: .
           
