@@ -21,9 +21,17 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      - name: Install NSwag .NET Core Global Tool
+        run: dotnet tool install --global NSwag.ConsoleCore
+
+      - name: Add .NET tools to PATH
+        run: echo "::add-path::$(dotnet --info | grep -oP '(?<=\.NET executable\s+:\s).*(?=/dotnet)')/tools"
+      
       - name: Build with dotnet
         run: dotnet build ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj --configuration Release
-
+        env:
+          PATH: ${{ runner.tool_cache }}/tools:${{ env.PATH }}
+          
       - name: Publish .NET project
         run: dotnet publish ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj -c Release -o ./publish
 
