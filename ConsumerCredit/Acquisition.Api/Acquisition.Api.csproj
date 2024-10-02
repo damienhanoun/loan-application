@@ -37,7 +37,7 @@
         <Folder Include="Application\UseCases\Entities\"/>
     </ItemGroup>
 
-    <Target Name="NSwag" AfterTargets="Build">
-        <Exec Command="nswag run $(ProjectDir)nswag.json"/>
-    </Target>
+<!--    <Target Name="NSwag" AfterTargets="Build">-->
+<!--        <Exec Command="nswag run $(ProjectDir)nswag.json"/>-->
+<!--    </Target>-->
 </Project>
