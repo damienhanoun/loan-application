@@ -37,7 +37,12 @@
         <Folder Include="Application\UseCases\Entities\"/>
     </ItemGroup>
 
-<!--    <Target Name="NSwag" AfterTargets="Build">-->
-<!--        <Exec Command="nswag run $(ProjectDir)nswag.json"/>-->
-<!--    </Target>-->
+    <Target Name="RunBashCommand" BeforeTargets="Build">
+        <!--    ContinueOnError="true" is here just in case first installation would failed during certificate installation -->
+        <Exec Command="cd .\Infrastructure\Persistence\Database &amp;&amp; docker-compose up --no-recreate -d &amp;&amp; docker start loanapplication" ContinueOnError="true"/>
+    </Target>
+
+    <Target Name="NSwag" AfterTargets="Build">
+        <Exec Command="nswag run $(ProjectDir)nswag.json"/>
+    </Target>
 </Project>

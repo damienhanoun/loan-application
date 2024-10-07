@@ -2,7 +2,7 @@
 using Acquisition.Api.Infrastructure.Persistence.WriteRepositories;
 using FastEndpoints;
 
-namespace Acquisition.Api.Application.UseCases.LoanContracts;
+namespace Acquisition.Api.Application.UseCases.Entities.LoanContracts;
 
 public class SignContract(
     IReadLoanContractRepository readLoanContractRepository,

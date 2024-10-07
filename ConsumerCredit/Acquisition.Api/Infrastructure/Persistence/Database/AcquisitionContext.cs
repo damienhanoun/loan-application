@@ -3,7 +3,7 @@ using Acquisition.Domain.ValueObjects;
 using Mediator;
 using Microsoft.EntityFrameworkCore;
 
-namespace Acquisition.Api.Persistence.Database;
+namespace Acquisition.Api.Infrastructure.Persistence.Database;
 
 public class AcquisitionContext : DbContext
 {
@@ -17,27 +17,22 @@ public class AcquisitionContext : DbContext
     public DbSet<LoanApplication> LoanApplications => Set<LoanApplication>();
     public DbSet<LoanOffer> LoanOffers => Set<LoanOffer>();
     public DbSet<LoanContract> LoanContracts => Set<LoanContract>();
+    public DbSet<Resource> Resources => Set<Resource>();
 
     public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
     {
-        // Dispatch Domain Events collection.
-        // Choices:
-        // A) Right BEFORE committing data (EF SaveChanges) into the DB. This makes
-        // a single transaction including side effects from the domain event
-        // handlers that are using the same DbContext with Scope lifetime
-        // B) Right AFTER committing data (EF SaveChanges) into the DB. This makes
-        // multiple transactions. You will need to handle eventual consistency and
-        // compensatory actions in case of failures.
         await _mediator.DispatchDomainEventsAsync(this);
-
-        // After this line runs, all the changes (from the Command Handler and Domain
-        // event handlers) performed through the DbContext will be committed
         await base.SaveChangesAsync(cancellationToken);
-
         return true;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        BuildDomainObjects(modelBuilder);
+        BuildResources(modelBuilder);
+    }
+
+    private static void BuildDomainObjects(ModelBuilder modelBuilder)
     {
         BuildLoanApplication(modelBuilder);
         BuildLoanContract(modelBuilder);
@@ -97,4 +92,48 @@ public class AcquisitionContext : DbContext
         modelBuilder.Entity<LoanContract>()
             .Property(p => p.LoanApplicationId);
     }
+
+    private static void BuildResources(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Resource>().HasData(
+            new Resource { Id = 1, Type = "maturity", Value = "6" },
+            new Resource { Id = 2, Type = "maturity", Value = "12" },
+            new Resource { Id = 3, Type = "maturity", Value = "24" },
+            new Resource { Id = 4, Type = "maturity", Value = "36" },
+            new Resource { Id = 5, Type = "maturity", Value = "48" },
+            new Resource { Id = 6, Type = "maturity", Value = "72" },
+            new Resource { Id = 7, Type = "maturity", Value = "84" },
+            new Resource { Id = 8, Type = "amount", Value = "1000" },
+            new Resource { Id = 9, Type = "amount", Value = "1500" },
+            new Resource { Id = 10, Type = "amount", Value = "2000" },
+            new Resource { Id = 11, Type = "amount", Value = "2500" },
+            new Resource { Id = 12, Type = "amount", Value = "3000" },
+            new Resource { Id = 13, Type = "amount", Value = "3500" },
+            new Resource { Id = 14, Type = "amount", Value = "4000" },
+            new Resource { Id = 15, Type = "amount", Value = "4500" },
+            new Resource { Id = 16, Type = "amount", Value = "5000" },
+            new Resource { Id = 17, Type = "amount", Value = "5500" },
+            new Resource { Id = 18, Type = "amount", Value = "6000" },
+            new Resource { Id = 19, Type = "amount", Value = "6500" },
+            new Resource { Id = 20, Type = "amount", Value = "7000" },
+            new Resource { Id = 21, Type = "amount", Value = "7500" },
+            new Resource { Id = 22, Type = "amount", Value = "8000" },
+            new Resource { Id = 23, Type = "amount", Value = "8500" },
+            new Resource { Id = 24, Type = "amount", Value = "9000" },
+            new Resource { Id = 25, Type = "amount", Value = "9500" },
+            new Resource { Id = 26, Type = "amount", Value = "+10000" },
+            new Resource { Id = 27, Type = "project", Value = "Wedding" },
+            new Resource { Id = 28, Type = "project", Value = "Home Renovation" },
+            new Resource { Id = 29, Type = "project", Value = "Vacation" },
+            new Resource { Id = 30, Type = "project", Value = "Debt Consolidation" },
+            new Resource { Id = 31, Type = "project", Value = "Car Purchase" }
+        );
+    }
+}
+
+public class Resource
+{
+    public int Id { get; set; }
+    public string Type { get; set; }
+    public string Value { get; set; }
 }

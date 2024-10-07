@@ -13,10 +13,7 @@ A French loan application journey in a company that delivers credit to consumers
 - Run "install-dependencies.ps1" in powershell **as administrator** to install
   - .Net 8
   - Docker Desktop
+  - Certificate required for front end in trusted certificates
 
-# API launch pre-requisite
-- Run Docker Desktop
-- Run "launch database.bat"
-
-# Tests launch pre-requisite
+# API and tests launch pre-requisite
 - Run Docker Desktop

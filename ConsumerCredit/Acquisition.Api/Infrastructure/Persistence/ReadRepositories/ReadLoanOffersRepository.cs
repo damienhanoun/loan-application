@@ -1,5 +1,4 @@
-﻿using Acquisition.Api.Application.UseCases;
-using Acquisition.Api.Application.UseCases.LoanOffers;
+﻿using Acquisition.Api.Application.UseCases.Entities.LoanOffers;
 using AutomaticInterface;
 
 namespace Acquisition.Api.Infrastructure.Persistence.ReadRepositories;

@@ -1,5 +1,5 @@
 ﻿using Acquisition.Api.Domain.Entities;
-using Acquisition.Api.Persistence.Database;
+using Acquisition.Api.Infrastructure.Persistence.Database;
 using AutomaticInterface;
 
 namespace Acquisition.Api.Infrastructure.Persistence.WriteRepositories;

@@ -89,7 +89,7 @@ export class AcquisitionApiClient implements IAcquisitionApiClient {
 export class GetSimulatorInformationResponseDto {
     projects?: string[] | undefined;
     amounts?: string[] | undefined;
-    maturities?: number[] | undefined;
+    maturities?: string[] | undefined;
 
     init(_data?: any) {
         if (_data) {

@@ -4,16 +4,15 @@ namespace Acquisition.Api.Domain.Entities;
 
 public abstract class Entity
 {
-    public List<INotification> DomainEvents { get; private set; } = null!;
+    public List<INotification> DomainEvents { get; } = new();
 
-    public void AddDomainEvent(INotification eventItem)
+    protected void AddDomainEvent(INotification eventItem)
     {
-        DomainEvents ??= new List<INotification>();
         DomainEvents.Add(eventItem);
     }
 
     public void RemoveDomainEvent(INotification eventItem)
     {
-        DomainEvents?.Remove(eventItem);
+        DomainEvents.Remove(eventItem);
     }
 }

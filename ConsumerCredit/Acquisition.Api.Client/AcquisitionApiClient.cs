@@ -871,7 +871,7 @@ namespace Acquisition.Api.Client
         public System.Collections.Generic.ICollection<string> Amounts { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("maturities")]
-        public System.Collections.Generic.ICollection<int> Maturities { get; set; }
+        public System.Collections.Generic.ICollection<string> Maturities { get; set; }
 
     }
 

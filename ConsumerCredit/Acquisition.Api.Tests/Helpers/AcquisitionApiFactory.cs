@@ -1,4 +1,4 @@
-﻿using Acquisition.Api.Persistence.Database;
+﻿using Acquisition.Api.Infrastructure.Persistence.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Npgsql;
 using Respawn;
+using Respawn.Graph;
 using Testcontainers.PostgreSql;
 
 namespace Acquisition.Api.Tests.Helpers;
@@ -15,15 +16,11 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
 {
     private readonly PostgreSqlContainer _dbContainer =
         new PostgreSqlBuilder()
-            .WithPortBinding(5433, true) // randomness prevent conflict when launching all tests together
-            .WithDatabase("acquisition")
-            .WithUsername("postgres")
-            .WithPassword("password")
+            .WithPortBinding(5433, true) // randomness of port allow to run integration and acceptance tests at the same time
             .Build();
 
     private Respawner _respawner = null!;
-
-    public NpgsqlConnection DbConnection = null!;
+    private NpgsqlConnection DbConnection = null!;
 
     public HttpClient Client { get; private set; } = null!;
 
@@ -42,13 +39,20 @@ public class AcquisitionApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLi
         _respawner = await Respawner.CreateAsync(DbConnection, new RespawnerOptions
         {
             DbAdapter = DbAdapter.Postgres,
-            SchemasToInclude = new[] { "public" }
+            SchemasToInclude = new[] { "public" },
+            TablesToInclude = new[]
+            {
+                // Do not reference static resources that are seeded at start
+                new Table("LoanApplications"),
+                new Table("LoanOffers"),
+                new Table("LoanContracts")
+            }
         });
     }
 
-    public new async Task DisposeAsync()
+    public new Task DisposeAsync()
     {
-        await _dbContainer.StopAsync();
+        return _dbContainer.StopAsync();
     }
 
     public async Task ResetDatabaseAsync()

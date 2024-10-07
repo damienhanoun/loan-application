@@ -4,7 +4,7 @@ using FastEndpoints;
 
 namespace Acquisition.Api.Application.UseCases.Operations;
 
-public class EvaluateEligibility(
+public class EvaluateLoanEligibility(
     IReadLoanApplicationRepository readLoanApplicationRepository,
     ILoanOffersEligibilityEvaluationService loanOffersEligibilityEvaluationService)
     : Endpoint<EvaluateEligibilityToALoanQuery, EvaluateEligibilityToALoanResponseDto>
@@ -14,7 +14,7 @@ public class EvaluateEligibility(
         Post("/evaluate-loan-eligibility");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Evaluate eligibility")
+            .WithTags("Evaluate loan eligibility")
             .Produces(200, typeof(EvaluateEligibilityToALoanResponseDto), "application/json")
             .ProducesProblem(500));
     }

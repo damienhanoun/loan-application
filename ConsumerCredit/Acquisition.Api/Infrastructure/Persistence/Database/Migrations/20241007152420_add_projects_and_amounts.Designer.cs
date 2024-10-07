@@ -3,6 +3,7 @@ using System;
 using Acquisition.Api.Infrastructure.Persistence.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Acquisition.Infrastructure.Migrations
 {
     [DbContext(typeof(AcquisitionContext))]
-    partial class AcquisitionContextModelSnapshot : ModelSnapshot
+    [Migration("20241007152420_add_projects_and_amounts")]
+    partial class add_projects_and_amounts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

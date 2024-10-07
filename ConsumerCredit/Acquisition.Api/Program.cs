@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Acquisition.Api.Persistence.Database;
+using Acquisition.Api.Infrastructure.Persistence.Database;
 using Acquisition.Api.Scaffolding;
 using FastEndpoints;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +13,7 @@ builder.Services.AddOpenApiDocument();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMediator(options => { options.ServiceLifetime = ServiceLifetime.Transient; });
-builder.Services.AddDbContext<AcquisitionContext>(
-    options => options.UseNpgsql("Host=localhost;Port=5432;Database=acquisition;User ID=postgres;Password=password;"),
-    ServiceLifetime.Transient);
+builder.Services.AddAcquisitionDatabase(builder.Configuration);
 builder.Services.AddServicesAndRepositories(Assembly.GetExecutingAssembly());
 var app = builder.Build();
 

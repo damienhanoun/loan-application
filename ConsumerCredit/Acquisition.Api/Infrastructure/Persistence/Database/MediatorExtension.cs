@@ -1,7 +1,7 @@
 ﻿using Acquisition.Api.Domain.Entities;
 using Mediator;
 
-namespace Acquisition.Api.Persistence.Database;
+namespace Acquisition.Api.Infrastructure.Persistence.Database;
 
 public static class MediatorExtension
 {
