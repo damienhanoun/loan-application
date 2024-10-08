@@ -23,7 +23,12 @@ if (app.Environment.IsDevelopment())
     {
         var scopedServices = scope.ServiceProvider;
         var dbContext = scopedServices.GetRequiredService<AcquisitionContext>();
-        await dbContext.Database.MigrateAsync();
+
+        var pendingMigrations = await dbContext.Database.GetPendingMigrationsAsync();
+        if (pendingMigrations.Any())
+        {
+            await dbContext.Database.MigrateAsync();
+        }
     }
 
     app.UseOpenApi();

@@ -221,6 +221,10 @@ Install-Net8
 # Check and install Docker Desktop
 Install-DockerDesktop
 
+# Install nswag before trying to launch the project that require it
+Write-Host "Installing nswag"
+dotnet tool install --global NSwag.ConsoleCore
+
 # Trust the certificate if it exists
 Generate-And-Trust-Certificates
 
