@@ -14,7 +14,7 @@ public class ExpressLoanWish(IWriteLoanApplicationRepository writeLoanApplicatio
         Post("/express-loan-wish");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Express loan wish")
+            .WithTags("Loan application")
             .Produces(200, typeof(ExpressLoanWishResponseDto), "application/json")
             .ProducesProblem(500));
     }

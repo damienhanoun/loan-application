@@ -3,17 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "run-script-os",
+    "start": "ng serve --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=localhost",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",
-    "prestart": "node aspnetcore-https",
-    "start:windows": "ng serve --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=127.0.0.1",
-    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=127.0.0.1"
+    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=localhost"
   },
   "private": true,
   "dependencies": {
+    "@angular-architects/ngrx-toolkit": "^18.0.3",
     "@angular/animations": "^18.2.6",
     "@angular/common": "^18.2.6",
     "@angular/compiler": "^18.2.6",
@@ -22,8 +21,9 @@
     "@angular/platform-browser": "^18.2.6",
     "@angular/platform-browser-dynamic": "^18.2.6",
     "@angular/router": "^18.2.6",
+    "@ngrx/signals": "^18.0.2",
+    "@ngrx/store-devtools": "^18.0.2",
     "jest-editor-support": "*",
-    "run-script-os": "*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

@@ -1,0 +1,15 @@
+﻿<Solution>
+  <Folder Name="/Acquisition/" />
+  <Folder Name="/Acquisition/Api/">
+    <Project Path="Acquisition.Api.Client\Acquisition.Api.Client.csproj" />
+    <Project Path="Acquisition.Api.Tests\Acquisition.Api.Tests.csproj" />
+    <Project Path="Acquisition.Api\Acquisition.Api.csproj" />
+  </Folder>
+  <Folder Name="/Acquisition/Fronts/">
+    <Project Path="Acquisition.WebApplication\acquisition.webapplication.client\acquisition.webapplication.client.esproj" Type="{54A90642-561A-4BB1-A94E-469ADEE60C69}">
+      <Configuration Solution="Debug|Any CPU" Project="Debug|Any CPU|Deploy" />
+      <Configuration Solution="Release|Any CPU" Project="Release|Any CPU|Deploy" />
+    </Project>
+    <Project Path="Acquisition.WebApplication\Acquisition.WebApplication.Server\Acquisition.WebApplication.Server.csproj" Type="Classic C#" />
+  </Folder>
+</Solution>

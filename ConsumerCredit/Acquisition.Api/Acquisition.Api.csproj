@@ -35,7 +35,7 @@
 
     <Target Name="RunBashCommand" BeforeTargets="Build">
         <!--    ContinueOnError="true" is here just in case first installation would failed during certificate installation -->
-        <Exec Command="cd .\Infrastructure\Persistence\Database &amp;&amp; docker-compose up --no-recreate -d &amp;&amp; docker start loanapplication" ContinueOnError="true"/>
+        <Exec Command="cd .\Infrastructure\Persistence\Database &amp;&amp; docker-compose up --no-recreate -d &amp;&amp; docker start loan-application" ContinueOnError="true"/>
     </Target>
 
     <Target Name="NSwag" AfterTargets="Build">

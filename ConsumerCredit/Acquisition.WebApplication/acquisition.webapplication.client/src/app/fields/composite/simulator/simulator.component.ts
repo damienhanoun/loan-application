@@ -1,5 +1,6 @@
 import {
   Component,
+  inject,
   OnDestroy,
   OnInit,
   signal,
@@ -8,10 +9,15 @@ import {
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormFieldsCompositeComponent } from '../form-fields-composite.component';
-import { AcquisitionService } from '../../../services/acquisition.service';
 import { AmountsComponent } from '../../unit/amounts/amounts.component';
 import { ProjectsComponent } from '../../unit/projects/projects.component';
 import { MaturitiesComponent } from '../../unit/maturities/maturities.component';
+import { shareReplay } from 'rxjs/operators';
+import { AcquisitionApiClient } from '../../../services/acquisition-http-service';
+import {
+  LoanApplicationStore,
+  LoanApplicationStoreService,
+} from '../../../store/loan-application.store';
 
 @Component({
   selector: 'simulator',
@@ -29,6 +35,7 @@ import { MaturitiesComponent } from '../../unit/maturities/maturities.component'
   styleUrls: ['./simulator.component.css'],
   providers: [
     { provide: FormFieldsCompositeComponent, useExisting: SimulatorComponent },
+    LoanApplicationStore,
   ],
 })
 export class SimulatorComponent
@@ -38,14 +45,16 @@ export class SimulatorComponent
   projects: WritableSignal<string[]> = signal([]);
   amounts: WritableSignal<string[]> = signal([]);
   maturities: WritableSignal<string[]> = signal([]);
+  readonly store = inject(LoanApplicationStoreService).store;
 
-  constructor(private acquisitionService: AcquisitionService) {
+  constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
     super();
   }
 
   ngOnInit(): void {
-    const simulatorInformation$ =
-      this.acquisitionService.getSimulatorInformation();
+    const simulatorInformation$ = this.acquisitionApiClient
+      .getSimulatorInformation()
+      .pipe(shareReplay(1));
 
     this.subscription.add(
       simulatorInformation$.subscribe((info) => {
@@ -54,5 +63,11 @@ export class SimulatorComponent
         this.maturities.set(info.maturities?.map((m) => m.toString()) ?? []);
       }),
     );
+  }
+
+  prefillData() {
+    this.store.updateLoanWishField('project', 'Wedding');
+    this.store.updateLoanWishField('amount', '3000');
+    this.store.updateLoanWishField('maturity', '12');
   }
 }

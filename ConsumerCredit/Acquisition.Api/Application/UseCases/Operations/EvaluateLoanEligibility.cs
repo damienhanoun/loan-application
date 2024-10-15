@@ -14,7 +14,7 @@ public class EvaluateLoanEligibility(
         Post("/evaluate-loan-eligibility");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Evaluate loan eligibility")
+            .WithTags("Operations")
             .Produces(200, typeof(EvaluateEligibilityToALoanResponseDto), "application/json")
             .ProducesProblem(500));
     }

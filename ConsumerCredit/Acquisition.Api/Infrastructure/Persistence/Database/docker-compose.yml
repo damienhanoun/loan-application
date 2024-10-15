@@ -4,8 +4,8 @@ services:
     image: postgres:latest
     container_name: loan-application
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: acquisition
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "password"
+      POSTGRES_DB: "acquisition"
     ports:
       - "5432:5432"

@@ -14,7 +14,7 @@ public class SignContract(
         Post("/sign-contract");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Sign contract")
+            .WithTags("Loan contract")
             .Produces(200, typeof(void), "application/json")
             .ProducesProblem(500));
     }

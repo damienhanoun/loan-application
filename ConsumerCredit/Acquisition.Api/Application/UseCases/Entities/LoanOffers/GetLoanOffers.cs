@@ -16,7 +16,7 @@ public class GetLoanOffers(
         Post("/get-loan-offers");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Get loan offers")
+            .WithTags("Loan offer")
             .Produces(200, typeof(GetLoanOffersResponseDto), "application/json")
             .ProducesProblem(500));
     }

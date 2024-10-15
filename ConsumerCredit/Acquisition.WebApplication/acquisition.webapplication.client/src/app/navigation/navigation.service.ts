@@ -1,25 +1,20 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { paths } from './app-route';
+import { JOURNEY_STEPS } from '../journey/journey.configuration';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavigationService {
-  private steps = [
-    paths.SIMULATOR_PATH,
-    paths.EMAIL_PATH,
-    paths.LOAN_ELIGIBILITY_EVALUATION_PATH,
-    paths.LOAN_OFFERS_PROPOSAL_PATH,
-    paths.CONGRATULATION_PATH,
-  ];
-
-  constructor(private router: Router) {}
+  constructor(
+    private readonly router: Router,
+    @Inject(JOURNEY_STEPS) private readonly journeySteps: string[],
+  ) {}
 
   goToNextStep(currentPath: string): void {
-    const currentIndex = this.steps.indexOf(currentPath);
-    if (currentIndex < this.steps.length - 1) {
-      const nextStep = this.steps[currentIndex + 1];
+    const currentIndex = this.journeySteps.indexOf(currentPath);
+    if (currentIndex < this.journeySteps.length - 1) {
+      const nextStep = this.journeySteps[currentIndex + 1];
       this.router.navigate(['/' + nextStep]).then();
     } else {
       console.warn('Already at the last step.');
@@ -27,9 +22,9 @@ export class NavigationService {
   }
 
   goToPreviousStep(currentPath: string): void {
-    const currentIndex = this.steps.indexOf(currentPath);
+    const currentIndex = this.journeySteps.indexOf(currentPath);
     if (currentIndex > 0) {
-      const previousStep = this.steps[currentIndex - 1];
+      const previousStep = this.journeySteps[currentIndex - 1];
       this.router.navigate(['/' + previousStep]).then();
     } else {
       console.warn('Already at the first step.');
@@ -37,7 +32,7 @@ export class NavigationService {
   }
 
   goToStep(step: string): void {
-    if (this.steps.includes(step)) {
+    if (this.journeySteps.includes(step)) {
       this.router.navigate(['/' + step]).then();
     } else {
       console.error(`Step ${step} is not valid.`);

@@ -10,7 +10,7 @@ public class GetSimulatorInformation(IAcquisitionApiClient acquisitionClient) : 
         Post("/get-simulator-information");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Get simulator information")
+            .WithTags("Resources")
             .Produces(200, typeof(GetSimulatorInformationResponseDto), "application/json")
             .ProducesProblem(500));
     }

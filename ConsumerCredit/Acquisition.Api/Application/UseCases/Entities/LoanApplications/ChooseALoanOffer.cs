@@ -13,7 +13,7 @@ public class ChooseALoanOffer(
         Post("/choose-a-loan-offer");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Choose a loan offer")
+            .WithTags("Loan application")
             .Produces(200, typeof(void), "application/json")
             .ProducesProblem(500));
     }

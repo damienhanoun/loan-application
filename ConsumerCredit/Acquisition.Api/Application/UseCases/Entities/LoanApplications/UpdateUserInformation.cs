@@ -14,7 +14,7 @@ public class UpdateUserInformation(
         Post("/update-user-information");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Update user information")
+            .WithTags("Loan application")
             .Produces(200, typeof(void), "application/json")
             .ProducesProblem(500));
     }
