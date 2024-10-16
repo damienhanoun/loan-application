@@ -6,10 +6,8 @@ import {
   AcquisitionApiClient,
   ExpressLoanWishCommand,
 } from '../../services/acquisition-http-service';
-import { ProjectsComponent } from '../../fields/unit/projects/projects.component';
-import { AmountsComponent } from '../../fields/unit/amounts/amounts.component';
-import { MaturitiesComponent } from '../../fields/unit/maturities/maturities.component';
 import { LoanApplicationStoreService } from '../../store/loan-application.store';
+import { safeParse } from '../../../helpers/parsing';
 
 @Component({
   selector: 'app-simulator',
@@ -27,29 +25,15 @@ export class SimulatorPageComponent extends PageComponent {
 
   saveFieldsAndContinue() {
     if (this.allFieldsValid()) {
-      const simulatorComponent = this.formFieldsComposite().find(
-        (field) => field instanceof SimulatorComponent,
-      ) as SimulatorComponent;
-
-      const projectField = simulatorComponent
-        .formFields()
-        .find(
-          (field) => field instanceof ProjectsComponent,
-        ) as ProjectsComponent;
-      const amountField = simulatorComponent
-        .formFields()
-        .find((field) => field instanceof AmountsComponent) as AmountsComponent;
-      const maturityField = simulatorComponent
-        .formFields()
-        .find(
-          (field) => field instanceof MaturitiesComponent,
-        ) as MaturitiesComponent;
-
       this.acquisitionApiClient
         .expressLoanWish({
-          project: projectField.selectedProject(),
-          amount: +amountField.selectedAmount(),
-          maturity: +maturityField.selectedMaturity(),
+          project: this.store.userInformation.initialLoanWish.project(),
+          amount: safeParse(
+            this.store.userInformation.initialLoanWish.amount(),
+          ),
+          maturity: safeParse(
+            this.store.userInformation.initialLoanWish.maturity(),
+          ),
         } as ExpressLoanWishCommand)
         .subscribe((response) =>
           this.store.setLoanApplicationId(response.loanApplicationId ?? null),
