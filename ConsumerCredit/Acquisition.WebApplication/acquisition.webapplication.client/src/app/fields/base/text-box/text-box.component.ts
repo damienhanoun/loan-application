@@ -4,6 +4,7 @@ import {
   InputSignal,
   model,
   ModelSignal,
+  WritableSignal,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,4 +23,8 @@ export class TextBoxComponent extends BaseFormFieldComponent {
   placeholder: InputSignal<string> = input('');
   errorMessage: InputSignal<string> = input('');
   isValid: InputSignal<boolean> = input(false);
+
+  override get fieldValue(): WritableSignal<string | null> {
+    return this.value;
+  }
 }

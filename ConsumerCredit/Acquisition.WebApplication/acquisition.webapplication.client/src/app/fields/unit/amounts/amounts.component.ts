@@ -1,18 +1,15 @@
 import {
   Component,
-  effect,
-  inject,
   model,
   ModelSignal,
+  Signal,
   signal,
-  untracked,
   WritableSignal,
 } from '@angular/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FormFieldComponent } from '../form-field-component';
 import { DropDownListComponent } from '../../base/dropdown-list/drop-down-list.component';
-import { LoanApplicationStoreService } from '../../../store/loan-application.store';
 
 @Component({
   selector: 'amounts',
@@ -25,26 +22,17 @@ import { LoanApplicationStoreService } from '../../../store/loan-application.sto
 export class AmountsComponent extends FormFieldComponent {
   selectedAmount: WritableSignal<string> = signal('');
   amounts: ModelSignal<string[]> = model(['']);
-  readonly store = inject(LoanApplicationStoreService).store;
 
   constructor() {
     super();
-    effect(() => {
-      const amount = this.store.userInformation.initialLoanWish.amount();
-      untracked(() => this.selectedAmount.set(amount ?? ''));
-    });
-    effect(() => {
-      const selectedAmount = this.selectedAmount();
-      untracked(() => {
-        if (
-          selectedAmount !== null &&
-          selectedAmount !== undefined &&
-          selectedAmount !== ''
-        ) {
-          this.store.updateLoanWishField('amount', selectedAmount);
-        }
-      });
-    });
+  }
+
+  override get storeValue(): Signal<string | null> {
+    return this.store.userInformation.initialLoanWish.amount;
+  }
+
+  override updateField(fieldValue: string | null): void {
+    this.store.updateLoanWishField('amount', fieldValue);
   }
 
   override isValid(): boolean {

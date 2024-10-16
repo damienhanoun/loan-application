@@ -4,6 +4,7 @@ import {
   InputSignal,
   model,
   ModelSignal,
+  WritableSignal,
 } from '@angular/core';
 import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -26,5 +27,9 @@ export class DropDownListComponent extends BaseFormFieldComponent {
 
   constructor() {
     super();
+  }
+
+  override get fieldValue(): WritableSignal<string | null> {
+    return this.selectedValue;
   }
 }
