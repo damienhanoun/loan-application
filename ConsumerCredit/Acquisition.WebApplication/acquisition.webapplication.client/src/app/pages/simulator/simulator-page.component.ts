@@ -35,11 +35,12 @@ export class SimulatorPageComponent extends PageComponent {
             this.store.userInformation.initialLoanWish.maturity(),
           ),
         } as ExpressLoanWishCommand)
-        .subscribe((response) =>
-          this.store.setLoanApplicationId(response.loanApplicationId ?? null),
-        );
+        .subscribe((response) => {
+          this.store.setLoanApplicationId(response.loanApplicationId ?? null);
+          this.onContinue();
+        });
+    } else {
+      this.onContinue();
     }
-
-    this.onContinue();
   }
 }

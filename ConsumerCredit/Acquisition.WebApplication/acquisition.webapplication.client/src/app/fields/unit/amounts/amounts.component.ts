@@ -31,7 +31,7 @@ export class AmountsComponent extends FormFieldComponent {
     return this.store.userInformation.initialLoanWish.amount;
   }
 
-  override updateField(fieldValue: string | null): void {
+  override updateStoreValue(fieldValue: string | null): void {
     this.store.updateLoanWishField('amount', fieldValue);
   }
 

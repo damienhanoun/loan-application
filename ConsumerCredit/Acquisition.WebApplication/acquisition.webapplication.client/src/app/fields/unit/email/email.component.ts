@@ -30,7 +30,7 @@ export class EmailComponent extends FormFieldComponent {
     return this.store.userInformation.email;
   }
 
-  override updateField(fieldValue: string | null): void {
+  override updateStoreValue(fieldValue: string | null): void {
     this.store.updateEmail(fieldValue);
   }
 

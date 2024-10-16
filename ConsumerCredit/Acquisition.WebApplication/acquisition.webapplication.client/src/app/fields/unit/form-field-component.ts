@@ -24,7 +24,7 @@ export abstract class FormFieldComponent {
 
   abstract get storeValue(): Signal<string | null>;
 
-  abstract updateField(fieldValue: string | null): void;
+  abstract updateStoreValue(fieldValue: string | null): void;
 
   abstract isValid(): boolean;
 
@@ -37,7 +37,7 @@ export abstract class FormFieldComponent {
           fieldValue !== undefined &&
           fieldValue !== ''
         ) {
-          this.updateField(fieldValue);
+          this.updateStoreValue(fieldValue);
         }
       });
     });

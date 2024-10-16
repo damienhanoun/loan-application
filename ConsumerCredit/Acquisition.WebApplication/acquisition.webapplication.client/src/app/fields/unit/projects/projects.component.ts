@@ -24,7 +24,7 @@ export class ProjectsComponent extends FormFieldComponent {
     return this.store.userInformation.initialLoanWish.project;
   }
 
-  override updateField(fieldValue: string | null): void {
+  override updateStoreValue(fieldValue: string | null): void {
     this.store.updateLoanWishField('project', fieldValue);
   }
 
