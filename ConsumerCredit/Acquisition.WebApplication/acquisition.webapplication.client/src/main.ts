@@ -10,7 +10,7 @@ import {
   API_BASE_URL,
 } from './app/services/acquisition-http-service';
 import {
-  creditApplicationJourneySteps,
+  creditApplicationJourneyNavigationConfiguration,
   JOURNEY_STEPS,
 } from './app/journey/journey.configuration';
 import { appRoutes } from './app/journey/app-route';
@@ -23,7 +23,10 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     AcquisitionApiClient,
     { provide: API_BASE_URL, useValue: 'https://localhost:7188' },
-    { provide: JOURNEY_STEPS, useValue: creditApplicationJourneySteps },
+    {
+      provide: JOURNEY_STEPS,
+      useValue: creditApplicationJourneyNavigationConfiguration,
+    },
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
