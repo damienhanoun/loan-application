@@ -24,6 +24,7 @@ export class DropDownListComponent extends BaseFormFieldComponent {
   selectedValue: ModelSignal<string> = model('');
   values: ModelSignal<string[]> = model([] as string[]);
   isValid: InputSignal<boolean> = input(false);
+  selectId: InputSignal<string> = input.required();
 
   constructor() {
     super();
