@@ -1,9 +1,6 @@
-﻿import { Inject, Injectable } from '@angular/core';
+﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  CreditApplicationJourneyNavigationConfiguration,
-  JOURNEY_STEPS,
-} from '../journey/journey.configuration';
+import { CreditApplicationJourneyNavigationConfiguration } from '../journey/journey.configuration';
 
 @Injectable({
   providedIn: 'root',
@@ -11,16 +8,21 @@ import {
 export class NavigationService {
   constructor(
     private readonly router: Router,
-    @Inject(JOURNEY_STEPS)
     private readonly creditApplicationJourneyNavigationConfiguration: CreditApplicationJourneyNavigationConfiguration,
   ) {}
 
   goToNextStep(currentPath: string): void {
     const currentStepConfig =
-      this.creditApplicationJourneyNavigationConfiguration[currentPath];
+      this.creditApplicationJourneyNavigationConfiguration.configuration[
+        currentPath
+      ];
     if (currentStepConfig?.next) {
-      const nextStep = currentStepConfig.next;
-      this.router.navigate(['/' + nextStep]).then();
+      const nextStep = currentStepConfig.next();
+      if (nextStep) {
+        this.router.navigate(['/' + nextStep]).then();
+      } else {
+        console.warn('Next step not configured or already at the last step.');
+      }
     } else {
       console.warn('Next step not configured or already at the last step.');
     }
@@ -28,7 +30,9 @@ export class NavigationService {
 
   goToPreviousStep(currentPath: string): void {
     const currentStepConfig =
-      this.creditApplicationJourneyNavigationConfiguration[currentPath];
+      this.creditApplicationJourneyNavigationConfiguration.configuration[
+        currentPath
+      ];
     if (currentStepConfig?.previous) {
       const previousStep = currentStepConfig.previous;
       this.router.navigate(['/' + previousStep]).then();
@@ -40,7 +44,9 @@ export class NavigationService {
   }
 
   goToStep(step: string): void {
-    if (this.creditApplicationJourneyNavigationConfiguration[step]) {
+    if (
+      this.creditApplicationJourneyNavigationConfiguration.configuration[step]
+    ) {
       this.router.navigate(['/' + step]).then();
     } else {
       console.error(`Step ${step} is not valid.`);

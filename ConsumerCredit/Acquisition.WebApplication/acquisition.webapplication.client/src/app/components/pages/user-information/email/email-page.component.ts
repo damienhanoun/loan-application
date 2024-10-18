@@ -1,12 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PageComponent } from '../page.component';
-import { EmailComponent } from '../../fields/unit/email/email.component';
+import { EmailComponent } from '../../../fields/unit/email/email.component';
+import { PageComponent } from '../../page.component';
 import {
   AcquisitionApiClient,
   UpdateUserInformationCommand,
-} from '../../services/acquisition-http-service';
-import { LoanApplicationStoreService } from '../../store/loan-application.store';
+} from '../../../../services/acquisition-http-service';
 
 @Component({
   selector: 'app-email',
@@ -16,8 +15,6 @@ import { LoanApplicationStoreService } from '../../store/loan-application.store'
   imports: [CommonModule, EmailComponent],
 })
 export class EmailPageComponent extends PageComponent {
-  readonly store = inject(LoanApplicationStoreService).store;
-
   constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
     super(EmailPageComponent);
   }

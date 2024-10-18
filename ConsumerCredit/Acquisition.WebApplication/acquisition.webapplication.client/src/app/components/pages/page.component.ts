@@ -8,8 +8,9 @@
 } from '@angular/core';
 import { FormFieldsCompositeComponent } from '../fields/composite/form-fields-composite.component';
 import { FormFieldComponent } from '../fields/unit/form-field-component';
-import { NavigationService } from '../navigation/navigation.service';
-import { getRoutesFromComponent } from '../journey/app-route';
+import { LoanApplicationStoreService } from '../../store/loan-application.store';
+import { NavigationService } from '../../navigation/navigation.service';
+import { getRoutesFromComponent } from '../../journey/app-route';
 
 @Component({
   template: '',
@@ -25,6 +26,7 @@ export abstract class PageComponent {
       this.formFieldsComposite().every((field) => field.isValid()),
   );
   readonly currentPath: string;
+  protected readonly store = inject(LoanApplicationStoreService).store;
   private readonly navigationService = inject(NavigationService);
 
   protected constructor(childComponent: Type<any>) {

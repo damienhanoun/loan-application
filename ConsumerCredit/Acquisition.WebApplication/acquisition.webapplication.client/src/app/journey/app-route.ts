@@ -1,17 +1,19 @@
 import { Routes } from '@angular/router';
-import { EmailPageComponent } from '../pages/email/email-page.component';
-import { SimulatorPageComponent } from '../pages/simulator/simulator-page.component';
-import { LoanEligibilityEvaluationPageComponent } from '../pages/loan-eligibility-evaluation/loan-eligibility-evaluation-page.component';
-import { LoanOffersProposalPageComponent } from '../pages/loan-offers-proposal/loan-offers-proposal-page.component';
-import { CongratulationPageComponent } from '../pages/congratulation/congratulation-page.component';
 import { Type } from '@angular/core';
+import { SimulatorPageComponent } from '../components/pages/user-information/simulator/simulator-page.component';
+import { EmailPageComponent } from '../components/pages/user-information/email/email-page.component';
+import { LoanEligibilityEvaluationPageComponent } from '../components/pages/loan-offers/loan-eligibility-evaluation/loan-eligibility-evaluation-page.component';
+import { LoanOffersProposalPageComponent } from '../components/pages/loan-offers/loan-offers-proposal/loan-offers-proposal-page.component';
+import { PreAcceptationPageComponent } from '../components/pages/loan-application-state/pre-acceptation/pre-acceptation-page.component';
+import { PreRefusalPageComponent } from '../components/pages/loan-application-state/pre-refusal/pre-refusal-page.component';
 
 export const paths = {
   SIMULATOR_PATH: 'simulator',
   EMAIL_PATH: 'email',
   LOAN_ELIGIBILITY_EVALUATION_PATH: 'loan-eligibility-evaluation',
   LOAN_OFFERS_PROPOSAL_PATH: 'loan-offers-proposal',
-  CONGRATULATION_PATH: 'congratulation',
+  PREACCEPTATION_PATH: 'pre-acceptation',
+  PREREFUSAL_PATH: 'pre-refusal',
 };
 
 export const appRoutes: Routes = [
@@ -26,7 +28,8 @@ export const appRoutes: Routes = [
     path: paths.LOAN_OFFERS_PROPOSAL_PATH,
     component: LoanOffersProposalPageComponent,
   },
-  { path: paths.CONGRATULATION_PATH, component: CongratulationPageComponent },
+  { path: paths.PREACCEPTATION_PATH, component: PreAcceptationPageComponent },
+  { path: paths.PREREFUSAL_PATH, component: PreRefusalPageComponent },
 ];
 
 export function getRoutesFromComponent(theComponent: Type<any>): string {

@@ -1,11 +1,4 @@
-﻿import {
-  patchState,
-  signalStore,
-  watchState,
-  withHooks,
-  withMethods,
-  withState,
-} from '@ngrx/signals';
+﻿import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import {
   withDevtools,
   withStorageSync,
@@ -22,6 +15,7 @@ type LoanApplicationStore = {
     };
     email: string | null;
   };
+  isLoanEligible: boolean | null;
 };
 
 const initialState: LoanApplicationStore = {
@@ -34,6 +28,7 @@ const initialState: LoanApplicationStore = {
     },
     email: null,
   },
+  isLoanEligible: null,
 };
 
 export const LoanApplicationStore = signalStore(
@@ -67,14 +62,12 @@ export const LoanApplicationStore = signalStore(
         },
       }));
     },
-  })),
-  withHooks({
-    onInit(store) {
-      watchState(store, (state) => {
-        console.log('[watchState]', state.userInformation);
-      });
+    setLoanEligibility(isEligible: boolean): void {
+      patchState(store, (_) => ({
+        isLoanEligible: isEligible,
+      }));
     },
-  }),
+  })),
   withDevtools('loanApplicationStore'),
   // Handle page reload when using F5
   withStorageSync({
@@ -83,7 +76,7 @@ export const LoanApplicationStore = signalStore(
   }),
 );
 
-// Handle the fact of keeping one version of the state
+// Handle the fact of keeping one version of the state even when changing page
 @Injectable({
   providedIn: 'root',
 })

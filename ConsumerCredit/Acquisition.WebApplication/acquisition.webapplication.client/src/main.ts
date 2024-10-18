@@ -9,10 +9,6 @@ import {
   AcquisitionApiClient,
   API_BASE_URL,
 } from './app/services/acquisition-http-service';
-import {
-  creditApplicationJourneyNavigationConfiguration,
-  JOURNEY_STEPS,
-} from './app/journey/journey.configuration';
 import { appRoutes } from './app/journey/app-route';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
@@ -23,10 +19,6 @@ bootstrapApplication(AppComponent, {
     provideHttpClient(withInterceptorsFromDi()),
     AcquisitionApiClient,
     { provide: API_BASE_URL, useValue: 'https://localhost:7188' },
-    {
-      provide: JOURNEY_STEPS,
-      useValue: creditApplicationJourneyNavigationConfiguration,
-    },
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

@@ -7,7 +7,7 @@
   viewChild,
 } from '@angular/core';
 import { BaseFormFieldComponent } from '../base/base-form-field-component';
-import { LoanApplicationStoreService } from '../../store/loan-application.store';
+import { LoanApplicationStoreService } from '../../../store/loan-application.store';
 
 @Component({
   template: '',

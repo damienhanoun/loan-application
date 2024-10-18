@@ -11,14 +11,14 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="FastEndpoints" Version="5.30.0" />
+        <PackageReference Include="FastEndpoints" Version="5.30.0"/>
         <PackageReference Include="Generator.Equals.Runtime" Version="3.1.1"/>
         <PackageReference Include="Mediator.Abstractions" Version="2.1.7"/>
         <PackageReference Include="Mediator.SourceGenerator" Version="2.1.7">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.10">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
@@ -28,17 +28,21 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Riok.Mapperly" Version="4.0.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
+        <PackageReference Include="Riok.Mapperly" Version="4.0.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0"/>
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8"/>
     </ItemGroup>
-
-    <Target Name="RunBashCommand" BeforeTargets="Build">
-        <!--    ContinueOnError="true" is here just in case first installation would failed during certificate installation -->
-        <Exec Command="cd .\Infrastructure\Persistence\Database &amp;&amp; docker-compose up --no-recreate -d &amp;&amp; docker start loan-application" ContinueOnError="true"/>
-    </Target>
 
     <Target Name="NSwag" AfterTargets="Build">
         <Exec Command="nswag run $(ProjectDir)nswag.json"/>
+    </Target>
+
+    <Target Name="PreBuild" BeforeTargets="BeforeBuild">
+        <!-- Force to exec even if no change in the project -->
+        <PropertyGroup>
+            <Timestamp>$([System.DateTime]::UtcNow.Ticks)</Timestamp>
+        </PropertyGroup>
+        <Exec WorkingDirectory="$(ProjectDir)Infrastructure\Persistence\Database" Command="docker-compose up --no-recreate -d"/>
+        <Exec Command="docker start loan-application"/>
     </Target>
 </Project>

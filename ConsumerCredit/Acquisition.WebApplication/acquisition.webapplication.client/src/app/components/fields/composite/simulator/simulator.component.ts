@@ -13,11 +13,11 @@ import { AmountsComponent } from '../../unit/amounts/amounts.component';
 import { ProjectsComponent } from '../../unit/projects/projects.component';
 import { MaturitiesComponent } from '../../unit/maturities/maturities.component';
 import { shareReplay } from 'rxjs/operators';
-import { AcquisitionApiClient } from '../../../services/acquisition-http-service';
 import {
   LoanApplicationStore,
   LoanApplicationStoreService,
-} from '../../../store/loan-application.store';
+} from '../../../../store/loan-application.store';
+import { AcquisitionApiClient } from '../../../../services/acquisition-http-service';
 
 @Component({
   selector: 'simulator',

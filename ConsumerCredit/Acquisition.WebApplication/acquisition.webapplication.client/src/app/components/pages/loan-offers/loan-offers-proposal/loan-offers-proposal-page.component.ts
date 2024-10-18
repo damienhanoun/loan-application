@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForOf, NgIf } from '@angular/common';
-import { PageComponent } from '../page.component';
+import { PageComponent } from '../../page.component';
 
 @Component({
   selector: 'app-loan-offers-proposal',
