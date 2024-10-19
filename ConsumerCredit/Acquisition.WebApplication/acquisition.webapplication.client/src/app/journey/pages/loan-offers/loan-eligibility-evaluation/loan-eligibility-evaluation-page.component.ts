@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageComponent } from '../../page.component';
 import {
   AcquisitionApiClient,
-  EvaluateEligibilityToALoanQuery,
+  EvaluateEligibilityToALoanCommand,
 } from '../../../../gateway/acquisition-http-service';
 
 @Component({
@@ -21,10 +21,9 @@ export class LoanEligibilityEvaluationPageComponent
   }
 
   ngOnInit(): void {
-    const query = new EvaluateEligibilityToALoanQuery();
-    query.init({
+    const query = EvaluateEligibilityToALoanCommand.fromJS({
       loanApplicationId: this.store.loanApplicationId(),
-    } as unknown as EvaluateEligibilityToALoanQuery);
+    });
     this.acquisitionApiClient
       .evaluateLoanEligibility(query)
       .subscribe((response) => {

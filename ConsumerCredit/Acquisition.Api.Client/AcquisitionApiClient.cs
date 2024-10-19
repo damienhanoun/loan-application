@@ -33,11 +33,11 @@ namespace Acquisition.Api.Client
         System.Threading.Tasks.Task<GetSimulatorInformationResponseDto> GetSimulatorInformationAsync(System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery);
+        System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanCommand evaluateEligibilityToALoanCommand);
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanCommand evaluateEligibilityToALoanCommand, System.Threading.CancellationToken cancellationToken);
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<GetLoanOffersResponseDto> GetLoanOffersAsync(GetLoanOffersQuery getLoanOffersQuery);
@@ -212,17 +212,17 @@ namespace Acquisition.Api.Client
         }
 
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery)
+        public virtual System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanCommand evaluateEligibilityToALoanCommand)
         {
-            return EvaluateLoanEligibilityAsync(evaluateEligibilityToALoanQuery, System.Threading.CancellationToken.None);
+            return EvaluateLoanEligibilityAsync(evaluateEligibilityToALoanCommand, System.Threading.CancellationToken.None);
         }
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="AcquisitionApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanQuery evaluateEligibilityToALoanQuery, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<EvaluateEligibilityToALoanResponseDto> EvaluateLoanEligibilityAsync(EvaluateEligibilityToALoanCommand evaluateEligibilityToALoanCommand, System.Threading.CancellationToken cancellationToken)
         {
-            if (evaluateEligibilityToALoanQuery == null)
-                throw new System.ArgumentNullException("evaluateEligibilityToALoanQuery");
+            if (evaluateEligibilityToALoanCommand == null)
+                throw new System.ArgumentNullException("evaluateEligibilityToALoanCommand");
 
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -230,7 +230,7 @@ namespace Acquisition.Api.Client
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(evaluateEligibilityToALoanQuery, JsonSerializerSettings);
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(evaluateEligibilityToALoanCommand, JsonSerializerSettings);
                     var content_ = new System.Net.Http.ByteArrayContent(json_);
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
@@ -915,7 +915,7 @@ namespace Acquisition.Api.Client
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial class EvaluateEligibilityToALoanQuery
+    public partial class EvaluateEligibilityToALoanCommand
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("loanApplicationId")]

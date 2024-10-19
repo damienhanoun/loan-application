@@ -21,8 +21,7 @@ export class EmailPageComponent extends PageComponent {
 
   saveFieldsAndContinue() {
     if (this.allFieldsValid()) {
-      const updateUserCommand = new UpdateUserInformationCommand();
-      updateUserCommand.init({
+      const updateUserCommand = UpdateUserInformationCommand.fromJS({
         loanApplicationId: this.store.loanApplicationId()!,
         updatedProperties: [{ email: this.store.userInformation.email() }],
       });

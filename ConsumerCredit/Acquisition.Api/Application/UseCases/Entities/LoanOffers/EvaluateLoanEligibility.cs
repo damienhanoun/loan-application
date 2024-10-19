@@ -2,24 +2,24 @@
 using Acquisition.Api.Infrastructure.Persistence.ReadRepositories;
 using FastEndpoints;
 
-namespace Acquisition.Api.Application.UseCases.Operations;
+namespace Acquisition.Api.Application.UseCases.Entities.LoanOffers;
 
 public class EvaluateLoanEligibility(
     IReadLoanApplicationRepository readLoanApplicationRepository,
     ILoanOffersEligibilityEvaluationService loanOffersEligibilityEvaluationService)
-    : Endpoint<EvaluateEligibilityToALoanQuery, EvaluateEligibilityToALoanResponseDto>
+    : Endpoint<EvaluateEligibilityToALoanCommand, EvaluateEligibilityToALoanResponseDto>
 {
     public override void Configure()
     {
         Post("/evaluate-loan-eligibility");
         AllowAnonymous();
         Description(x => x
-            .WithTags("Operations")
+            .WithTags("Loan offer")
             .Produces(200, typeof(EvaluateEligibilityToALoanResponseDto), "application/json")
             .ProducesProblem(500));
     }
 
-    public override async Task HandleAsync(EvaluateEligibilityToALoanQuery request, CancellationToken ct)
+    public override async Task HandleAsync(EvaluateEligibilityToALoanCommand request, CancellationToken ct)
     {
         var loanApplication = readLoanApplicationRepository.GetLoanApplication(request.LoanApplicationId);
         var isEligibleToALoan = loanOffersEligibilityEvaluationService.EvaluateEligibilityToLoanOffers(loanApplication);
@@ -28,6 +28,6 @@ public class EvaluateLoanEligibility(
     }
 }
 
-public record EvaluateEligibilityToALoanQuery(Guid LoanApplicationId);
+public record EvaluateEligibilityToALoanCommand(Guid LoanApplicationId);
 
 public record EvaluateEligibilityToALoanResponseDto(bool IsEligibleToALoan);

@@ -76,7 +76,7 @@
       "templateDirectory": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../acquisition.webapplication.client/src/app/services/acquisition-http-service.ts",
+      "output": "../acquisition.webapplication.client/src/app/gateway/acquisition-http-service.ts",
       "newLineBehavior": "Auto"
     }
   }

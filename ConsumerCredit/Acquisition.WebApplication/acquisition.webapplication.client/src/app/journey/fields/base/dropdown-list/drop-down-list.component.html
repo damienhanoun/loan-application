@@ -1,5 +1,5 @@
-<label *ngIf="labelText()" [for]="selectId">{{ labelText() }}</label>
-<select [(ngModel)]="selectedValue" [id]="selectId">
+<label *ngIf="labelText()" [for]="selectId()">{{ labelText() }}</label>
+<select [(ngModel)]="selectedValue" [id]="selectId()">
   <option disabled selected value="">{{ placeholder() }}</option>
   <ng-container *ngFor="let value of values()">
     <option [value]="value">{{ value }}</option>

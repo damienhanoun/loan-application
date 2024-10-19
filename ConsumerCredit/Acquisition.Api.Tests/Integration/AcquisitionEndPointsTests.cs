@@ -65,7 +65,7 @@ public class AcquisitionEndPointsTests(AcquisitionApiFactory acquisitionApiFacto
     {
         // Arrange
         var loanApplicationId = await _acquisitionTestRepository.CreateALoanApplication();
-        var request = new EvaluateEligibilityToALoanQuery { LoanApplicationId = loanApplicationId };
+        var request = new EvaluateEligibilityToALoanCommand { LoanApplicationId = loanApplicationId };
 
         // Act
         var responseDto = await _client.EvaluateLoanEligibilityAsync(request);
