@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AsyncPipe, NgForOf } from '@angular/common';
 import { PageComponent } from '../../page.component';
 import { SimulatorComponent } from '../../../fields/composite/simulator/simulator.component';
+import { safeParse } from '../../../../../helpers/parsing';
 import {
   AcquisitionApiClient,
   ExpressLoanWishCommand,
-} from '../../../../services/acquisition-http-service';
-import { safeParse } from '../../../../../helpers/parsing';
+} from '../../../../gateway/acquisition-http-service';
 
 @Component({
   selector: 'app-simulator',

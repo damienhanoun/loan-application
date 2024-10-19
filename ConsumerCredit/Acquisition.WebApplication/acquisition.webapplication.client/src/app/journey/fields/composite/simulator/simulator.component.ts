@@ -17,7 +17,7 @@ import {
   LoanApplicationStore,
   LoanApplicationStoreService,
 } from '../../../../store/loan-application.store';
-import { AcquisitionApiClient } from '../../../../services/acquisition-http-service';
+import { AcquisitionApiClient } from '../../../../gateway/acquisition-http-service';
 
 @Component({
   selector: 'simulator',

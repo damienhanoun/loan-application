@@ -9,8 +9,8 @@
 import { FormFieldsCompositeComponent } from '../fields/composite/form-fields-composite.component';
 import { FormFieldComponent } from '../fields/unit/form-field-component';
 import { LoanApplicationStoreService } from '../../store/loan-application.store';
-import { NavigationService } from '../../navigation/navigation.service';
-import { getRoutesFromComponent } from '../../journey/app-route';
+import { NavigationService } from '../navigation/navigation.service';
+import { getRoutesFromComponent } from './app-route';
 
 @Component({
   template: '',

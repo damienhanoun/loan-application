@@ -3,7 +3,7 @@ import { PageComponent } from '../../page.component';
 import {
   AcquisitionApiClient,
   EvaluateEligibilityToALoanQuery,
-} from '../../../../services/acquisition-http-service';
+} from '../../../../gateway/acquisition-http-service';
 
 @Component({
   selector: 'app-loan-eligibility-evaluation',

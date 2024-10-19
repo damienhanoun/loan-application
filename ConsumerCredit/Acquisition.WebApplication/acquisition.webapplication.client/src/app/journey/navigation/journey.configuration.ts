@@ -1,6 +1,6 @@
 ﻿import { inject, Injectable } from '@angular/core';
-import { paths } from './app-route';
-import { LoanApplicationStoreService } from '../store/loan-application.store';
+import { LoanApplicationStoreService } from '../../store/loan-application.store';
+import { paths } from '../pages/app-route';
 
 export interface CreditApplicationJourneyNavigationConfigurationFormat {
   [key: string]: {
@@ -26,7 +26,7 @@ export class CreditApplicationJourneyNavigationConfiguration {
     [paths.LOAN_ELIGIBILITY_EVALUATION_PATH]: {
       next: () =>
         this.loanApplicationStoreService.store.isLoanEligible()
-          ? paths.PREACCEPTATION_PATH
+          ? paths.LOAN_OFFERS_PROPOSAL_PATH
           : paths.PREREFUSAL_PATH,
       previous: paths.EMAIL_PATH,
     },

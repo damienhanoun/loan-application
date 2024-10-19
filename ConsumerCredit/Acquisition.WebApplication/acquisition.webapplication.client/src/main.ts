@@ -5,13 +5,13 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { isDevMode } from '@angular/core';
 import {
   AcquisitionApiClient,
   API_BASE_URL,
-} from './app/services/acquisition-http-service';
-import { appRoutes } from './app/journey/app-route';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { isDevMode } from '@angular/core';
+} from './app/gateway/acquisition-http-service';
+import { appRoutes } from './app/journey/pages/app-route';
 
 bootstrapApplication(AppComponent, {
   providers: [

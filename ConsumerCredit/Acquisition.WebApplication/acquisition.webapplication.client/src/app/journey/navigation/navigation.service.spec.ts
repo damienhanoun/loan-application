@@ -1,7 +1,7 @@
 ﻿import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { NavigationService } from './navigation.service';
-import { CreditApplicationJourneyNavigationConfiguration } from '../journey/journey.configuration';
+import { CreditApplicationJourneyNavigationConfiguration } from './journey.configuration';
 
 describe('NavigationService', () => {
   let service: NavigationService;

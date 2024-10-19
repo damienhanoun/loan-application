@@ -1,8 +1,8 @@
 ﻿import { TestBed } from '@angular/core/testing';
-import { LoanApplicationStoreService } from '../store/loan-application.store';
-import { paths } from './app-route';
 import { CreditApplicationJourneyNavigationConfiguration } from './journey.configuration';
-import { signal } from '@angular/core'; // Make sure you have the correct imports
+import { signal } from '@angular/core';
+import { LoanApplicationStoreService } from '../../store/loan-application.store';
+import { paths } from '../pages/app-route'; // Make sure you have the correct imports
 
 describe('CreditApplicationJourneyNavigationConfiguration', () => {
   let loanApplicationStoreService: LoanApplicationStoreService;
@@ -32,81 +32,81 @@ describe('CreditApplicationJourneyNavigationConfiguration', () => {
   };
 
   it('should be created', () => {
-    const store = setup();
-    expect(store).toBeTruthy();
+    const config = setup();
+    expect(config).toBeTruthy();
   });
 
   it('should return correct next path from SIMULATOR_PATH', () => {
-    const store = setup();
-    const nextPath = store.configuration[paths.SIMULATOR_PATH].next();
+    const config = setup();
+    const nextPath = config.configuration[paths.SIMULATOR_PATH].next();
     expect(nextPath).toEqual(paths.EMAIL_PATH);
   });
 
   it('should return correct previous path from SIMULATOR_PATH', () => {
-    const store = setup();
-    const previousPath = store.configuration[paths.SIMULATOR_PATH].previous;
+    const config = setup();
+    const previousPath = config.configuration[paths.SIMULATOR_PATH].previous;
     expect(previousPath).toBeNull();
   });
 
   it('should return correct next path from EMAIL_PATH', () => {
-    const store = setup();
-    const nextPath = store.configuration[paths.EMAIL_PATH].next();
+    const config = setup();
+    const nextPath = config.configuration[paths.EMAIL_PATH].next();
     expect(nextPath).toEqual(paths.LOAN_ELIGIBILITY_EVALUATION_PATH);
   });
 
   it('should return correct previous path from EMAIL_PATH', () => {
-    const store = setup();
-    const previousPath = store.configuration[paths.EMAIL_PATH].previous;
+    const config = setup();
+    const previousPath = config.configuration[paths.EMAIL_PATH].previous;
     expect(previousPath).toEqual(paths.SIMULATOR_PATH);
   });
 
   it('should return correct next path from LOAN_ELIGIBILITY_EVALUATION_PATH when eligible', () => {
-    const store = setup();
+    const config = setup();
     loanApplicationStoreService.store.isLoanEligible = signal(true);
     const nextPath =
-      store.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].next();
-    expect(nextPath).toEqual(paths.PREACCEPTATION_PATH);
+      config.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].next();
+    expect(nextPath).toEqual(paths.LOAN_OFFERS_PROPOSAL_PATH);
   });
 
   it('should return correct next path from LOAN_ELIGIBILITY_EVALUATION_PATH when not eligible', () => {
-    const store = setup();
+    const config = setup();
     loanApplicationStoreService.store.isLoanEligible = signal(false);
     const nextPath =
-      store.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].next();
+      config.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].next();
     expect(nextPath).toEqual(paths.PREREFUSAL_PATH);
   });
 
   it('should return correct previous path from LOAN_ELIGIBILITY_EVALUATION_PATH', () => {
-    const store = setup();
+    const config = setup();
     const previousPath =
-      store.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].previous;
+      config.configuration[paths.LOAN_ELIGIBILITY_EVALUATION_PATH].previous;
     expect(previousPath).toEqual(paths.EMAIL_PATH);
   });
 
   it('should return correct next path from LOAN_OFFERS_PROPOSAL_PATH', () => {
-    const store = setup();
+    const config = setup();
     const nextPath =
-      store.configuration[paths.LOAN_OFFERS_PROPOSAL_PATH].next();
+      config.configuration[paths.LOAN_OFFERS_PROPOSAL_PATH].next();
     expect(nextPath).toEqual(paths.PREACCEPTATION_PATH);
   });
 
   it('should return correct previous path from LOAN_OFFERS_PROPOSAL_PATH', () => {
-    const store = setup();
+    const config = setup();
     const previousPath =
-      store.configuration[paths.LOAN_OFFERS_PROPOSAL_PATH].previous;
+      config.configuration[paths.LOAN_OFFERS_PROPOSAL_PATH].previous;
     expect(previousPath).toEqual(paths.EMAIL_PATH);
   });
 
   it('should return correct next path from PREACCEPTATION_PATH', () => {
-    const store = setup();
-    const nextPath = store.configuration[paths.PREACCEPTATION_PATH].next();
+    const config = setup();
+    const nextPath = config.configuration[paths.PREACCEPTATION_PATH].next();
     expect(nextPath).toBeNull();
   });
 
   it('should return correct previous path from PREACCEPTATION_PATH', () => {
-    const store = setup();
+    const config = setup();
     const previousPath =
-      store.configuration[paths.PREACCEPTATION_PATH].previous;
+      config.configuration[paths.PREACCEPTATION_PATH].previous;
     expect(previousPath).toEqual(paths.LOAN_OFFERS_PROPOSAL_PATH);
   });
 });

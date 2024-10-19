@@ -1,6 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { CreditApplicationJourneyNavigationConfiguration } from '../journey/journey.configuration';
+import { CreditApplicationJourneyNavigationConfiguration } from './journey.configuration';
 
 @Injectable({
   providedIn: 'root',

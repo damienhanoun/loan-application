@@ -5,7 +5,7 @@ import { PageComponent } from '../../page.component';
 import {
   AcquisitionApiClient,
   UpdateUserInformationCommand,
-} from '../../../../services/acquisition-http-service';
+} from '../../../../gateway/acquisition-http-service';
 
 @Component({
   selector: 'app-email',
