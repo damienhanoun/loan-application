@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -21,50 +21,45 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Install NSwag .NET Core Global Tool
-        run: dotnet tool install --global NSwag.ConsoleCore
-
       - name: Build with dotnet
-        run: dotnet build ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj --configuration Release
-          
-      - name: Publish .NET project
-        run: dotnet publish ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj -c Release -o ./publish
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ./publish
+          path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: build
     environment:
-      name: 'production'
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
-      id-token: write
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-          
-      - name: List downloaded files
-        run: ls -R .  # List all files to verify the downloaded structure
-        
+      
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5A358189A3234E6C9DC9A41216D6C8D9 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4D8341DA10974741A506530B6FB79E62 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_1EAE9353E0A54C52A08187311B35A547 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_4A214A13910144EAB7007159E3856924 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_6447AE2AA9CC4951A8B381B0629BB696 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AFFE8813E2884CC5B0370A800648366D }}
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Acquisition'
-          slot-name: 'production'
+          slot-name: 'Production'
           package: .
           
