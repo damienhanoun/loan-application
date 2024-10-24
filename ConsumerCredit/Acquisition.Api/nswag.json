@@ -6,7 +6,7 @@
       "project": "Acquisition.Api.csproj",
       "documentName": "v1",
       "msBuildProjectExtensionsPath": null,
-      "configuration": null,
+      "configuration": "$(Configuration)",
       "runtime": null,
       "targetFramework": "net8.0",
       "noBuild": true,

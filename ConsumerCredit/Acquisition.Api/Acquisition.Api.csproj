@@ -37,18 +37,11 @@
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8"/>
     </ItemGroup>
 
-    <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+    <Target Name="NSwag" AfterTargets="Build">
         <PropertyGroup>
             <Timestamp>$([System.DateTime]::UtcNow.Ticks)</Timestamp>
         </PropertyGroup>
         <Exec Command="nswag run $(ProjectDir)nswag.json"/>
-    </Target>
-
-    <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
-        <PropertyGroup>
-            <Timestamp>$([System.DateTime]::UtcNow.Ticks)</Timestamp>
-        </PropertyGroup>
-        <Exec Command="nswag run $(ProjectDir)nswag.json /variables:Configuration=Release"/>
     </Target>
 
     <Target Name="PreBuild" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
