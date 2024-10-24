@@ -26,7 +26,7 @@ jobs:
 
       - name: Update appsettings.json with AppConfig ConnectionString
         run: |
-          powershell -Command "(Get-Content ConsumerCredit/Acquisition.Api/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIG_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.Api/appsettings.json"
+          powershell -Command "(Get-Content ConsumerCredit/Acquisition.Api/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIGURATION_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.Api/appsettings.json"
 
       - name: Build with dotnet
         run: dotnet build ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj --configuration Release
