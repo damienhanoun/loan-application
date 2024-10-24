@@ -21,24 +21,31 @@ jobs:
         with:
           dotnet-version: '8.x'
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+      - name: Install NSwag .NET Core Global Tool
+        run: dotnet tool install --global NSwag.ConsoleCore
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: Update appsettings.json with AppConfig ConnectionString
+        run: |
+          powershell -Command "(Get-Content ConsumerCredit/Acquisition.Api/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIG_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.Api/appsettings.json"
+
+      - name: Build with dotnet
+        run: dotnet build ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj --configuration Release
+
+      - name: Publish .NET project
+        run: dotnet publish ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./publish
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      name: 'production'
+      
     permissions:
       id-token: write #This is required for requesting the JWT
 
@@ -47,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
-      
+
       - name: Login to Azure
         uses: azure/login@v2
         with:
@@ -60,6 +67,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'Acquisition'
-          slot-name: 'Production'
+          slot-name: 'production'
           package: .
           

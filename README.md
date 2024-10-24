@@ -18,3 +18,7 @@ A French loan application journey in a company that delivers credit to consumers
 
 # API and tests launch pre-requisite
 - Run Docker Desktop
+
+# Using Azure resources manually created
+- Given an AppConfiguration with all expected configuration (See `appsettings.Development.json`)
+  - In `Acquisition.Api` folder, after replacing each `<...>`, run : `dotnet user-secrets set "AppConfig:ConnectionString" "Endpoint=https://<app configuration path>.azconfig.io;Id=<your id>;Secret=<your secret>"`

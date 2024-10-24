@@ -6,7 +6,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddAcquisitionDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("AcquisitionDatabase");
+        var connectionString = configuration.GetValue<string>("Acquisition:Database:ConnectionString");
         services.AddDbContext<AcquisitionContext>(
             options => options.UseNpgsql(connectionString),
             ServiceLifetime.Transient);
