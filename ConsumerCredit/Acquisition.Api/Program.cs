@@ -8,7 +8,10 @@ using Microsoft.EntityFrameworkCore;
 // The initialized WebApplicationBuilder provides default configuration and calls AddUserSecrets when the EnvironmentName is Development
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddConfiguration(ConfigurationType.AppSettings);
+if (builder.Environment.IsDevelopment())
+    builder.AddConfiguration(ConfigurationType.DevelopmentConfiguration);
+else
+    builder.AddConfiguration(ConfigurationType.AzureAppConfiguration);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

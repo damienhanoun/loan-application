@@ -3,7 +3,7 @@
 public enum ConfigurationType
 {
     AzureAppConfiguration,
-    AppSettings
+    DevelopmentConfiguration
 }
 
 public static class ConfigurationManagerExtensions
