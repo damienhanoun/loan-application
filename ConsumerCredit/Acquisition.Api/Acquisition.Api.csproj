@@ -41,7 +41,7 @@
         <PropertyGroup>
             <Timestamp>$([System.DateTime]::UtcNow.Ticks)</Timestamp>
         </PropertyGroup>
-        <Exec Command="nswag run $(ProjectDir)nswag.json"/>
+        <Exec Command="nswag run $(ProjectDir)nswag.json /variables:Configuration=$(Configuration)"/>
     </Target>
 
     <Target Name="PreBuild" BeforeTargets="BeforeBuild" Condition="'$(Configuration)' == 'Debug'">
