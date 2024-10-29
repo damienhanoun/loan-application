@@ -6,7 +6,7 @@ public enum ConfigurationType
     DevelopmentConfiguration
 }
 
-public static class ConfigurationManagerExtensions
+public static class WebApplicationBuilderExtensions
 {
     private static ConfigurationType _configurationType;
 
@@ -37,5 +37,14 @@ public static class ConfigurationManagerExtensions
     {
         if (_configurationType == ConfigurationType.AzureAppConfiguration)
             webApplication.UseAzureAppConfiguration();
+    }
+
+    public static void AddTelemetry(this WebApplicationBuilder webApplicationBuilder, bool activateTelemetry)
+    {
+        if (activateTelemetry)
+        {
+            var connectionString = webApplicationBuilder.Configuration["Acquisition:ApplicationInsights:ConnectionString"];
+            webApplicationBuilder.Services.AddApplicationInsightsTelemetry(options => { options.ConnectionString = connectionString; });
+        }
     }
 }
