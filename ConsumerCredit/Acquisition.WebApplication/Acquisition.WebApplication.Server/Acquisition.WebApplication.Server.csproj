@@ -25,7 +25,7 @@
         <ProjectReference Include="..\..\Acquisition.Api.Client\Acquisition.Api.Client.csproj"/>
     </ItemGroup>
 
-    <Target Name="NSwag" AfterTargets="Build">
+    <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
         <PropertyGroup>
             <Timestamp>$([System.DateTime]::UtcNow.Ticks)</Timestamp>
         </PropertyGroup>
