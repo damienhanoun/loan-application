@@ -1,5 +1,8 @@
 ﻿<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="All tests" type="wallaby" factoryName="wallaby" singleton="false" configType="Automatic" configFolder="$PROJECT_DIR$/Acquisition.WebApplication/acquisition.webapplication.client" wsl="No" SmartStart="Yes">
-    <method v="2" />
-  </configuration>
+    <configuration default="false" name="All tests" type="wallaby" factoryName="wallaby" singleton="false"
+                   configType="Automatic"
+                   configFolder="$PROJECT_DIR$/Acquisition.WebApplication/acquisition.webapplication.angular.client"
+                   wsl="No" SmartStart="Yes">
+        <method v="2"/>
+    </configuration>
 </component>

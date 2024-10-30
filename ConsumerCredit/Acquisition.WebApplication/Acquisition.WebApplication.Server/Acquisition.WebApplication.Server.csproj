@@ -19,9 +19,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Acquisition.Api.Client\Acquisition.Api.Client.csproj"/>
-        <ProjectReference Include="..\acquisition.webapplication.client\acquisition.webapplication.client.esproj">
-            <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-        </ProjectReference>
     </ItemGroup>
 
     <Target Name="NSwag" AfterTargets="Build">

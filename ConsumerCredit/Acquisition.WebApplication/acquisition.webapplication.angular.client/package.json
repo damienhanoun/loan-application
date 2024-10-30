@@ -1,14 +1,13 @@
 {
-  "name": "acquisition.webapplication.client",
+  "name": "acquisition.webapplication.angular.client",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=localhost",
+    "start": "ng serve --ssl --ssl-cert \".\\ssl\\localhost.pem\" --ssl-key \".\\ssl\\localhost-key.pem\" --host=localhost",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=localhost"
+    "test:watch": "jest --watch"
   },
   "private": true,
   "dependencies": {
