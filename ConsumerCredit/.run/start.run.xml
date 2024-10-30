@@ -1,6 +1,6 @@
 ﻿<component name="ProjectRunConfigurationManager">
   <configuration default="false" name="start" type="js.build_tools.npm" nameIsGenerated="true">
-    <package-json value="$PROJECT_DIR$/Acquisition.WebApplication/acquisition.webapplication.client/package.json" />
+    <package-json value="$PROJECT_DIR$/Acquisition.WebApplication/acquisition.webapplication.angular.client/package.json" />
     <command value="start" />
     <node-interpreter value="project" />
     <envs />
