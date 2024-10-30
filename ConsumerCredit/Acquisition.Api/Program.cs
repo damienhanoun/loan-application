@@ -40,7 +40,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseConfiguration();
-
 app.UseFastEndpoints();
 app.UseHttpsRedirection();
 

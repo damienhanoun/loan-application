@@ -1,7 +1,10 @@
-using Acquisition.WebApplication.Server.Infrastructure;
+using Acquisition.WebApplication.Server.Infrastructure.Acquisition;
+using Acquisition.WebApplication.Server.Infrastructure.Azure;
 using FastEndpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddConfiguration(builder.Environment.IsDevelopment() ? ConfigurationType.DevelopmentConfiguration : ConfigurationType.AzureAppConfiguration);
 
 builder.Services.AddCors(options =>
 {
@@ -11,11 +14,13 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod());
 });
 
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddFastEndpoints();
+builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApiDocument();
-builder.Services.AddClients();
+builder.Services.AddClients(builder.Configuration);
+builder.AddTelemetry(!builder.Environment.IsDevelopment());
+
 var app = builder.Build();
 
 app.UseDefaultFiles();
@@ -29,7 +34,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("AllowLocalhost4200");
-
+app.UseConfiguration();
 app.UseFastEndpoints();
 app.UseHttpsRedirection();
 

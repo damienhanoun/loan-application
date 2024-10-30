@@ -1,4 +1,4 @@
-﻿namespace Acquisition.Api.Infrastructure.Azure;
+﻿namespace Acquisition.WebApplication.Server.Infrastructure.Azure;
 
 public enum ConfigurationType
 {
@@ -28,14 +28,15 @@ public static class WebApplicationBuilderExtensions
                 var appConfigConnectionString = webApplicationBuilder.Configuration["AppConfig:ConnectionString"];
 
                 options.Connect(appConfigConnectionString)
-                    .Select("Acquisition:Api:*");
+                    .Select("Acquisition:Bff:*")
+                    .Select("Acquisition:Api:Public:*");
             });
             webApplicationBuilder.Services.AddAzureAppConfiguration();
         }
         // else use values define in appsettings.Development.json locally or appsettings.json on other environments
     }
 
-    public static void UseConfiguration(this WebApplication webApplication)
+    public static void UseConfiguration(this Microsoft.AspNetCore.Builder.WebApplication webApplication)
     {
         if (_configurationType == ConfigurationType.AzureAppConfiguration)
             webApplication.UseAzureAppConfiguration();
@@ -45,7 +46,7 @@ public static class WebApplicationBuilderExtensions
     {
         if (activateTelemetry)
         {
-            var connectionString = webApplicationBuilder.Configuration["Acquisition:Api:Private:ApplicationInsights:ConnectionString"];
+            var connectionString = webApplicationBuilder.Configuration["Acquisition:Bff:Private:ApplicationInsights:ConnectionString"];
             webApplicationBuilder.Services.AddApplicationInsightsTelemetry(options => { options.ConnectionString = connectionString; });
         }
     }
