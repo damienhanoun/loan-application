@@ -5,7 +5,7 @@ using AutomaticInterface;
 namespace Acquisition.Api.Application.Services;
 
 [GenerateAutomaticInterface]
-public class CommunicationOrchestrator(ICommunicationService communicationService) : ICommunicationOrchestrator
+public class LoanApplicationCommunicationService(ICommunicationService communicationService) : ILoanApplicationCommunicationService
 {
     public Task SendPreAcceptationCommunication(Email userEmail)
     {

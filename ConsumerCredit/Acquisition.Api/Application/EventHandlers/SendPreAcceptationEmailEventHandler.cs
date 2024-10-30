@@ -6,13 +6,13 @@ using Mediator;
 namespace Acquisition.Api.Application.EventHandlers;
 
 public class SendPreAcceptationEmailEventHandler(
-    ICommunicationOrchestrator communicationOrchestrator,
+    ILoanApplicationCommunicationService loanApplicationCommunicationService,
     IReadLoanApplicationRepository readLoanApplicationRepository)
     : INotificationHandler<LoanContractCreated>
 {
     public async ValueTask Handle(LoanContractCreated loanContractCreated, CancellationToken cancellationToken)
     {
         var loanApplication = readLoanApplicationRepository.GetLoanApplication(loanContractCreated.LoanApplicationId);
-        await communicationOrchestrator.SendPreAcceptationCommunication(loanApplication.UserInformation!.Email);
+        await loanApplicationCommunicationService.SendPreAcceptationCommunication(loanApplication.UserInformation!.Email);
     }
 }

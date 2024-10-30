@@ -4,7 +4,7 @@ namespace Acquisition.Api.Scaffolding;
 
 public static class ServiceCollectionExtensions
 {
-    private static readonly string[] TypeSuffixes = { "Repository", "Service", "Orchestrator" };
+    private static readonly string[] TypeSuffixes = { "Repository", "Service" };
 
     public static void AddServicesAndRepositories(this IServiceCollection services, Assembly assembly)
     {
