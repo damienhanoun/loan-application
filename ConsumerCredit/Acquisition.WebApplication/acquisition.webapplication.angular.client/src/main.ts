@@ -12,13 +12,17 @@ import {
   API_BASE_URL,
 } from './app/gateway/acquisition-http-service';
 import { appRoutes } from './app/journey/pages/app-route';
+import { environment } from './environments/environment';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes),
     provideHttpClient(withInterceptorsFromDi()),
     AcquisitionApiClient,
-    { provide: API_BASE_URL, useValue: 'https://localhost:7188' },
+    {
+      provide: API_BASE_URL,
+      useValue: environment.apiUrl,
+    },
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
