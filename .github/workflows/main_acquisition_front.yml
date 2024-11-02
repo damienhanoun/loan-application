@@ -9,6 +9,8 @@ jobs:
   build_and_deploy_job:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+    variables:
+      angular_path: 'ConsumerCredit/Acquisition.WebApplication/acquisition.webapplication.angular.client'
     permissions:
        id-token: write
        contents: read
@@ -18,6 +20,9 @@ jobs:
           submodules: true
           lfs: false
 
+      - name: Change Directory to Angular Path
+        run: cd ${{ var.angular_path }}
+
       - name: Install dependencies
         run: npm install
 
@@ -26,11 +31,13 @@ jobs:
 
       - name: Replace API URL
         run: |
-          $environementFile = "ConsumerCredit/Acquisition.WebApplication/acquisition.webapplication.angular.client/src/environments/environment.prod.ts"
+          $environementFile = "${{ var.angular_path }}/src/environments/environment.prod.ts"
           powershell -Command "(Get-Content $environementFile) -replace '{{AcquisitionBffUrl}}', '${{ secrets.ACQUISITION_BFF_URL }}' | Set-Content $environementFile"
           
       - name: Build for production
-        run: ng build --configuration=production
+        run: |
+          cd ConsumerCredit/Acquisition.WebApplication/acquisition.webapplication.angular.client
+          ng build --configuration=production
       
       - name: Get Id Token
         uses: actions/github-script@v6
@@ -47,7 +54,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_MOSS_024FAD803 }}
           action: "upload"
-          app_location: "./ConsumerCredit/Acquisition.WebApplication/acquisition.webapplication.angular.client"
+          app_location: "."
           api_location: ""
           output_location: "dist/acquisition.webapplication.angular.client"
           github_id_token: ${{ steps.idtoken.outputs.result }}
