@@ -1,8 +1,14 @@
 # Goal
-This project intent is for me to learn about :
-- DDD common pattern and see relation with the database storage of entities
-- Make a project ready to use almost already after downloading it
-- Make an example of business tests first application where business use case are in the center of the application development
+This project intent is for me to learn about a lot of aspects I didn't learn about in company like :
+- DDD patterns usage
+- deployment with GitHub Action
+- configuring Azure environment from start
+- having quick and maintainable acceptance tests
+- ...
+
+# Disclaimer
+I leverage the time spent on tasks that don't help me to learn, so that I can focus on what I don't know
+This has led this project to seem overengineered in some aspects and underengineered in others, which is intended
 
 # Subject
 A French loan application journey in a company that delivers credit to consumers.
@@ -14,11 +20,11 @@ A French loan application journey in a company that delivers credit to consumers
   - .Net 8
   - Docker Desktop
   - Latest nswag version
-  - Certificate required for front end in trusted certificates
+  - Certificates for front end and backend
 
 # API and tests launch pre-requisite
 - Run Docker Desktop
 
-# Using Azure resources manually created
-- Given an AppConfiguration with all expected configuration (See `appsettings.Development.json`)
-  - In `Acquisition.Api` folder, after replacing each `<...>`, run : `dotnet user-secrets set "AppConfig:ConnectionString" "Endpoint=https://<app configuration path>.azconfig.io;Id=<your id>;Secret=<your secret>"`
+# Environments configuration
+By default, everything run locally
+Even if there is a production configuration that is used to deploy on Azure, it is not supposed to be used by another people than me
