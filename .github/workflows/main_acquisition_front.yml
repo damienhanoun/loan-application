@@ -63,7 +63,7 @@ jobs:
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GENTLE_MOSS_024FAD803 }}
           action: "upload"
-          app_location: ".$ANGULAR_PATH"
+          app_location: "./${{ env.ANGULAR_PATH }}"
           api_location: ""
           output_location: "dist/acquisition.webapplication.angular.client"
           github_id_token: ${{ steps.idtoken.outputs.result }}
