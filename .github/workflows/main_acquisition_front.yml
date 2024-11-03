@@ -49,7 +49,9 @@ jobs:
         uses: actions/github-script@v6
         id: idtoken
         with:
-          script: return await core.getIDToken()
+          script: |
+            const coredemo = require('@actions/core')
+            return await coredemo.getIDToken()
           result-encoding: string
 
       - name: Build and Deploy
