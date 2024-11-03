@@ -45,11 +45,6 @@ jobs:
           $environementFile = "$env:ANGULAR_PATH/src/environments/environment.prod.ts"
           (Get-Content $environementFile) -replace '{{AcquisitionBffUrl}}', '${{ secrets.ACQUISITION_BFF_URL }}' | Set-Content $environementFile
 
-      - name: Build for production
-        run: |
-          cd $ANGULAR_PATH
-          ng build --configuration=production
-
       - name: Get Id Token
         uses: actions/github-script@v6
         id: idtoken
@@ -57,13 +52,14 @@ jobs:
           script: return await core.getIDToken()
           result-encoding: string
 
-      - name: Build And Deploy
+      - name: Build and Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.ACQUISITION_FRONT_DEPLOYMENT_TOKEN }}
           action: "upload"
-          app_location: "./${{ env.ANGULAR_PATH }}"
+          app_location: "${{ env.ANGULAR_PATH }}"
           api_location: ""
           output_location: "dist/acquisition.webapplication.angular.client"
           github_id_token: ${{ steps.idtoken.outputs.result }}
+          app_build_command: "ng build --configuration=production"
