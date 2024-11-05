@@ -8,8 +8,13 @@ builder.AddConfiguration(builder.Environment.IsDevelopment() ? ConfigurationType
 
 builder.Services.AddCors(options =>
 {
+    var frontUrl = builder.Configuration["Acquisition:Front:Public:Url"]!;
+    var localFrontUrl = Environment.GetEnvironmentVariable("LOCAL_FRONT_URL");
+
+    var frontUrls = string.IsNullOrEmpty(localFrontUrl) == false ? new[] { localFrontUrl } : new[] { frontUrl };
+
     options.AddPolicy("AllowFrontEnd",
-        builder => builder.WithOrigins("https://localhost:4200", "https://agreeable-wave-01c001d03.5.azurestaticapps.net")
+        b => b.WithOrigins(frontUrls)
             .AllowAnyHeader()
             .AllowAnyMethod());
 });

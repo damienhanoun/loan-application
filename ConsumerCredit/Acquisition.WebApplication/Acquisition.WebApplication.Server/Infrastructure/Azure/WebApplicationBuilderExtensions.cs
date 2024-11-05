@@ -29,6 +29,7 @@ public static class WebApplicationBuilderExtensions
 
                 options.Connect(appConfigConnectionString)
                     .Select("Acquisition:Bff:*")
+                    .Select("Acquisition:Front:Public:*")
                     .Select("Acquisition:Api:Public:*");
             });
             webApplicationBuilder.Services.AddAzureAppConfiguration();
