@@ -23,21 +23,18 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
-      - name: Install dependencies
-        run: |
-          cd $ANGULAR_PATH
-          npm install
-
-      - name: Install OIDC Client from Core Package
-        run: npm install @actions/core@1.6.0 @actions/http-client
+#      - name: Install Node.js
+#        uses: actions/setup-node@v3
+#        with:
+#          node-version: '22'
+#
+#      - name: Install Angular CLI
+#        run: npm install -g @angular/cli
+#
+#      - name: Install dependencies
+#        run: |
+#          cd $ANGULAR_PATH
+#          npm install
 
       - name: Replace API URL
         shell: pwsh
@@ -45,20 +42,12 @@ jobs:
           $environementFile = "$env:ANGULAR_PATH/src/environments/environment.prod.ts"
           (Get-Content $environementFile) -replace '{{AcquisitionBffUrl}}', '${{ secrets.ACQUISITION_BFF_URL }}' | Set-Content $environementFile
 
-      - name: Get Id Token
-        uses: actions/github-script@v6
-        id: idtoken
-        with:
-          script: |
-            const coredemo = require('@actions/core')
-            return await coredemo.getIDToken()
-          result-encoding: string
-
       - name: Build and Deploy
         id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.ACQUISITION_FRONT_DEPLOYMENT_TOKEN }}
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_AGREEABLE_WAVE_01C001D03 }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
           app_location: "${{ env.ANGULAR_PATH }}"
           api_location: ""
