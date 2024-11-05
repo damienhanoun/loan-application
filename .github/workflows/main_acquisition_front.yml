@@ -23,18 +23,8 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22'
-
       - name: Install Angular CLI
         run: npm install -g @angular/cli
-
-      - name: Install dependencies
-        run: |
-          cd $ANGULAR_PATH
-          npm install
 
       - name: Replace API URL
         shell: pwsh
@@ -53,4 +43,4 @@ jobs:
           api_location: ""
           output_location: "dist/acquisition.webapplication.angular.client"
           github_id_token: ${{ steps.idtoken.outputs.result }}
-          app_build_command: "ng build --configuration=production"
+          app_build_command: "npm run build-prod"

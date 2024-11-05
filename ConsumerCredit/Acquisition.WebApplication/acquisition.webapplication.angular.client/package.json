@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --ssl --ssl-cert \".\\ssl\\localhost.pem\" --ssl-key \".\\ssl\\localhost-key.pem\" --host=localhost",
     "build": "ng build",
+    "build-prod": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch"
