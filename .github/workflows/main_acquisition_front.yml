@@ -41,6 +41,6 @@ jobs:
           action: "upload"
           app_location: "${{ env.ANGULAR_PATH }}"
           api_location: ""
-          output_location: "dist/acquisition.webapplication.angular.client"
+          output_location: "dist/acquisition.webapplication.angular.client/browser"
           github_id_token: ${{ steps.idtoken.outputs.result }}
           app_build_command: "npm run build-prod"
