@@ -8,8 +8,8 @@ builder.AddConfiguration(builder.Environment.IsDevelopment() ? ConfigurationType
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowLocalhost4200",
-        builder => builder.WithOrigins("https://localhost:4200")
+    options.AddPolicy("AllowFrontEnd",
+        builder => builder.WithOrigins("https://localhost:4200", "https://agreeable-wave-01c001d03.5.azurestaticapps.net")
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -33,7 +33,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors("AllowLocalhost4200");
+app.UseCors("AllowFrontEnd");
 app.UseConfiguration();
 app.UseFastEndpoints();
 app.UseHttpsRedirection();
