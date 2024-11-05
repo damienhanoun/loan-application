@@ -23,9 +23,6 @@ jobs:
           submodules: true
           lfs: false
 
-      - name: Install Angular CLI
-        run: npm install -g @angular/cli
-
       - name: Replace API URL
         shell: pwsh
         run: |
