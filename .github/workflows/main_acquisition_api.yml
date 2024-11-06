@@ -26,13 +26,13 @@ jobs:
 
       - name: Update appsettings.json with AppConfig ConnectionString
         run: |
-          powershell -Command "(Get-Content ConsumerCredit/Acquisition.Api/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIGURATION_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.Api/appsettings.json"
+          powershell -Command "(Get-Content ConsumerCredit/Acquisition/Acquisition.Api/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIGURATION_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition/Acquisition.Api/appsettings.json"
 
       - name: Build with dotnet
-        run: dotnet build ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj --configuration Release
+        run: dotnet build ConsumerCredit/Acquisition/Acquisition.Api/Acquisition.Api.csproj --configuration Release
 
       - name: Publish .NET project
-        run: dotnet publish ConsumerCredit/Acquisition.Api/Acquisition.Api.csproj -c Release -o ./publish
+        run: dotnet publish ConsumerCredit/Acquisition/Acquisition.Api/Acquisition.Api.csproj -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -69,4 +69,3 @@ jobs:
           app-name: 'Acquisition'
           slot-name: 'production'
           package: .
-          

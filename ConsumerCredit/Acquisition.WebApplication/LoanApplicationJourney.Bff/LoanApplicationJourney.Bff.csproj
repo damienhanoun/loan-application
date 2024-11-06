@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Acquisition.Api.Client\Acquisition.Api.Client.csproj"/>
+        <ProjectReference Include="..\..\Acquisition\Acquisition.Api.Client\Acquisition.Api.Client.csproj" />
     </ItemGroup>
 
     <Target Name="NSwag" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
