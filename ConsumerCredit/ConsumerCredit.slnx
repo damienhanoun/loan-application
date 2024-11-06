@@ -6,7 +6,7 @@
     <Project Path="Acquisition.Api\Acquisition.Api.csproj" />
   </Folder>
   <Folder Name="/Acquisition/Fronts/">
-    <Project Path="Acquisition.WebApplication\acquisition.webapplication.angular.client\acquisition.webapplication.angular.client.esproj" Type="{54A90642-561A-4BB1-A94E-469ADEE60C69}">
+    <Project Path="Acquisition.WebApplication\loanApplicationJourney.angular\loanApplicationJourney.angular.esproj" Type="{54A90642-561A-4BB1-A94E-469ADEE60C69}">
       <Configuration Solution="Debug|Any CPU" Project="Debug|Any CPU|Deploy" />
       <Configuration Solution="Release|Any CPU" Project="Release|Any CPU|Deploy" />
     </Project>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "acquisition.webapplication.angular.client": {
+    "loanApplicationJourney.angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/acquisition.webapplication.angular.client",
+            "outputPath": "dist/loanApplicationJourney.angular",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "acquisition.webapplication.angular.client:build:production"
+              "buildTarget": "loanApplicationJourney.angular:build:production"
             },
             "development": {
-              "buildTarget": "acquisition.webapplication.angular.client:build:development"
+              "buildTarget": "loanApplicationJourney.angular:build:development"
             }
           },
           "defaultConfiguration": "development",

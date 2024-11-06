@@ -76,7 +76,7 @@
       "templateDirectory": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../acquisition.webapplication.angular.client/src/app/gateway/acquisition-http-service.ts",
+      "output": "../loanApplicationJourney.angular/src/app/gateway/acquisition-http-service.ts",
       "newLineBehavior": "Auto"
     }
   }

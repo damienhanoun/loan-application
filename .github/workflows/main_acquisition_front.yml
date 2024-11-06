@@ -15,7 +15,7 @@ jobs:
       contents: read
 
     env:
-      ANGULAR_PATH: 'ConsumerCredit/Acquisition.WebApplication/acquisition.webapplication.angular.client'
+      ANGULAR_PATH: 'ConsumerCredit/Acquisition.WebApplication/loanApplicationJourney.angular'
     
     steps:
       - uses: actions/checkout@v3
@@ -38,6 +38,6 @@ jobs:
           action: "upload"
           app_location: "${{ env.ANGULAR_PATH }}"
           api_location: ""
-          output_location: "dist/acquisition.webapplication.angular.client/browser"
+          output_location: "dist/loanApplicationJourney.angular/browser"
           github_id_token: ${{ steps.idtoken.outputs.result }}
           app_build_command: "npm run build-prod"

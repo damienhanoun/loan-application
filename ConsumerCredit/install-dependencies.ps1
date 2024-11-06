@@ -184,7 +184,7 @@ function Generate-And-Trust-Certificates {
 
     # Step 2: Generate certificate for angular
     Write-Host "Generate Angular certificate"
-    $clientProjectPath = Join-Path $baseDir "Acquisition.WebApplication\acquisition.webapplication.angular.client\ssl"
+    $clientProjectPath = Join-Path $baseDir "Acquisition.WebApplication\loanApplicationJourney.angular\ssl"
     
     mkcert -install
     Set-Location $clientProjectPath
@@ -200,7 +200,7 @@ function Install-MkCert {
 
 function Npm-Install {
     $baseDir = $PSScriptRoot
-    $clientProjectPath = Join-Path $baseDir "Acquisition.WebApplication\acquisition.webapplication.angular.client"
+    $clientProjectPath = Join-Path $baseDir "Acquisition.WebApplication\loanApplicationJourney.angular"
     
     if (Test-Path "$clientProjectPath\package.json") {
         Write-Host "Navigating to the Angular project folder..."
