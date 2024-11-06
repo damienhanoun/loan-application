@@ -23,6 +23,7 @@ export class TextBoxComponent extends BaseFormFieldComponent {
   placeholder: InputSignal<string> = input('');
   errorMessage: InputSignal<string> = input('');
   isValid: InputSignal<boolean> = input(false);
+  selectId: InputSignal<string> = input.required();
 
   override get fieldValue(): WritableSignal<string | null> {
     return this.value;

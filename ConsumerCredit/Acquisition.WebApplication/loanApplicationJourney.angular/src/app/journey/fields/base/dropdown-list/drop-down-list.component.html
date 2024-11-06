@@ -1,8 +1,10 @@
-<label *ngIf="labelText()" [for]="selectId()">{{ labelText() }}</label>
-<select [(ngModel)]="selectedValue" [id]="selectId()">
-  <option disabled selected value="">{{ placeholder() }}</option>
-  <ng-container *ngFor="let value of values()">
-    <option [value]="value">{{ value }}</option>
-  </ng-container>
-</select>
-<div *ngIf="!isValid() && touched()">{{ errorMessage() }}</div>
+<div class="input-box">
+  <select [(ngModel)]="selectedValue" [id]="selectId()" required>
+    <option disabled selected value="">{{ placeholder() }}</option>
+    <ng-container *ngFor="let value of values()">
+      <option [value]="value">{{ value }}</option>
+    </ng-container>
+  </select>
+  <label *ngIf="labelText()" [for]="selectId()">{{ labelText() }}</label>
+  <div *ngIf="!isValid() && touched()">{{ errorMessage() }}</div>
+</div>

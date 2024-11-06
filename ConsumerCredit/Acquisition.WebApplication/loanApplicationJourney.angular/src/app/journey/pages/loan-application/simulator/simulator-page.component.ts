@@ -4,9 +4,9 @@ import { PageComponent } from '../../page.component';
 import { SimulatorComponent } from '../../../fields/composite/simulator/simulator.component';
 import { safeParse } from '../../../../../helpers/parsing';
 import {
-  AcquisitionApiClient,
   ExpressLoanWishCommand,
-} from '../../../../gateway/acquisition-http-service';
+  LoanApplicationBffClient,
+} from '../../../../gateway/loanapplication-http-service';
 
 @Component({
   selector: 'app-simulator',
@@ -16,13 +16,15 @@ import {
   styleUrl: './simulator-page.component.css',
 })
 export class SimulatorPageComponent extends PageComponent {
-  constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
+  constructor(
+    private readonly loanApplicationBffClient: LoanApplicationBffClient,
+  ) {
     super(SimulatorPageComponent);
   }
 
   saveFieldsAndContinue() {
     if (this.allFieldsValid()) {
-      this.acquisitionApiClient
+      this.loanApplicationBffClient
         .expressLoanWish({
           project: this.store.userInformation.initialLoanWish.project(),
           amount: safeParse(

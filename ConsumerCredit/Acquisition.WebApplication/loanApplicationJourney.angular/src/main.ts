@@ -8,9 +8,9 @@ import {
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { isDevMode } from '@angular/core';
 import {
-  AcquisitionApiClient,
   API_BASE_URL,
-} from './app/gateway/acquisition-http-service';
+  LoanApplicationBffClient,
+} from './app/gateway/loanapplication-http-service';
 import { appRoutes } from './app/journey/pages/app-route';
 import { environment } from './environments/environment';
 
@@ -18,7 +18,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(appRoutes),
     provideHttpClient(withInterceptorsFromDi()),
-    AcquisitionApiClient,
+    LoanApplicationBffClient,
     {
       provide: API_BASE_URL,
       useValue: environment.apiUrl,

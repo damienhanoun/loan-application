@@ -1,7 +1,8 @@
-<div class="loan-offers">
+<form class="main-block">
   <h2>Loan Offers</h2>
-  <ul>
-    <li (click)="selectOffer(offer)" *ngFor="let offer of offers">
+
+  <ul class="loan-offers">
+    <li (click)="selectOffer(offer)" *ngFor="let offer of offers" [class.selected]="offer === selectedOffer">
       {{ offer.name }}
     </li>
   </ul>
@@ -11,9 +12,8 @@
     <p>{{ selectedOffer.details }}</p>
   </div>
 
-  <input (click)="goToPrevious()" type="button" value="Previous"/>
-
-  <p *ngIf="selectedOffer">
-    <input (click)="onContinue()" type="button" value="Continue">
-  </p>
-</div>
+  <div>
+    <input (click)="goToPrevious()" type="button" value="Previous"/>
+    <input (click)="onContinue()" *ngIf="selectedOffer" type="button" value="Continue">
+  </div>
+</form>

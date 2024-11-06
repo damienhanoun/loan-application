@@ -1,13 +1,6 @@
-<div>
+<div class="simulator-container">
+  <input (click)="prefillData()" type="button" value="prefill"/>
   <projects [projects]="projects()"></projects>
-</div>
-<div>
   <amounts [amounts]="amounts()"></amounts>
-</div>
-<div>
   <maturities [maturities]="maturities()"></maturities>
-</div>
-
-<div>
-  <input (click)="prefillData()" type="button" value="prefill" />
 </div>

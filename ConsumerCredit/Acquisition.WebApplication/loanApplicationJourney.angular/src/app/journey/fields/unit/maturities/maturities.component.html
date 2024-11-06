@@ -1,9 +1,8 @@
 <drop-down-list #el
-                selectId="loan-maturity"
                 [(selectedValue)]="selectedMaturity"
                 [isValid]="isValid()"
                 [values]="maturities()"
                 errorMessage="Please select a valid maturity"
-                labelText="Maturity:"
                 placeholder="Select a maturity"
+                selectId="loan-maturity"
 ></drop-down-list>

@@ -17,7 +17,7 @@ import {
   LoanApplicationStore,
   LoanApplicationStoreService,
 } from '../../../../store/loan-application.store';
-import { AcquisitionApiClient } from '../../../../gateway/acquisition-http-service';
+import { LoanApplicationBffClient } from '../../../../gateway/loanapplication-http-service';
 
 @Component({
   selector: 'simulator',
@@ -47,12 +47,14 @@ export class SimulatorComponent
   maturities: WritableSignal<string[]> = signal([]);
   readonly store = inject(LoanApplicationStoreService).store;
 
-  constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
+  constructor(
+    private readonly loanApplicationBffClient: LoanApplicationBffClient,
+  ) {
     super();
   }
 
   ngOnInit(): void {
-    const simulatorInformation$ = this.acquisitionApiClient
+    const simulatorInformation$ = this.loanApplicationBffClient
       .getSimulatorInformation()
       .pipe(shareReplay(1));
 

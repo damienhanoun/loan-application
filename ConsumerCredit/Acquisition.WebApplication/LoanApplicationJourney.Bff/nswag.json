@@ -20,7 +20,7 @@
   },
   "codeGenerators": {
     "openApiToTypeScriptClient": {
-      "className": "AcquisitionApiClient",
+      "className": "LoanApplicationBffClient",
       "moduleName": "",
       "namespace": "",
       "typeScriptVersion": 5.5,
@@ -38,7 +38,7 @@
       "generateOptionalParameters": false,
       "exportTypes": true,
       "wrapDtoExceptions": false,
-      "exceptionClass": "AcquisitionException",
+      "exceptionClass": "LoanApplicationException",
       "clientBaseClass": null,
       "wrapResponses": false,
       "wrapResponseMethods": [],
@@ -76,7 +76,7 @@
       "templateDirectory": null,
       "serviceHost": null,
       "serviceSchemes": null,
-      "output": "../loanApplicationJourney.angular/src/app/gateway/acquisition-http-service.ts",
+      "output": "../loanApplicationJourney.angular/src/app/gateway/loanapplication-http-service.ts",
       "newLineBehavior": "Auto"
     }
   }

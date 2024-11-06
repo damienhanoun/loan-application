@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PageComponent } from '../../page.component';
 import {
-  AcquisitionApiClient,
   EvaluateEligibilityToALoanCommand,
-} from '../../../../gateway/acquisition-http-service';
+  LoanApplicationBffClient,
+} from '../../../../gateway/loanapplication-http-service';
 
 @Component({
   selector: 'app-loan-eligibility-evaluation',
@@ -16,7 +16,9 @@ export class LoanEligibilityEvaluationPageComponent
   extends PageComponent
   implements OnInit
 {
-  constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
+  constructor(
+    private readonly loanApplicationBffClient: LoanApplicationBffClient,
+  ) {
     super(LoanEligibilityEvaluationPageComponent);
   }
 
@@ -24,7 +26,7 @@ export class LoanEligibilityEvaluationPageComponent
     const query = EvaluateEligibilityToALoanCommand.fromJS({
       loanApplicationId: this.store.loanApplicationId(),
     });
-    this.acquisitionApiClient
+    this.loanApplicationBffClient
       .evaluateLoanEligibility(query)
       .subscribe((response) => {
         this.store.setLoanEligibility(response.isEligibleToALoan!);

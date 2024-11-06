@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 import { Type } from '@angular/core';
-import { SimulatorPageComponent } from './user-information/simulator/simulator-page.component';
 import { EmailPageComponent } from './user-information/email/email-page.component';
 import { LoanEligibilityEvaluationPageComponent } from './loan-offers/loan-eligibility-evaluation/loan-eligibility-evaluation-page.component';
 import { LoanOffersProposalPageComponent } from './loan-offers/loan-offers-proposal/loan-offers-proposal-page.component';
-import { PreAcceptationPageComponent } from './loan-application-state/pre-acceptation/pre-acceptation-page.component';
-import { PreRefusalPageComponent } from './loan-application-state/pre-refusal/pre-refusal-page.component';
+import { SimulatorPageComponent } from './loan-application/simulator/simulator-page.component';
+import { PreAcceptationPageComponent } from './loan-application/pre-acceptation/pre-acceptation-page.component';
+import { PreRefusalPageComponent } from './loan-application/pre-refusal/pre-refusal-page.component';
 
 export const paths = {
   SIMULATOR_PATH: 'simulator',

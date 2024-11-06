@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { EmailComponent } from '../../../fields/unit/email/email.component';
 import { PageComponent } from '../../page.component';
 import {
-  AcquisitionApiClient,
+  LoanApplicationBffClient,
   UpdateUserInformationCommand,
-} from '../../../../gateway/acquisition-http-service';
+} from '../../../../gateway/loanapplication-http-service';
 
 @Component({
   selector: 'app-email',
@@ -15,7 +15,9 @@ import {
   imports: [CommonModule, EmailComponent],
 })
 export class EmailPageComponent extends PageComponent {
-  constructor(private readonly acquisitionApiClient: AcquisitionApiClient) {
+  constructor(
+    private readonly loanApplicationBffClient: LoanApplicationBffClient,
+  ) {
     super(EmailPageComponent);
   }
 
@@ -25,7 +27,7 @@ export class EmailPageComponent extends PageComponent {
         loanApplicationId: this.store.loanApplicationId()!,
         updatedProperties: [{ email: this.store.userInformation.email() }],
       });
-      this.acquisitionApiClient
+      this.loanApplicationBffClient
         .updateUserInformation(updateUserCommand)
         .subscribe();
     }

@@ -1,2 +1,5 @@
-<input [(ngModel)]="value" type="text" />
+<div class="input-box">
+  <input [(ngModel)]="value" [id]="selectId()" placeholder="{{placeholder()}}" required type="text"/>
+  <label *ngIf="labelText()" [for]="selectId()">{{ labelText() }}</label>
+</div>
 <div *ngIf="!isValid() && touched()">{{ errorMessage() }}</div>

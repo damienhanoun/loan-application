@@ -15,7 +15,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
-export interface IAcquisitionApiClient {
+export interface ILoanApplicationBffClient {
     getSimulatorInformation(): Observable<GetSimulatorInformationResponseDto>;
     evaluateLoanEligibility(evaluateEligibilityToALoanCommand: EvaluateEligibilityToALoanCommand): Observable<EvaluateEligibilityToALoanResponseDto>;
     chooseALoanOffer(chooseALoanOfferCommand: ChooseALoanOfferCommand): Observable<void>;
@@ -24,7 +24,7 @@ export interface IAcquisitionApiClient {
 }
 
 @Injectable()
-export class AcquisitionApiClient implements IAcquisitionApiClient {
+export class LoanApplicationBffClient implements ILoanApplicationBffClient {
     private http: HttpClient;
     private baseUrl: string;
     protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
@@ -590,7 +590,7 @@ export class UpdateUserInformationCommand {
     }
 }
 
-export class AcquisitionException extends Error {
+export class LoanApplicationException extends Error {
     override message: string;
     status: number;
     response: string;
@@ -607,10 +607,10 @@ export class AcquisitionException extends Error {
         this.result = result;
     }
 
-    protected isAcquisitionException = true;
+    protected isLoanApplicationException = true;
 
-    static isAcquisitionException(obj: any): obj is AcquisitionException {
-        return obj.isAcquisitionException === true;
+    static isLoanApplicationException(obj: any): obj is LoanApplicationException {
+        return obj.isLoanApplicationException === true;
     }
 }
 
@@ -618,7 +618,7 @@ function throwException(message: string, status: number, response: string, heade
     if (result !== null && result !== undefined)
         return _observableThrow(result);
     else
-        return _observableThrow(new AcquisitionException(message, status, response, headers, null));
+        return _observableThrow(new LoanApplicationException(message, status, response, headers, null));
 }
 
 function blobToText(blob: any): Observable<string> {
