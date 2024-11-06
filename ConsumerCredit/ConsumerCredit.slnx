@@ -10,6 +10,6 @@
       <Configuration Solution="Debug|Any CPU" Project="Debug|Any CPU|Deploy" />
       <Configuration Solution="Release|Any CPU" Project="Release|Any CPU|Deploy" />
     </Project>
-    <Project Path="Acquisition.WebApplication\Acquisition.WebApplication.Server\Acquisition.WebApplication.Server.csproj" Type="Classic C#" />
+    <Project Path="Acquisition.WebApplication\LoanApplicationJourney.Bff\LoanApplicationJourney.Bff.csproj" Type="Classic C#" />
   </Folder>
 </Solution>

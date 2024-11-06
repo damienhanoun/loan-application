@@ -23,13 +23,13 @@ jobs:
 
       - name: Update appsettings.json with AppConfig ConnectionString
         run: |
-          powershell -Command "(Get-Content ConsumerCredit/Acquisition.WebApplication/Acquisition.WebApplication.Server/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIGURATION_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.WebApplication/Acquisition.WebApplication.Server/appsettings.json"
+          powershell -Command "(Get-Content ConsumerCredit/Acquisition.WebApplication/LoanApplicationJourney.Bff/appsettings.json) -replace '{{AppConfig:ConnectionString}}', '${{ secrets.APP_CONFIGURATION_CONNECTION_URL }}' | Set-Content ConsumerCredit/Acquisition.WebApplication/LoanApplicationJourney.Bff/appsettings.json"
 
       - name: Build with dotnet
-        run: dotnet build ConsumerCredit/Acquisition.WebApplication/Acquisition.WebApplication.Server/Acquisition.WebApplication.Server.csproj --configuration Release
+        run: dotnet build ConsumerCredit/Acquisition.WebApplication/LoanApplicationJourney.Bff/LoanApplicationJourney.Bff.csproj --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish ConsumerCredit/Acquisition.WebApplication/Acquisition.WebApplication.Server/Acquisition.WebApplication.Server.csproj -c Release -o ./bff
+        run: dotnet publish ConsumerCredit/Acquisition.WebApplication/LoanApplicationJourney.Bff/LoanApplicationJourney.Bff.csproj -c Release -o ./bff
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4

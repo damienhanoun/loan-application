@@ -1,4 +1,4 @@
-﻿namespace Acquisition.WebApplication.Server.Infrastructure.Azure;
+﻿namespace LoanApplicationJourney.Bff.Infrastructure.Azure;
 
 public enum ConfigurationType
 {
@@ -37,7 +37,7 @@ public static class WebApplicationBuilderExtensions
         // else use values define in appsettings.Development.json locally or appsettings.json on other environments
     }
 
-    public static void UseConfiguration(this Microsoft.AspNetCore.Builder.WebApplication webApplication)
+    public static void UseConfiguration(this WebApplication webApplication)
     {
         if (_configurationType == ConfigurationType.AzureAppConfiguration)
             webApplication.UseAzureAppConfiguration();

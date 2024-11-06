@@ -1,7 +1,7 @@
 ﻿using Acquisition.Api.Client;
 using FastEndpoints;
 
-namespace Acquisition.WebApplication.Server.Application.UseCases.LoanOffers;
+namespace LoanApplicationJourney.Bff.Application.UseCases.LoanOffers;
 
 public class EvaluateLoanEligibility(IAcquisitionApiClient acquisitionClient)
     : Endpoint<EvaluateEligibilityToALoanCommand, EvaluateEligibilityToALoanResponseDto>

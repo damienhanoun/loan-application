@@ -1,6 +1,6 @@
-using Acquisition.WebApplication.Server.Infrastructure.Acquisition;
-using Acquisition.WebApplication.Server.Infrastructure.Azure;
 using FastEndpoints;
+using LoanApplicationJourney.Bff.Infrastructure.Acquisition;
+using LoanApplicationJourney.Bff.Infrastructure.Azure;
 
 var builder = WebApplication.CreateBuilder(args);
 

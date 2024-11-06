@@ -1,7 +1,7 @@
 ﻿using Acquisition.Api.Client;
 using FastEndpoints;
 
-namespace Acquisition.WebApplication.Server.Application.UseCases.Resources;
+namespace LoanApplicationJourney.Bff.Application.UseCases.Resources;
 
 public class GetSimulatorInformation(IAcquisitionApiClient acquisitionClient) : EndpointWithoutRequest<GetSimulatorInformationResponseDto>
 {

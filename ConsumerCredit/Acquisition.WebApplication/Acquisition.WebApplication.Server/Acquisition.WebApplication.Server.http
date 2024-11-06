@@ -1,6 +1,0 @@
-@Acquisition.WebApplication.Server_HostAddress = http://localhost:5212
-
-GET {{Acquisition.WebApplication.Server_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

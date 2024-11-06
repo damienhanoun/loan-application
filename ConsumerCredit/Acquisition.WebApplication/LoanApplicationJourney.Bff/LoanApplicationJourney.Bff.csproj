@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>a6985ab6-66f7-462f-9c06-9eb00b965ba6</UserSecretsId>
+        <RootNamespace>LoanApplicationJourney.Bff</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

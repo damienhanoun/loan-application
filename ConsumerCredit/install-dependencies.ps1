@@ -1,4 +1,3 @@
-# Function to check if winget is available
 function Check-Winget {
     $wingetInstalled = $false
     try {

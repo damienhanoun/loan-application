@@ -1,7 +1,7 @@
 ﻿using Acquisition.Api.Client;
 using FastEndpoints;
 
-namespace Acquisition.WebApplication.Server.Application.UseCases.LoanApplications;
+namespace LoanApplicationJourney.Bff.Application.UseCases.LoanApplications;
 
 public class ChooseALoanOffer(IAcquisitionApiClient acquisitionClient) : Endpoint<ChooseALoanOfferCommand>
 {

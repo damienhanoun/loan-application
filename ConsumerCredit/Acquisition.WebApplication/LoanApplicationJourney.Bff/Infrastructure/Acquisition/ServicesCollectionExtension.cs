@@ -1,6 +1,6 @@
 ﻿using Acquisition.Api.Client;
 
-namespace Acquisition.WebApplication.Server.Infrastructure.Acquisition;
+namespace LoanApplicationJourney.Bff.Infrastructure.Acquisition;
 
 public static class ServicesCollectionExtension
 {
